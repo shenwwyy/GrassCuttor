@@ -1,0 +1,9 @@
+*.Bak
+*.bak
+*.d
+*.o
+*.__i
+*.crf
+*~
+*.swp
+MDK-ARM/*.uvguix.*
