@@ -138,16 +138,18 @@ void StartTask02(void const * argument)
 {
   /* USER CODE BEGIN StartTask02 */
 	
+	HAL_TIM_Base_Start(&htim8);
+	HAL_TIM_Base_Start(&htim3);
+	
 	HAL_TIM_IC_Start(&htim8,TIM_CHANNEL_1);
 	HAL_TIM_IC_Start(&htim8,TIM_CHANNEL_2);
 	HAL_TIM_IC_Start(&htim8,TIM_CHANNEL_3);
 	HAL_TIM_IC_Start(&htim8,TIM_CHANNEL_4);
 	
-	
-	HAL_TIMEx_PWMN_Start(&htim3,TIM_CHANNEL_1);
-	HAL_TIMEx_PWMN_Start(&htim3,TIM_CHANNEL_2);
-	HAL_TIMEx_PWMN_Start(&htim3,TIM_CHANNEL_3);
-	HAL_TIMEx_PWMN_Start(&htim3,TIM_CHANNEL_4);
+	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_4);
 	
 	
 	MOTOR_PWR_EN();
