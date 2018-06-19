@@ -2,7 +2,7 @@
 #define _CONTROL_H_
 #include "stm32f4xx_hal.h"
 
-
+#define MaxPoint 200
 
 
 typedef struct {
@@ -59,17 +59,35 @@ typedef struct {
 }_senser;
 
 
+typedef struct {
+	
+	
+	
+	float out_x;//前向
+	float out_y;//侧向
+	float out_z;//旋转
+	
+}_parameter;
+
+
+typedef struct {
+		uint32_t Task_id;
+	_point   CurrentPoint;
+	_point   TargetPoint;
+	_point   PointGroups[MaxPoint];
+	
+	
+	
+	
+}_taskDef;
 
 
 
 typedef struct {
 	
-	uint32_t Task_id;
-	_point   CurrentPoint;
-	
-	
-	
+	_taskDef Task;
 	_senser Senser;
+	_parameter Parameter;
 	
 }_controlDef;
 
@@ -84,13 +102,14 @@ void Control_TaskManage(float T,uint32_t id);
 void Control_IdleTask(float T);
 void Control_WorkingTask(float T);
 void Control_ChargingTask(float T);
+void Control_BackHomeTask(float T);
 
 
+float POS_Distance(float lat1,float lon1,float lat2,float lon2);
+float POS_Heading(float lat1,float lon1,float lat2,float lon2);
 
-
-
-
-
+uint8_t Control_PolygonCheck(_point Current,_point Target[],uint16_t TargetNumber,uint8_t Side);
+uint8_t Control_CircleCheck(_point Current,_point Centre,float Radius,uint8_t Side);
 
 
 #endif

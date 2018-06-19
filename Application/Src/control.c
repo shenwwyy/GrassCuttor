@@ -1,6 +1,8 @@
 
 #include "control.h"
-
+#include "math.h"
+#include <stdio.h>
+#include <stdbool.h>
 
 
 _controlDef Control;
@@ -13,6 +15,7 @@ _controlDef Control;
 0）待机任务
 1）割草任务
 2）充电任务
+3) 返航任务
  */
 
 //任务管理级别
@@ -32,6 +35,13 @@ void Control_TaskManage(float T,uint32_t id)
 				{
 					Control_ChargingTask(T);
 				}break;
+				case 3:
+				{
+					Control_BackHomeTask(T);
+				}break;
+				
+				
+				
 			}
 }
 
@@ -39,6 +49,8 @@ void Control_TaskManage(float T,uint32_t id)
 void Control_IdleTask(float T)
 {
 	//小车制动刹车，如果小车不滑动，那么取消制动，节省电量，并且带能量检测，防止电量过低
+	//时刻等待着割草任务，一直等待接受遥控端发来的命令，随时恶意切换割草任务，
+	//如果收到割草任务，首先判断是否有电，是否能够进行工作，如果不够那么发出警报，然后小车避障进入割草的区域，切换至割草任务
 	
 	
 	
@@ -47,6 +59,10 @@ void Control_IdleTask(float T)
 void Control_WorkingTask(float T)
 {
 	//小车根据割草的任务进行工作
+  //小车随时避障，并且检测当前区域是否在地里围栏之内，如果不在，那么首先要进入地里围栏，再进行工作
+	//如果小车前方遇到障碍物，小车会绕过障碍物进行割草
+	//小车割草过程中，随时检查自身电量是否达到最低门限，如果到达，那么中断任务，并且记录当前的位置和航向，然后切换至充电任务
+	//割草任务完成，小车启动返航任务
 }
 
 void Control_ChargingTask(float T)
@@ -59,20 +75,129 @@ void Control_ChargingTask(float T)
 	
 }
 
+void Control_BackHomeTask(float T)
+{
+	//收到返航命令，小车目标改为充电桩位置，并且一路保持避障，回到充电桩附近，然后寻找充电设备，精确对上后，进入充电桩，完成后切换到空闲任务
+	//这个过程小车可以接受任务命令，例如去一块新的地方进行割草任务，停止刹车等
+	//
+}
+
+
 
 //底层控制级别
 
 //地理围栏检测函数
+//Side 表示内外，Side = 0 表示内部，Side = 1表示外部
+//Current表示当前的坐标位置，Target/Centre表示目标点
+//返回值isSide
+
 //多边形检测
-void Control_PolygonCheck(_point Point)
+uint8_t Control_PolygonCheck(_point Current,_point Target[],uint16_t TargetNumber,uint8_t Side)
 {
+	 uint8_t isSide = false;
+   uint16_t iSum = 0,iCount;  
 	
+    double dLon1, dLon2, dLat1, dLat2, dLon;  
+    if (TargetNumber < 3) return false;  
+    iCount = TargetNumber;  
+    for (uint16_t i = 0; i < iCount; i++) {  
+        if (i == iCount - 1) {  
+            dLon1 = Target[i].longitude;  
+            dLat1 = Target[i].latitude;  
+            dLon2 = Target[0].longitude;  
+            dLat2 = Target[0].latitude;  
+        } else {  
+            dLon1 = Target[i].longitude;  
+            dLat1 = Target[i].latitude;  
+            dLon2 = Target[i + 1].longitude;  
+            dLat2 = Target[i + 1].latitude;  
+        }  
+        //以下语句判断A点是否在边的两端点的水平平行线之间，在则可能有交点，开始判断交点是否在左射线上  
+        if (((Current.latitude >= dLat1) && (Current.latitude < dLat2)) || ((Current.latitude >= dLat2) && (Current.latitude < dLat1))) {  
+            if (fabs(dLat1 - dLat2) > 0) {  
+                //得到 A点向左射线与边的交点的x坐标：  
+                dLon = dLon1 - ((dLon1 - dLon2) * (dLat1 - Current.latitude)) / (dLat1 - dLat2);  
+                if (dLon < Current.longitude)  
+                    iSum++;  
+            }  
+        }  
+    }  
+		
+		
+    if (iSum % 2 != 0) 
+		{			
+        isSide =  true;  
+		}
+		else
+		{
+        isSide = false; 
+		}			
+	 return isSide;	
 }
 //环形检测
-void Control_CircleCheck(_point Point)
+uint8_t Control_CircleCheck(_point Current,_point Centre,float Radius,uint8_t Side)
 {
+	 uint8_t isSide = false;//默认为假
 	
+	 float Current_Centre_distance;
+	
+	 Current_Centre_distance = POS_Distance(Current.latitude,Current.longitude,Centre.latitude,Centre.longitude);
+	
+	 if(Side == 0)//检测当前点在圈的内部
+	 {
+		  if(Current_Centre_distance <= Radius) 
+			{
+				 isSide = true;
+			}
+	 }
+	 else//检测当前点在圈外
+	 {
+		  if(Current_Centre_distance >= Radius) 
+			{
+				 isSide = true;
+			}
+	 }
+	 return isSide;	 
 }
+
+//通过经纬度计算距离和航向
+/*
+计算两个点的距离。
+lat1 lon1  点1的经纬度  单位度
+lat2 lon2  点2的经纬度 
+返回计算出来的距离   单位 米
+*/
+float POS_Distance(float lat1,float lon1,float lat2,float lon2){
+  float temp;
+	float mLat = (lat2 - lat1)*110946.0f;
+	float mLon = (lon2 - lon1)* cos(((lat2 + lat1)/2)* 0.0174532925f)*111318.0f ;
+	temp = 	sqrt(mLat*mLat + mLon*mLon); 	//纬度1度 = 大约111km = 111319.5米
+	return temp;
+}
+
+/*
+计算两个点的连线的 航向角， 以正北为0 。
+lat1 lon1  点1的经纬度  单位度
+lat2 lon2  点2的经纬度 
+返回 的航向角，单位度。
+由1点指向2点 0-360
+*/
+float POS_Heading(float lat1,float lon1,float lat2,float lon2){
+	float temp;
+	float mLat = lat2 - lat1;
+	float mLon = (lon2 - lon1)* cos(((lat2 + lat1)/2)* 0.0174532925f);
+	temp = 90.0f + atan2(-mLat, mLon) * 57.2957795f;
+
+	if(temp < 0)temp += 360.0f;
+	return temp;
+}
+
+
+
+
+
+
+
 
 //割草任务
 void Control_CutGrass()

@@ -129,10 +129,11 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(500);
+    osDelay(50);//50ms
+		LED_Toggle(0);
 		
-		//LED_OFF(0);
-		
+		//当前动作运行完成后，开始切换任务，让其他任务得以运行
+		osThreadYield();
   }
   /* USER CODE END StartDefaultTask */
 }
@@ -169,9 +170,9 @@ void StartTask02(void const * argument)
   for(;;)
   {
     osDelay(5);
-		LED_ON(0);
-
-		Control_TaskManage(1,Control.Task_id);
+		Control_TaskManage(1,Control.Task.Task_id);
+		
+		osThreadYield();
   }
   /* USER CODE END StartTask02 */
 }

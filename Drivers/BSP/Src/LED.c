@@ -56,7 +56,25 @@ void LED_ON(uint8_t LED)
 		 }
 }
 
-
+void LED_Toggle(uint8_t LED)
+{
+	   switch(LED)
+		 {
+			   case 0:{
+									 HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+									 HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
+									 HAL_GPIO_TogglePin(LED3_GPIO_Port,LED3_Pin);
+				        }break;
+			   case 1:{HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);}break;
+				 case 2:{HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);}break;
+				 case 3:{HAL_GPIO_TogglePin(LED3_GPIO_Port,LED3_Pin);}break;
+			   default:{
+									 HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
+									 HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
+									 HAL_GPIO_TogglePin(LED3_GPIO_Port,LED3_Pin);
+				         }break;
+		 }
+}
 
 
 
