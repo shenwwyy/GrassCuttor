@@ -100,21 +100,27 @@ uint8_t Control_PolygonCheck(_point Current,_point Target[],uint16_t TargetNumbe
     double dLon1, dLon2, dLat1, dLat2, dLon;  
     if (TargetNumber < 3) return false;  
     iCount = TargetNumber;  
-    for (uint16_t i = 0; i < iCount; i++) {  
-        if (i == iCount - 1) {  
+    for (uint16_t i = 0; i < iCount; i++) 
+	  {  
+        if (i == iCount - 1) 
+				{  
             dLon1 = Target[i].longitude;  
             dLat1 = Target[i].latitude;  
             dLon2 = Target[0].longitude;  
             dLat2 = Target[0].latitude;  
-        } else {  
+        } 
+				else 
+				{  
             dLon1 = Target[i].longitude;  
             dLat1 = Target[i].latitude;  
             dLon2 = Target[i + 1].longitude;  
             dLat2 = Target[i + 1].latitude;  
         }  
         //以下语句判断A点是否在边的两端点的水平平行线之间，在则可能有交点，开始判断交点是否在左射线上  
-        if (((Current.latitude >= dLat1) && (Current.latitude < dLat2)) || ((Current.latitude >= dLat2) && (Current.latitude < dLat1))) {  
-            if (fabs(dLat1 - dLat2) > 0) {  
+        if (((Current.latitude >= dLat1) && (Current.latitude < dLat2)) || ((Current.latitude >= dLat2) && (Current.latitude < dLat1))) 
+				{
+            if(fabs(dLat1 - dLat2) > 0)//等于0的情况是点刚好在线上 
+						{  
                 //得到 A点向左射线与边的交点的x坐标：  
                 dLon = dLon1 - ((dLon1 - dLon2) * (dLat1 - Current.latitude)) / (dLat1 - dLat2);  
                 if (dLon < Current.longitude)  
@@ -124,13 +130,19 @@ uint8_t Control_PolygonCheck(_point Current,_point Target[],uint16_t TargetNumbe
     }  
 		
 		
-    if (iSum % 2 != 0) 
+    if(iSum % 2 != 0) 
 		{			
-        isSide =  true;  
+			  if(Side == 0)//判断是不是在内部
+				{
+          isSide =  true;  
+				} 
 		}
 		else
 		{
-        isSide = false; 
+			  if(Side == 1)//判断是不是在外部
+				{
+          isSide = true;
+				}					
 		}			
 	 return isSide;	
 }

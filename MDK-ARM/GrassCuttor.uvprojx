@@ -660,6 +660,11 @@
               <FileType>1</FileType>
               <FilePath>..\Drivers\BSP\Src\MOTOR.c</FilePath>
             </File>
+            <File>
+              <FileName>Senser.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\BSP\Src\Senser.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

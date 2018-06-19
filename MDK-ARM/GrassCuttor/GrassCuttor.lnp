@@ -48,6 +48,7 @@
 "grasscuttor\stm32f4xx_hal_pcd.o"
 "grasscuttor\led.o"
 "grasscuttor\motor.o"
+"grasscuttor\senser.o"
 --library_type=microlib --strict --scatter "GrassCuttor\GrassCuttor.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
