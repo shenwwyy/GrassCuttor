@@ -2,6 +2,9 @@
 
 
 
+uint16_t Wheel_Right_fore,Wheel_Right_Back;
+uint16_t Wheel_Left_fore,Wheel_Left_Back;
+
 
 void MOTOR_Init(void)
 {
@@ -93,17 +96,23 @@ void MOTOR_EN(uint8_t Wheel,uint8_t Status)
 
 
 
-void MOTOR_Speed()
+void MOTOR_Speed(float wheel1,float wheel2,float wheel3,float wheel4)
 {
-	
+	 Wheel_Right_fore = wheel1;
+	 Wheel_Right_Back = wheel2;
+   Wheel_Left_fore  = wheel3;
+	 Wheel_Left_Back  = wheel4;
 }
 
 void MOTOR_DIR()
 {
-	
+	 
 }
 
-
+void MOTOR_Update(void)
+{
+	   MOTOR_DIR();
+}
 
 
 

@@ -5,6 +5,14 @@
 #include "stm32f4xx_hal.h"
 
 
+typedef struct {
+	
+	uint8_t dir;
+	float   speed;
+	
+}_motorDef;
+
+
 
 void MOTOR_Init(void);
 

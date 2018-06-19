@@ -1,4 +1,5 @@
 --cpu=Cortex-M4.fp
+"grasscuttor\control.o"
 "grasscuttor\dma.o"
 "grasscuttor\tim.o"
 "grasscuttor\gpio.o"

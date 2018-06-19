@@ -55,6 +55,10 @@
 #include "led.h"
 #include "motor.h"
 #include "tim.h"
+
+
+
+#include "control.h"
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
@@ -125,9 +129,9 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(100);
+    osDelay(500);
 		
-		LED_OFF(0);
+		//LED_OFF(0);
 		
   }
   /* USER CODE END StartDefaultTask */
@@ -138,8 +142,8 @@ void StartTask02(void const * argument)
 {
   /* USER CODE BEGIN StartTask02 */
 	
-	HAL_TIM_Base_Start(&htim8);
-	HAL_TIM_Base_Start(&htim3);
+	//HAL_TIM_Base_Start(&htim8);
+	//HAL_TIM_Base_Start(&htim3);
 	
 	HAL_TIM_IC_Start(&htim8,TIM_CHANNEL_1);
 	HAL_TIM_IC_Start(&htim8,TIM_CHANNEL_2);
@@ -151,23 +155,23 @@ void StartTask02(void const * argument)
 	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_3);
 	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_4);
 	
+	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_4);
+	
 	
 	MOTOR_PWR_EN();
 	
-	MOTOR_EN(0,0x00);
+	MOTOR_EN(0,0x00);//Ê¹ÄÜÊÇ0x01,
 	
   /* Infinite loop */
   for(;;)
   {
-    osDelay(200);
+    osDelay(5);
 		LED_ON(0);
 
-		TIM3->CCR1 = 400;
-		TIM3->CCR2 = 200;
-		TIM3->CCR3 = 500;
-		TIM3->CCR4 = 800;
-		
-		
+		Control_TaskManage(1,Control.Task_id);
   }
   /* USER CODE END StartTask02 */
 }
