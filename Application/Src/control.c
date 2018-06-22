@@ -3,7 +3,7 @@
 #include "math.h"
 #include <stdio.h>
 #include <stdbool.h>
-
+#include "motor.h"
 
 _controlDef Control;
 
@@ -48,10 +48,17 @@ void Control_TaskManage(float T,uint32_t id)
 //任务级别
 void Control_IdleTask(float T)
 {
+	
+	float *UNUSED;
+	
 	//小车制动刹车，如果小车不滑动，那么取消制动，节省电量，并且带能量检测，防止电量过低
 	//时刻等待着割草任务，一直等待接受遥控端发来的命令，随时恶意切换割草任务，
 	//如果收到割草任务，首先判断是否有电，是否能够进行工作，如果不够那么发出警报，然后小车避障进入割草的区域，切换至割草任务
 	
+	if(Control.Senser.GPS.speed <= 0.1f)
+	{
+		  MOTOR_BRAKE(UNUSED);//刹车
+	}
 	
 	
 }

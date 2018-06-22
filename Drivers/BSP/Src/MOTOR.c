@@ -6,6 +6,14 @@ uint16_t Wheel_Right_fore,Wheel_Right_Back;
 uint16_t Wheel_Left_fore,Wheel_Left_Back;
 
 
+void (*MOTOR_BRAKE)(void *);
+void (*MOTOR_FOREWORD)(void *);
+void (*MOTOR_BACK)(void *);
+void (*MOTOR_LEFT)(void *);
+void (*MOTOR_RIGHT)(void *);
+
+
+
 void MOTOR_Init(void)
 {
 	  

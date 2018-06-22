@@ -129,7 +129,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(50);//50ms
+    osDelay(1000);//50ms
 		LED_Toggle(0);
 		
 		//当前动作运行完成后，开始切换任务，让其他任务得以运行

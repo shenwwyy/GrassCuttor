@@ -13,6 +13,15 @@ typedef struct {
 }_motorDef;
 
 
+extern void (*MOTOR_BRAKE)(void *);
+extern void (*MOTOR_FOREWORD)(void *);
+extern void (*MOTOR_BACK)(void *);
+extern void (*MOTOR_LEFT)(void *);
+extern void (*MOTOR_RIGHT)(void *);
+
+
+
+
 
 void MOTOR_Init(void);
 
