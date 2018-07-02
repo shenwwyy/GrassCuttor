@@ -2,7 +2,40 @@
 #define _CONTROL_H_
 #include "stm32f4xx_hal.h"
 
+
 #define MaxPoint 200
+
+
+extern enum {
+	IdleTask = 0,
+	WorkingTask,
+	ChargingTask,
+	BackHomeTask
+	
+}_task_id;
+
+
+
+extern enum {
+	
+	Level_00_10 = 0,
+	Level_10_20,
+	Level_20_30,
+	Level_30_40,
+	Level_40_50,
+	Level_50_60,
+	Level_60_70,
+	Level_70_80,
+	Level_80_90,
+	Level_90_100,
+}_charge_level;
+
+extern enum {
+	uncharge = 0,
+	charging,
+	charged
+}_charge_status;
+
 
 
 typedef struct {
@@ -50,12 +83,25 @@ typedef struct {
 }_sonar;
 
 
+typedef struct {
+	float   Max;
+	float   Min;
+	float   Battery;
+}_voltage_t;
+
+typedef struct {
+	uint8_t    ID;
+	_voltage_t Battery1;
+	_voltage_t Battery2;
+	_voltage_t Battery3;
+	_voltage_t Battery4;
+}_voltage;
 
 typedef struct {
 	
 	_gps   GPS;
 	_sonar Sonar;
-	
+	_voltage Voltage;
 }_senser;
 
 
@@ -70,14 +116,45 @@ typedef struct {
 }_parameter;
 
 
+
 typedef struct {
-		uint32_t Task_id;
+	
+	int8_t WannaTask;//期望的任务ID
+	
+	uint8_t EmergencyStop;
+	
+}_command;
+
+
+typedef struct {
+	
+}_idletask;
+
+typedef struct {
+	
+}_workingtask;
+
+typedef struct {
+	
+	
+	uint8_t ChargeStatus;
+	uint8_t ChargeLevel;
+	
+	
+}_chargingtask;
+
+
+
+
+typedef struct {
+	uint32_t Task_id;
 	_point   CurrentPoint;
 	_point   TargetPoint;
 	_point   PointGroups[MaxPoint];
 	
-	
-	
+	_idletask Idle;
+	_workingtask Working;
+	_chargingtask Charging;
 	
 }_taskDef;
 
@@ -88,7 +165,7 @@ typedef struct {
 	_taskDef Task;
 	_senser Senser;
 	_parameter Parameter;
-	
+	_command Command;
 }_controlDef;
 
 

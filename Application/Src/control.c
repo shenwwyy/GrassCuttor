@@ -23,19 +23,19 @@ void Control_TaskManage(float T,uint32_t id)
 {
 	    switch(id)
 			{
-				case 0:
+				case IdleTask:
 				{
 					Control_IdleTask(T);
 				}break;
-				case 1:
+				case WorkingTask:
 				{
 					Control_WorkingTask(T);
 				}break;
-				case 2:
+				case ChargingTask:
 				{
 					Control_ChargingTask(T);
 				}break;
-				case 3:
+				case BackHomeTask:
 				{
 					Control_BackHomeTask(T);
 				}break;
@@ -52,12 +52,30 @@ void Control_IdleTask(float T)
 	float *UNUSED;
 	
 	//小车制动刹车，如果小车不滑动，那么取消制动，节省电量，并且带能量检测，防止电量过低
-	//时刻等待着割草任务，一直等待接受遥控端发来的命令，随时恶意切换割草任务，
+	//时刻等待着割草任务，一直等待接受遥控端发来的命令，随时切换割草任务，
 	//如果收到割草任务，首先判断是否有电，是否能够进行工作，如果不够那么发出警报，然后小车避障进入割草的区域，切换至割草任务
 	
 	if(Control.Senser.GPS.speed <= 0.1f)
 	{
 		  MOTOR_BRAKE(UNUSED);//刹车
+	}
+	
+	//检测电压，防止电压过低，电压低于最小值时，切换至充电任务
+	if(Control.Senser.Voltage.Battery1.Battery <= Control.Senser.Voltage.Battery1.Min)
+	{
+		Control.Task.Task_id = ChargingTask;//切换至充电任务
+	}
+	
+	//等待任务切换的命令在另外的循环完成，这个循环一直检查串口接收buff，和解码程序
+	
+	//任务一旦想要切换过去，那么就要检测当前电压是否能够支持任务如果不支持，拒绝执行切草任务
+	if(Control.Command.WannaTask == WorkingTask)
+	{
+		 if(Control.Senser.Voltage.Battery1.Battery <= (Control.Senser.Voltage.Battery1.Max - Control.Senser.Voltage.Battery1.Min)*0.5f)
+		 {
+				Control.Command.WannaTask = -1;//清除切草任务命令
+			  Control.Task.Task_id = ChargingTask;//切换至充电任务
+		 }
 	}
 	
 	
@@ -78,6 +96,33 @@ void Control_ChargingTask(float T)
 	//触发充电任务，寻找充电位置，一路避障走到充电位置附近，开始寻找充电设备，然后准确对上，开始充电。
 	//充电任务完成，检测是否有存在未完成的割草任务，如果有，那么去到刚刚任务打断的位置，寻找好目标航向，切换至割草任务进行割草
 	//如果不存在未完成任务，那么停留在充电桩内不动，然后切换至空闲任务。
+	
+	
+	switch(Control.Task.Charging.ChargeStatus)
+	{
+		case uncharge:
+		{
+			
+		}break;
+		
+		case charging:
+		{
+			
+		}break;
+
+		case charged :
+		{
+			 if(Control.Command.WannaTask == WorkingTask)//如果有任务，那么切换到其中，并执行
+			 {
+				 Control.Task.Task_id = WorkingTask;
+			 }
+			 else//否则切换到空闲任务
+			 {
+				 Control.Task.Task_id = IdleTask;
+			 }
+		}break;
+
+	}
 	
 	
 }
