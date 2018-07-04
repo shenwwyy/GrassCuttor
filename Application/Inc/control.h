@@ -6,6 +6,10 @@
 #define MaxPoint 200
 
 
+
+
+
+
 extern enum {
 	IdleTask = 0,
 	WorkingTask,
@@ -35,6 +39,21 @@ extern enum {
 	charging,
 	charged
 }_charge_status;
+
+
+
+typedef struct {
+	
+	float Width;
+	float Length;
+	float Height;
+	
+	float Diameter;//Ö±¾¶
+	
+	
+}_car;
+
+
 
 
 
@@ -128,9 +147,13 @@ typedef struct {
 
 typedef struct {
 	
+	uint8_t tt;
+	
 }_idletask;
 
 typedef struct {
+	
+	uint8_t isInterrupt;
 	
 }_workingtask;
 
@@ -139,6 +162,7 @@ typedef struct {
 	
 	uint8_t ChargeStatus;
 	uint8_t ChargeLevel;
+	float   ChargeCount;
 	
 	
 }_chargingtask;
@@ -161,7 +185,7 @@ typedef struct {
 
 
 typedef struct {
-	
+	_car     Car;
 	_taskDef Task;
 	_senser Senser;
 	_parameter Parameter;
@@ -187,6 +211,9 @@ float POS_Heading(float lat1,float lon1,float lat2,float lon2);
 
 uint8_t Control_PolygonCheck(_point Current,_point Target[],uint16_t TargetNumber,uint8_t Side);
 uint8_t Control_CircleCheck(_point Current,_point Centre,float Radius,uint8_t Side);
+
+
+void Control_Route(void);
 
 
 #endif

@@ -75,6 +75,7 @@ void Control_IdleTask(float T)
 		 {
 				Control.Command.WannaTask = -1;//清除切草任务命令
 			  Control.Task.Task_id = ChargingTask;//切换至充电任务
+			  Control.Task.Charging.ChargeStatus = uncharge;//在充电的路上
 		 }
 	}
 	
@@ -88,6 +89,11 @@ void Control_WorkingTask(float T)
 	//如果小车前方遇到障碍物，小车会绕过障碍物进行割草
 	//小车割草过程中，随时检查自身电量是否达到最低门限，如果到达，那么中断任务，并且记录当前的位置和航向，然后切换至充电任务
 	//割草任务完成，小车启动返航任务
+	
+	
+	
+	
+	
 }
 
 void Control_ChargingTask(float T)
@@ -102,12 +108,32 @@ void Control_ChargingTask(float T)
 	{
 		case uncharge:
 		{
+			  //寻找充电桩
+			
+			  
+			  
+			
+			
 			
 		}break;
 		
 		case charging:
 		{
-			
+			 //充电期间，不接受任何任务指令
+			 if(Control.Senser.Voltage.Battery1.Battery >= Control.Senser.Voltage.Battery1.Max)
+			 {
+				 //如果大于等于了，那么等一段时间，的确是大了，那么认为充电完成。
+				 Control.Task.Charging.ChargeCount += T;
+				 if(Control.Task.Charging.ChargeCount > 300)//时间大于300秒
+				 {
+					 Control.Task.Charging.ChargeStatus = charged;
+					 Control.Task.Charging.ChargeCount = 0;
+				 }
+			 }
+			 else//如果没有进入最大电压
+			 {
+				 Control.Task.Charging.ChargeCount = 0;
+			 }
 		}break;
 
 		case charged :
@@ -115,6 +141,16 @@ void Control_ChargingTask(float T)
 			 if(Control.Command.WannaTask == WorkingTask)//如果有任务，那么切换到其中，并执行
 			 {
 				 Control.Task.Task_id = WorkingTask;
+				 
+				 if(Control.Task.Working.isInterrupt == 0x01)//如果是任务被打断，那么继续充电前的任务
+				 {
+					 
+				 }
+				 else//如果不是任务被打断，那么切换到新的任务
+				 {
+					 
+				 }
+				 
 			 }
 			 else//否则切换到空闲任务
 			 {
@@ -132,6 +168,11 @@ void Control_BackHomeTask(float T)
 	//收到返航命令，小车目标改为充电桩位置，并且一路保持避障，回到充电桩附近，然后寻找充电设备，精确对上后，进入充电桩，完成后切换到空闲任务
 	//这个过程小车可以接受任务命令，例如去一块新的地方进行割草任务，停止刹车等
 	//
+	
+	Control.Task.Task_id = ChargingTask;
+	Control.Task.Charging.ChargeStatus = uncharge;
+	
+	
 }
 
 
@@ -263,11 +304,13 @@ float POS_Heading(float lat1,float lon1,float lat2,float lon2){
 
 
 
-//割草任务
-void Control_CutGrass()
+//行走控制
+void Control_Route(void)
 {
 	
 }
+
+
 
 
 

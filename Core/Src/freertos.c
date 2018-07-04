@@ -169,8 +169,8 @@ void StartTask02(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(5);
-		Control_TaskManage(1,Control.Task.Task_id);
+    osDelay(20);
+		Control_TaskManage(0.02f,Control.Task.Task_id);
 		
 		osThreadYield();
   }
