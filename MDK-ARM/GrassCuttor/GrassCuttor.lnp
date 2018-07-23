@@ -49,6 +49,7 @@
 "grasscuttor\usbd_conf.o"
 "grasscuttor\usbd_desc.o"
 "grasscuttor\usbd_custom_hid_if.o"
+"grasscuttor\mymath.o"
 --library_type=microlib --strict --scatter "GrassCuttor\GrassCuttor.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "motor.h"
+#include "mymath.h"
 
 _controlDef Control;
 
@@ -55,9 +56,10 @@ void Control_IdleTask(float T)
 	//时刻等待着割草任务，一直等待接受遥控端发来的命令，随时切换割草任务，
 	//如果收到割草任务，首先判断是否有电，是否能够进行工作，如果不够那么发出警报，然后小车避障进入割草的区域，切换至割草任务
 	
+	//检查速度，如果速度小于0.1m/s，那么取消刹车
 	if(Control.Senser.GPS.speed <= 0.1f)
 	{
-		  MOTOR_BRAKE(UNUSED);//刹车
+		  MOTOR_BRAKE(UNUSED);//不刹车
 	}
 	
 	//检测电压，防止电压过低，电压低于最小值时，切换至充电任务
@@ -71,13 +73,18 @@ void Control_IdleTask(float T)
 	//任务一旦想要切换过去，那么就要检测当前电压是否能够支持任务如果不支持，拒绝执行切草任务
 	if(Control.Command.WannaTask == WorkingTask)
 	{
-		 if(Control.Senser.Voltage.Battery1.Battery <= (Control.Senser.Voltage.Battery1.Max - Control.Senser.Voltage.Battery1.Min)*0.5f)
+		 if(Control.Senser.Voltage.Battery1.Battery <= (Control.Senser.Voltage.Battery1.Max - Control.Senser.Voltage.Battery1.Min)*0.3f)
 		 {
 				Control.Command.WannaTask = -1;//清除切草任务命令
 			  Control.Task.Task_id = ChargingTask;//切换至充电任务
 			  Control.Task.Charging.ChargeStatus = uncharge;//在充电的路上
 		 }
 	}
+	
+	
+	//清空输出
+	Control.Task.PositionOutPut = 0;
+	Control.Task.HeadingOutPut  = 0;
 	
 	
 }
@@ -92,8 +99,33 @@ void Control_WorkingTask(float T)
 	
 	
 	
-	
-	
+	if(Control.Senser.Voltage.Battery1.Battery <= Control.Senser.Voltage.Battery1.Min)
+	{
+		   Control.Task.Working.BatCount += T;
+		   if(Control.Task.Working.BatCount >= 60)//1分钟
+			 {
+				   //出现电池过低现象，需要中断任务去充电
+				   Control.Task.Working.BatCount = 0;
+				   Control.Task.Working.isInterrupt = 1;//中断任务，去充电
+				   Control.Task.Task_id = ChargingTask;//切换至充电任务
+			     Control.Task.Charging.ChargeStatus = uncharge;//在充电的路上
+				 
+				   //保持当前点，作为下一次进入的目标点
+				   Control.Task.InterruptPoint = Control.Task.CurrentPoint;
+				   //切换目标点，目标点为充电桩
+				   Control.Task.TargetPoint = Control.Task.ChargePoint;
+			 }
+				 
+		   
+	}
+	else//执行正常任务
+	{
+		  //当前位置和参考边的距离
+		   
+		
+		  //计算当前位置和参考方向的偏差
+		
+	}
 }
 
 void Control_ChargingTask(float T)
@@ -109,9 +141,18 @@ void Control_ChargingTask(float T)
 		case uncharge:
 		{
 			  //寻找充电桩
+			 //设置目标点
+       Control.Task.TargetPoint = Control.Task.ChargePoint;
+			 //航线控制
+			 Control_Route(T,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
 			
-			  
-			  
+			//判断当前点如果在木点内部1m之内，那么认为到达充电点
+			if(Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.TargetPoint,1.0f,0) == true)
+			{
+				   //切换到充电模式
+				   Control.Task.Charging.ChargeStatus = charging;
+					 Control.Task.Charging.ChargeCount = 0;
+			}
 			
 			
 			
@@ -134,6 +175,10 @@ void Control_ChargingTask(float T)
 			 {
 				 Control.Task.Charging.ChargeCount = 0;
 			 }
+			 //清空输出
+			 Control.Task.PositionOutPut = 0;
+			 Control.Task.HeadingOutPut  = 0;
+			 
 		}break;
 
 		case charged :
@@ -144,11 +189,13 @@ void Control_ChargingTask(float T)
 				 
 				 if(Control.Task.Working.isInterrupt == 0x01)//如果是任务被打断，那么继续充电前的任务
 				 {
-					 
+					   Control.Task.TargetPoint = Control.Task.InterruptPoint;
+					   Control.Task.Working.isInterrupt = 0x00;//清空中断标志
 				 }
 				 else//如果不是任务被打断，那么切换到新的任务
 				 {
-					 
+					   Control.Task.TargetPoint = Control.Task.PointGroups[1];//切换到第一点
+					   Control.Task.Working.isInterrupt = 0x00;//清空中断标志
 				 }
 				 
 			 }
@@ -156,6 +203,11 @@ void Control_ChargingTask(float T)
 			 {
 				 Control.Task.Task_id = IdleTask;
 			 }
+			 
+			 //清空输出
+			 Control.Task.PositionOutPut = 0;
+			 Control.Task.HeadingOutPut  = 0;
+			 
 		}break;
 
 	}
@@ -305,9 +357,99 @@ float POS_Heading(float lat1,float lon1,float lat2,float lon2){
 
 
 //行走控制
-void Control_Route(void)
+void Control_Route(float T,_point Current,_point Target,_sonar Sonar,float PosOffset)
 {
+	   float Kp = 0;
+	   float PositionErr,HeadingErr;
+	   float Current_Target_Heading;
 	
+	   uint8_t SonarFlag = 0;
+	
+	   //计算当前点和目标点的距离，得出前向的输出
+	
+	   PositionErr = POS_Distance(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
+	   
+	   //计算前向，侧向的障碍物，结合当前的航迹角，得出侧向控制输出
+	   //0~360
+	   Current_Target_Heading = POS_Heading(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
+	
+	   HeadingErr = Current_Target_Heading - Current.course;
+	   HeadingErr = To_180_degrees(HeadingErr);
+	
+	   //通过侧向的障碍物判断是否要增加航向角误差
+	   
+	   if((Sonar.left.isValid == 0x01)&&(Sonar.left.distance <= 0.2f)) SonarFlag |= 0x04;//0000 0100
+		 else                                                            SonarFlag &= 0xfb;//1111 1011
+		 
+		 if((Sonar.forward.isValid == 0x01)&&(Sonar.forward.distance <= 0.2f)) SonarFlag |= 0x02;//0000 0010
+		 else                                                                  SonarFlag &= 0xfd;//1111 1101
+		 
+		 if((Sonar.right.isValid == 0x01)&&(Sonar.right.distance <= 0.2f)) SonarFlag |= 0x01;//0000 0001
+		 else                                                              SonarFlag &= 0xfe;//1111 1110
+		 
+		 SonarFlag &= 0x07;//0000 0111
+	
+	   switch(SonarFlag)
+		 {
+			 case 0://没有障碍物
+			 {
+				   HeadingErr += 0;
+			 }break;
+			 case 1://右侧有障碍物
+			 {
+				   //偏航
+				   HeadingErr += (-10.0f) * T;
+				   
+			 }break;
+			 case 2://前向有障碍物
+			 {
+				   //停止，转向
+				   //把距离目标值置零，让电机停止
+				   PositionErr = 0;
+				   //偏航
+				   HeadingErr += (-45.0f) * T;
+				 
+			 }break;
+			 case 3://右侧和前向有障碍物
+			 {
+				   //停止，转向
+				   //把距离目标值置零，让电机停止
+				   PositionErr = 0;
+				   //偏航
+				   HeadingErr += (-45.0f) * T;
+				 
+			 }break;
+			 case 4://左侧有障碍物
+			 {
+				   //偏航
+				   HeadingErr += (-10.0f) * T;
+			 }break;
+			 case 5://左右两侧有障碍物
+			 {
+				   //保持直行，并且调整两侧的侧偏一致
+				   HeadingErr += (Sonar.right.distance - Sonar.left.distance) * 10.0f * T;
+			 }break;
+			 case 6://左侧和前向有障碍物
+			 {
+				   //停止，转向
+				   //把距离目标值置零，让电机停止
+				   PositionErr = 0;
+				   //偏航
+				   HeadingErr += (45.0f) * T;
+			 }break;
+			 case 7://三个方向都有障碍物
+			 {
+				   //停止，掉头
+				   PositionErr = 0;
+				   //偏航
+				   HeadingErr += (-180.0f) * T;
+			 }break;
+			
+		 }
+		 
+		 
+		 Control.Task.PositionOutPut = LIMIT(10.0f * PositionErr - 2.0f * Current.speed,-1000,1000);
+		 Control.Task.HeadingOutPut  = LIMIT(10.0f * HeadingErr,-500,500);
 }
 
 

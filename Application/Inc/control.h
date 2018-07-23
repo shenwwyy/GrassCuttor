@@ -132,6 +132,12 @@ typedef struct {
 	float out_y;//²àÏò
 	float out_z;//Ðý×ª
 	
+	
+	
+	
+	
+	
+	
 }_parameter;
 
 
@@ -155,6 +161,8 @@ typedef struct {
 	
 	uint8_t isInterrupt;
 	
+	float BatCount;
+
 }_workingtask;
 
 typedef struct {
@@ -172,20 +180,39 @@ typedef struct {
 
 typedef struct {
 	uint32_t Task_id;
+	_point   ChargePoint;
+	_point   LastPoint;
 	_point   CurrentPoint;
 	_point   TargetPoint;
+	_point   InterruptPoint;
 	_point   PointGroups[MaxPoint];
 	
 	_idletask Idle;
 	_workingtask Working;
 	_chargingtask Charging;
 	
+	
+	float Diff_Heading;
+	float Diff_Position;
+	
+	float PositionOutPut;
+	float HeadingOutPut;
+	
+	//Êä³ö
+	float LeftForeWheel;
+	float LeftBackWheel;
+	float RightForeWheel;
+	float RightBackWheel;
+	
+	
+	
+	
 }_taskDef;
 
 
 
 typedef struct {
-	_car     Car;
+	_car Car;
 	_taskDef Task;
 	_senser Senser;
 	_parameter Parameter;
@@ -213,7 +240,7 @@ uint8_t Control_PolygonCheck(_point Current,_point Target[],uint16_t TargetNumbe
 uint8_t Control_CircleCheck(_point Current,_point Centre,float Radius,uint8_t Side);
 
 
-void Control_Route(void);
+void Control_Route(float T,_point Current,_point Target,_sonar Sonar,float PosOffset);
 
 
 #endif
