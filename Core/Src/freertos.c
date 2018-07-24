@@ -128,6 +128,16 @@ void StartDefaultTask(void const * argument)
   /* USER CODE BEGIN StartDefaultTask */
 	
 	//添加传感器初始化
+	ubloxInitGps();
+	
+	HAL_UART_RxCpltCallback(&huart1);
+	HAL_UART_TxCpltCallback(&huart1);
+	
+	HAL_UART_RxCpltCallback(&huart2);
+	HAL_UART_TxCpltCallback(&huart2);
+	
+	HAL_UART_RxCpltCallback(&huart3);
+	HAL_UART_TxCpltCallback(&huart3);
 	
   /* Infinite loop */
   for(;;)
