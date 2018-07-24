@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu Cortex-M4.fp
 "grasscuttor\control.o"
 "grasscuttor\main.o"
 "grasscuttor\gpio.o"
@@ -51,6 +51,6 @@
 "grasscuttor\usbd_custom_hid_if.o"
 "grasscuttor\mymath.o"
 --library_type=microlib --strict --scatter "GrassCuttor\GrassCuttor.sct"
---summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "GrassCuttor.map" -o GrassCuttor\GrassCuttor.axf

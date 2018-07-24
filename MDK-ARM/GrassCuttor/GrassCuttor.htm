@@ -3,7 +3,7 @@
 <title>Static Call Graph - [GrassCuttor\GrassCuttor.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image GrassCuttor\GrassCuttor.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Mon Jul 23 09:51:35 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060020: Last Updated: Wed Jul 25 01:17:08 2018
 <BR><P>
 <H3>Maximum Stack Usage =        544 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -616,7 +616,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_TaskManage
 </UL>
 
-<P><STRONG><a name="[8b]"></a>Control_ChargingTask</STRONG> (Thumb, 376 bytes, Stack size 136 bytes, control.o(i.Control_ChargingTask))
+<P><STRONG><a name="[8b]"></a>Control_ChargingTask</STRONG> (Thumb, 380 bytes, Stack size 136 bytes, control.o(i.Control_ChargingTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 528<LI>Call Chain = Control_ChargingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_Route
@@ -641,7 +641,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_TaskManage
 </UL>
 
-<P><STRONG><a name="[8d]"></a>Control_Route</STRONG> (Thumb, 794 bytes, Stack size 72 bytes, control.o(i.Control_Route))
+<P><STRONG><a name="[8d]"></a>Control_Route</STRONG> (Thumb, 798 bytes, Stack size 72 bytes, control.o(i.Control_Route))
 <BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
@@ -1487,7 +1487,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_Route
 </UL>
 
-<P><STRONG><a name="[74]"></a>StartDefaultTask</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, freertos.o(i.StartDefaultTask))
+<P><STRONG><a name="[74]"></a>StartDefaultTask</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, freertos.o(i.StartDefaultTask))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = StartDefaultTask &rArr; MX_USB_DEVICE_Init &rArr; USBD_Init &rArr; USBD_LL_Init &rArr; HAL_PCD_Init &rArr; HAL_PCD_MspInit &rArr; HAL_NVIC_SetPriority &rArr; NVIC_SetPriority
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield

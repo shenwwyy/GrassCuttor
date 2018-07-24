@@ -126,13 +126,34 @@ void StartDefaultTask(void const * argument)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
+	
+	//添加传感器初始化
+	
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1000);//50ms
+    osDelay(250);//50ms
 		LED_Toggle(0);
 		
 		//当前动作运行完成后，开始切换任务，让其他任务得以运行
+		
+		
+		//加入传感器读取
+		//超声波1读取
+		//延时250ms
+		osDelay(250);
+		
+		//超声波2读取
+		//延时250ms
+		osDelay(250);
+		
+		//超声波3读取
+		//延时250ms
+		osDelay(250);
+		
+		
+		
+		
 		osThreadYield();
   }
   /* USER CODE END StartDefaultTask */
