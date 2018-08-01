@@ -119,12 +119,22 @@ void Control_WorkingTask(float T)
 		   
 	}
 	else//执行正常任务
-	{
+	{  
+		  //计算是否应该切换航线
+		  if(Control_PolygonCheck(Control.Task.CurrentPoint,Control.Task.PointGroups,Control.Task.PointGroupsNumber,1) == true)
+			{
+				   //切换新的航点作为目标
+				   //保持当前点作为上一个点
+				   Control.Task.LastPoint   = Control.Task.CurrentPoint;
+				   //给目标点赋值
+				   Control.Task.TargetPoint = Control.Task.TargetPoint;
+			}
+		
 		  //当前位置和参考边的距离
-		   
+		  
 		
 		  //计算当前位置和参考方向的偏差
-		
+		  Control_Route(T,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
 	}
 }
 
@@ -350,6 +360,50 @@ float POS_Heading(float lat1,float lon1,float lat2,float lon2){
 }
 
 
+//计算出斜率和偏差y=kx+b
+void KB_Rate(_point P1,_point P2,float *k,float *b)
+{
+	  //正常的函数,x1!=x2,y1!=y2
+	  if((P1.latitude != P2.latitude)&&(P1.longitude != P2.longitude))
+		{
+			  *k = (P2.latitude - P1.latitude)/(P2.longitude - P1.longitude);
+			  *b = P1.latitude - (*k) * P1.longitude;
+		}
+		else if((P1.latitude != P2.latitude)&&(P1.longitude == P2.longitude))//斜率为无穷大,x1=x2,y1!=y2
+		{
+			  *k = 1e20;
+			  *b = 0;
+		}
+		else if((P1.latitude == P2.latitude)&&(P1.longitude != P2.longitude))//斜率为0,x1!=x2,y1==y2
+		{
+			  *k = 0;
+			  *b = P1.latitude;
+		}
+}
+
+//通过给定的距离偏差计算目标参考线y=kx+b
+//RP1,RP2为目标点和下一个点，
+void KB_Line(_point P1,_point P2,float Krate,float Brate,float Offset,_point *Target,_point *Next)
+{
+	  //通过参考1,2点，以及侧偏，得出目标经纬度
+	  if((P1.latitude != P2.latitude)&&(P1.longitude != P2.longitude))
+		{
+			  Krate = (P2.latitude - P1.latitude)/(P2.longitude - P1.longitude);
+			  Brate = P1.latitude - (Krate) * P1.longitude;
+		}
+		else if((P1.latitude != P2.latitude)&&(P1.longitude == P2.longitude))//斜率为无穷大,x1=x2,y1!=y2
+		{
+			  Krate = 1e20;
+			  Brate = 0;
+		}
+		else if((P1.latitude == P2.latitude)&&(P1.longitude != P2.longitude))//斜率为0,x1!=x2,y1==y2
+		{
+			  Krate = 0;
+			  Brate = P1.latitude;
+		}
+	
+}
+
 
 
 
@@ -362,6 +416,7 @@ void Control_Route(float T,_point Current,_point Target,_sonar Sonar,float PosOf
 	   float Kp = 0;
 	   float PositionErr,HeadingErr;
 	   float Current_Target_Heading;
+	   float CrossErr;
 	
 	   uint8_t SonarFlag = 0;
 	
@@ -375,6 +430,10 @@ void Control_Route(float T,_point Current,_point Target,_sonar Sonar,float PosOf
 	
 	   HeadingErr = Current_Target_Heading - Current.course;
 	   HeadingErr = To_180_degrees(HeadingErr);
+	
+	   //计算侧偏
+	   
+	
 	
 	   //通过侧向的障碍物判断是否要增加航向角误差
 	   
@@ -449,7 +508,7 @@ void Control_Route(float T,_point Current,_point Target,_sonar Sonar,float PosOf
 		 
 		 
 		 Control.Task.PositionOutPut = LIMIT(10.0f * PositionErr - 2.0f * Current.speed,-1000,1000);
-		 Control.Task.HeadingOutPut  = LIMIT(10.0f * HeadingErr,-500,500);
+		 Control.Task.HeadingOutPut  = LIMIT(10.0f * HeadingErr + 10.0f * PosOffset,-500,500);
 }
 
 

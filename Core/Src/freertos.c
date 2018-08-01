@@ -128,16 +128,16 @@ void StartDefaultTask(void const * argument)
   /* USER CODE BEGIN StartDefaultTask */
 	
 	//添加传感器初始化
-	ubloxInitGps();
-	
-	HAL_UART_RxCpltCallback(&huart1);
-	HAL_UART_TxCpltCallback(&huart1);
-	
-	HAL_UART_RxCpltCallback(&huart2);
-	HAL_UART_TxCpltCallback(&huart2);
-	
-	HAL_UART_RxCpltCallback(&huart3);
-	HAL_UART_TxCpltCallback(&huart3);
+//	ubloxInitGps();
+//	
+//	HAL_UART_RxCpltCallback(&huart1);
+//	HAL_UART_TxCpltCallback(&huart1);
+//	
+//	HAL_UART_RxCpltCallback(&huart2);
+//	HAL_UART_TxCpltCallback(&huart2);
+//	
+//	HAL_UART_RxCpltCallback(&huart3);
+//	HAL_UART_TxCpltCallback(&huart3);
 	
   /* Infinite loop */
   for(;;)
@@ -160,6 +160,9 @@ void StartDefaultTask(void const * argument)
 		//超声波3读取
 		//延时250ms
 		osDelay(250);
+		
+		
+		//输出控制量
 		
 		
 		
@@ -202,6 +205,8 @@ void StartTask02(void const * argument)
   {
     osDelay(20);
 		Control_TaskManage(0.02f,Control.Task.Task_id);
+		
+		
 		
 		osThreadYield();
   }

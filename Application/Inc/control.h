@@ -185,7 +185,12 @@ typedef struct {
 	_point   CurrentPoint;
 	_point   TargetPoint;
 	_point   InterruptPoint;
+	
+	
+	_point   ReferencePoint1;
+	_point   ReferencePoint2;
 	_point   PointGroups[MaxPoint];
+	uint32_t PointGroupsNumber;
 	
 	_idletask Idle;
 	_workingtask Working;
