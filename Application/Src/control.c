@@ -59,7 +59,7 @@ void Control_IdleTask(float T)
 	//检查速度，如果速度小于0.1m/s，那么取消刹车
 	if(Control.Senser.GPS.speed <= 0.1f)
 	{
-		  MOTOR_BRAKE(UNUSED);//不刹车
+		  //MOTOR_BRAKE(UNUSED);//不刹车
 	}
 	
 	//检测电压，防止电压过低，电压低于最小值时，切换至充电任务
@@ -245,7 +245,7 @@ uint8_t Control_PolygonCheck(_point Current,_point Target[],uint16_t TargetNumbe
     double dLon1, dLon2, dLat1, dLat2, dLon;  
     if (TargetNumber < 3) return false;  
     iCount = TargetNumber;  
-    for (uint16_t i = 0; i < iCount; i++) 
+    for(uint16_t i = 0; i < iCount; i++) 
 	  {  
         if (i == iCount - 1) 
 				{  

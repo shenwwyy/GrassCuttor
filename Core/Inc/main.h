@@ -71,6 +71,10 @@
 #define MOTOR_EN1_GPIO_Port GPIOB
 #define MOTOR_EN2_Pin GPIO_PIN_7
 #define MOTOR_EN2_GPIO_Port GPIOE
+#define SW1_Pin GPIO_PIN_8
+#define SW1_GPIO_Port GPIOD
+#define SW2_Pin GPIO_PIN_9
+#define SW2_GPIO_Port GPIOD
 #define MOTOR_EN3_Pin GPIO_PIN_10
 #define MOTOR_EN3_GPIO_Port GPIOD
 #define MOTOR_EN4_Pin GPIO_PIN_11
@@ -79,10 +83,12 @@
 #define PWR_EN1_GPIO_Port GPIOB
 #define PWR_EN2_Pin GPIO_PIN_9
 #define PWR_EN2_GPIO_Port GPIOB
-#define KEY4_Pin GPIO_PIN_0
-#define KEY4_GPIO_Port GPIOE
-#define KEY3_Pin GPIO_PIN_1
+#define KEY3_Pin GPIO_PIN_0
 #define KEY3_GPIO_Port GPIOE
+#define KEY3_EXTI_IRQn EXTI0_IRQn
+#define KEY4_Pin GPIO_PIN_1
+#define KEY4_GPIO_Port GPIOE
+#define KEY4_EXTI_IRQn EXTI1_IRQn
 
 /* ########################## Assert Selection ############################## */
 /**

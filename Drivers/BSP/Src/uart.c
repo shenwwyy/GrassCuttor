@@ -10,17 +10,17 @@
 uint8_t TxBuffer1[256];
 uint8_t TxCounter1=0;
 uint8_t count1=0; 
-uint8_t RxBuf1,RxCount1=0; 
+uint8_t RxBuf1[2],RxCount1=0; 
 
 uint8_t TxBuffer2[256];
 uint8_t TxCounter2=0;
 uint8_t count2=0; 
-uint8_t RxBuf2,RxCount2=0; 
+uint8_t RxBuf2[2],RxCount2=0; 
 
 uint8_t TxBuffer3[256];
 uint8_t TxCounter3=0;
 uint8_t count3=0; 
-uint8_t RxBuf3,RxCount3=0; 
+uint8_t RxBuf3[2],RxCount3=0; 
 
 uint8_t TxBuffer4[256];
 uint8_t TxCounter4=0;
@@ -51,18 +51,20 @@ extern UART_HandleTypeDef huart6;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	//uint8_t com_data;
-  if (huart->Instance == USART1)  {	
-		HAL_UART_Receive_IT(huart, &RxBuf1, 2);
-			calculate1(&RxBuf1);			
+  if (huart->Instance == USART1)  {
+      
+			HAL_UART_Receive_DMA(&huart1, (uint8_t *)RxBuf1, 2);
+			calculate1(RxBuf1);			
     }
-	else if (huart->Instance == USART2) {
+	else if (huart->Instance == USART2)  {
 		    
-		HAL_UART_Receive_IT(huart, &RxBuf2, 2);
-			calculate2(&RxBuf2);
+      HAL_UART_Receive_DMA(&huart2, (uint8_t *)RxBuf2, 2);//继续下一个字节
+			calculate2(RxBuf2);
     }
 	else if (huart->Instance == USART3)  {
-		HAL_UART_Receive_IT(huart, &RxBuf3, 2);
-			calculate3(&RxBuf3);
+		
+      HAL_UART_Receive_DMA(&huart3, (uint8_t *)RxBuf3, 2);//继续下一个字节
+			calculate3(RxBuf3);
     }
 	else if (huart->Instance == UART4)  {
 		
@@ -81,20 +83,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-	  if (huart->Instance == USART1){
-			
-				Protocol_T_ultrasonic();	
-					//HAL_Delay(10);			
-    }
-	  else if (huart->Instance == USART2){
-			
+	  if (huart->Instance == USART1)  {
 				Protocol_T_ultrasonic();
-			//HAL_Delay(10);	
     }
-	  else if (huart->Instance == USART3){
-			
-				Protocol_T_ultrasonic();
-			//HAL_Delay(10);	
+	  else if (huart->Instance == USART2)  {
+       Protocol_T_ultrasonic();
+    }
+	  else if (huart->Instance == USART3)  {
+			Protocol_T_ultrasonic();
     }
 	  else if (huart->Instance == UART4)  {
         
@@ -107,6 +103,16 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 		}
 }
 
+void Protocol_SendData(uint8_t *pData,uint16_t Size)  
+{
+	  for(uint16_t i = 0;i<Size;i++)
+	  {
+			 Protocol_TxBuff[i] = pData[i];
+   	}
+	  
+	  HAL_UART_Transmit_DMA(&huart1,Protocol_TxBuff,Size);
+		HAL_UART_Transmit_DMA(&huart6,Protocol_TxBuff,Size);
+}
 
 void ublox_Protocol_Send(uint8_t *pData,uint16_t Size)
 {
@@ -115,9 +121,6 @@ void ublox_Protocol_Send(uint8_t *pData,uint16_t Size)
 			 Protocol_TxBuff[i] = pData[i];
    	}
 		HAL_UART_Transmit_DMA(&huart6,Protocol_TxBuff,Size);
-//	HAL_UART_Transmit_DMA(&huart1,Protocol_TxBuff,Size);
-//	HAL_UART_Transmit_DMA(&huart2,Protocol_TxBuff,Size);
-//	HAL_UART_Transmit_DMA(&huart3,Protocol_TxBuff,Size);
 }
 
 
@@ -133,17 +136,7 @@ void Protocol_T_ultrasonic(void)
 			Protocol_SendData(DataToSend,DataCount);
 }
 
-void Protocol_SendData(uint8_t *pData,uint16_t Size)  
-{
-	  for(uint16_t i = 0;i<Size;i++)
-	  {
-			 Protocol_TxBuff[i] = pData[i];
-   	}
-	  
-	  HAL_UART_Transmit_DMA(&huart1,Protocol_TxBuff,Size);
-		HAL_UART_Transmit_DMA(&huart2,Protocol_TxBuff,Size);
-		HAL_UART_Transmit_DMA(&huart3,Protocol_TxBuff,Size);
-}
+
 
 
 
