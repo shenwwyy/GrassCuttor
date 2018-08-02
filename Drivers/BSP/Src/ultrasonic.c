@@ -121,3 +121,4 @@ void calculate3(uint8_t *data)
 			flag3 = ERROR_Distance;
 		}
 }
+

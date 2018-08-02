@@ -56,9 +56,16 @@
 #include "motor.h"
 #include "tim.h"
 
-
+#include "ublox.h"
+#include "uart.h"
+#include "ultrasonic.h"
 
 #include "control.h"
+
+#include "stm32f4xx_hal.h"
+#include "dma.h"
+#include "usart.h"
+#include "gpio.h"
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
@@ -73,7 +80,6 @@ osThreadId DataLinkTaskHandle;
 void StartDefaultTask(void const * argument);
 void StartTask02(void const * argument);
 
-extern void MX_USB_DEVICE_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* USER CODE BEGIN FunctionPrototypes */
@@ -122,8 +128,6 @@ void MX_FREERTOS_Init(void) {
 /* StartDefaultTask function */
 void StartDefaultTask(void const * argument)
 {
-  /* init code for USB_DEVICE */
-  MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
 	
@@ -180,10 +184,10 @@ void StartTask02(void const * argument)
 	//HAL_TIM_Base_Start(&htim8);
 	//HAL_TIM_Base_Start(&htim3);
 	
-	HAL_TIM_IC_Start(&htim8,TIM_CHANNEL_1);
-	HAL_TIM_IC_Start(&htim8,TIM_CHANNEL_2);
-	HAL_TIM_IC_Start(&htim8,TIM_CHANNEL_3);
-	HAL_TIM_IC_Start(&htim8,TIM_CHANNEL_4);
+	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_1);
+	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_2);
+	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_3);
+	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_4);
 	
 	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_2);
@@ -195,10 +199,22 @@ void StartTask02(void const * argument)
 	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_3);
 	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_4);
 	
+	HAL_UART_RxCpltCallback(&huart1);
+	HAL_UART_TxCpltCallback(&huart1);
 	
-	MOTOR_PWR_EN();
+	HAL_UART_RxCpltCallback(&huart2);
+	HAL_UART_TxCpltCallback(&huart2);
 	
-	MOTOR_EN(0,0x00);//使能是0x01,
+	HAL_UART_RxCpltCallback(&huart3);
+	HAL_UART_TxCpltCallback(&huart3);
+	
+	
+	GPS_USART6_UART_Init(9600);
+	ubloxInitGps();
+	
+//	MOTOR_PWR_EN();
+//	
+//	MOTOR_EN(0,0x00);//使能是0x01,
 	
   /* Infinite loop */
   for(;;)

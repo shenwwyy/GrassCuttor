@@ -10,8 +10,6 @@ void Protocol_T_ultrasonic(void);
 void Protocol_SendData(uint8_t *pData,uint16_t Size) ;
 void ublox_Protocol_Send(uint8_t *pData,uint16_t Size);
 
-//extern uint8_t Protocol_TxBuff[256];
-
 #endif
 
 
