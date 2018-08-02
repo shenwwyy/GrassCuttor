@@ -8,3 +8,6 @@
 *.swp
 MDK-ARM/*.uvguix.*
 *.hex
+*.dep
+*.htm
+*.lnp
