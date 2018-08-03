@@ -131,8 +131,18 @@ void Control_WorkingTask(float T)
 			}
 		
 		  //当前位置和参考边的距离
-		  
+		  //计算经纬度，每次上一个点添加0.0000002度即20cm宽度
 		
+			if(Control.Task.firstTimeIntoCircle == 0x01)
+			{
+				 Control.Task.firstTimeIntoCircle = 0x00;
+				
+				 //下一个目标点经纬度变化，然后赋值给目标点。
+				
+				
+			}
+			
+			
 		  //计算当前位置和参考方向的偏差
 		  Control_Route(T,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
 	}

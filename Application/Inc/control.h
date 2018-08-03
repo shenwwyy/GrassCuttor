@@ -209,7 +209,7 @@ typedef struct {
 	float RightForeWheel;
 	float RightBackWheel;
 	
-	
+	uint8_t firstTimeIntoCircle;//首次进入圈内
 	
 	
 }_taskDef;

@@ -3,11 +3,11 @@
 <title>Static Call Graph - [GrassCuttor\GrassCuttor.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image GrassCuttor\GrassCuttor.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Thu Aug 02 08:17:15 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Fri Aug 03 22:37:27 2018
 <BR><P>
 <H3>Maximum Stack Usage =        544 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-StartTask02 &rArr; Control_TaskManage &rArr; Control_ChargingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+StartTask02 &rArr; Control_TaskManage &rArr; Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 <P>
 <H3>
 Mutually Recursive functions
@@ -672,7 +672,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[89]"></a>Control_TaskManage</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, control.o(i.Control_TaskManage))
-<BR><BR>[Stack]<UL><LI>Max Depth = 536<LI>Call Chain = Control_TaskManage &rArr; Control_ChargingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 536<LI>Call Chain = Control_TaskManage &rArr; Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_WorkingTask
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_IdleTask
@@ -682,8 +682,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartTask02
 </UL>
 
-<P><STRONG><a name="[8c]"></a>Control_WorkingTask</STRONG> (Thumb, 246 bytes, Stack size 152 bytes, control.o(i.Control_WorkingTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 528<LI>Call Chain = Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[8c]"></a>Control_WorkingTask</STRONG> (Thumb, 276 bytes, Stack size 160 bytes, control.o(i.Control_WorkingTask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 536<LI>Call Chain = Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_Route
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_PolygonCheck
@@ -1424,7 +1424,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(.constdata)
 </UL>
 <P><STRONG><a name="[68]"></a>StartTask02</STRONG> (Thumb, 176 bytes, Stack size 8 bytes, freertos.o(i.StartTask02))
-<BR><BR>[Stack]<UL><LI>Max Depth = 544<LI>Call Chain = StartTask02 &rArr; Control_TaskManage &rArr; Control_ChargingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 544<LI>Call Chain = StartTask02 &rArr; Control_TaskManage &rArr; Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ubloxInitGps
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
