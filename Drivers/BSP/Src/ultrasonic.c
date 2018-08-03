@@ -7,6 +7,7 @@
 #include "dma.h"
 #include "tim.h"
 #include "gpio.h"
+#include "CONTROL.H"
 
 uint8_t HighLen1 = 0;
 uint8_t LowLen1 = 0;
@@ -74,6 +75,8 @@ void calculate1(uint8_t *data)
 			ture_distance1 = 0;
 			flag1 = ERROR_Distance;
 		}
+		Control.Senser.Sonar.forward.distance = ture_distance1;
+		Control.Senser.Sonar.forward.isValid  = flag1;
 }
 
 void calculate2(uint8_t *data)
@@ -97,6 +100,9 @@ void calculate2(uint8_t *data)
 			ture_distance2 = 0;
 			flag2 = ERROR_Distance;
 		}
+		Control.Senser.Sonar.left.distance = ture_distance2;
+		Control.Senser.Sonar.left.isValid  = flag2;
+		
 }
 
 void calculate3(uint8_t *data)
@@ -120,5 +126,7 @@ void calculate3(uint8_t *data)
 			ture_distance3 = 0;
 			flag3 = ERROR_Distance;
 		}
+		Control.Senser.Sonar.right.distance = ture_distance3;
+		Control.Senser.Sonar.right.isValid  = flag3;
 }
 

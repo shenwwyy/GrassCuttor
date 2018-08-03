@@ -21,7 +21,8 @@ History:
 #include "ublox.h"
 #include "uart.h"
 #include "usart.h"
-
+#include "control.h"
+#include "senser.h"
 //void ublox_Protocol_Send(uint8_t *data,uint8_t Len)//发送函数封装，使用函数式
 //{
 //	//HAL_UART_Transmit(&huart6,data,Len,0);
@@ -414,28 +415,28 @@ void Protocol_NAV_VELNED(uint8_t *data)
 	src.B[2] = data[data_count++];
 	src.B[3] = data[data_count++];
 	NAV_VELNED[src_count++] = src.W * 0.01f;
-	velN=NAV_VELNED[1];
+	Control.Senser.GPS.vn=NAV_VELNED[1];
 
 	src.B[0] = data[data_count++];
 	src.B[1] = data[data_count++];
 	src.B[2] = data[data_count++];
 	src.B[3] = data[data_count++];
 	NAV_VELNED[src_count++] = src.W;
-	velE=NAV_VELNED[2] * 1e-2;
+	Control.Senser.GPS.ve=NAV_VELNED[2] * 1e-2;
 	
 	src.B[0] = data[data_count++];
 	src.B[1] = data[data_count++];
 	src.B[2] = data[data_count++];
 	src.B[3] = data[data_count++];
 	NAV_VELNED[src_count++] = src.W;
-	velD=NAV_VELNED[3] * 1e-2;
+	Control.Senser.GPS.ve=NAV_VELNED[3] * 1e-2;
 	
 	src.B[0] = data[data_count++];
 	src.B[1] = data[data_count++];
 	src.B[2] = data[data_count++];
 	src.B[3] = data[data_count++];
 	NAV_VELNED[src_count++] = src.W;
-	speed=NAV_VELNED[4] * 1e-2;
+	Control.Senser.GPS.speed=NAV_VELNED[4] * 1e-2;
 
 	src.B[0] = data[data_count++];
 	src.B[1] = data[data_count++];
@@ -449,7 +450,7 @@ void Protocol_NAV_VELNED(uint8_t *data)
 	src.B[2] = data[data_count++];
 	src.B[3] = data[data_count++];
 	NAV_VELNED[src_count++] = src.W;
-	heading=NAV_VELNED[6] * 1e-5;
+	Control.Senser.GPS.course=NAV_VELNED[6] * 1e-5;
 	
 	src.B[0] = data[data_count++];
 	src.B[1] = data[data_count++];
@@ -482,7 +483,7 @@ void Protocol_NAV_STATUS(uint8_t *data)
 	
 	src.T = data[data_count++];
 	NAV_STATUS[src_count++] = src.T;
-	gpsFix = NAV_STATUS[1];
+	Control.Senser.GPS.fix = NAV_STATUS[1];
 	
 	src.T  = data[data_count++];
 	NAV_STATUS[src_count++] = src.T;
@@ -531,21 +532,21 @@ void Protocol_NAV_POSLLH(uint8_t *data)
 	src.B[2] = data[data_count++];
 	src.B[3] = data[data_count++];
 	NAV_POSLLH[src_count++] = src.D;
-	lon = NAV_POSLLH[1] * 1e-7;
+	Control.Senser.GPS.longitude = NAV_POSLLH[1] * 1e-7;
 
 	src.B[0] = data[data_count++];
 	src.B[1] = data[data_count++];
 	src.B[2] = data[data_count++];
 	src.B[3] = data[data_count++];
 	NAV_POSLLH[src_count++] = src.D;
-	lat = NAV_POSLLH[2] * 1e-7;
+	Control.Senser.GPS.latitude = NAV_POSLLH[2] * 1e-7;
 	
 	src.B[0] = data[data_count++];
 	src.B[1] = data[data_count++];
 	src.B[2] = data[data_count++];
 	src.B[3] = data[data_count++];
 	NAV_POSLLH[src_count++] = src.D;
-	height = NAV_POSLLH[3] * 1e-3 ;
+	Control.Senser.GPS.altitude = NAV_POSLLH[3] * 1e-3 ;
 	
 	src.B[0] = data[data_count++];
 	src.B[1] = data[data_count++];
