@@ -190,6 +190,7 @@ typedef struct {
 	_point   ReferencePoint1;
 	_point   ReferencePoint2;
 	_point   PointGroups[MaxPoint];
+	_point   PointTaskGroups[MaxPoint];
 	uint32_t PointGroupsNumber;
 	
 	_idletask Idle;

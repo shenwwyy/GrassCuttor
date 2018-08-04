@@ -27,11 +27,53 @@ Project File Date:  08/02/2018
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'GrassCuttor'
+compiling Senser.c...
+compiling ublox.c...
+..\Drivers\BSP\Src\ublox.c(403): warning:  #177-D: variable "speed"  was declared but never referenced
+  	uint32_t speed,gSpeed,sAcc,cAcc;
+..\Drivers\BSP\Src\ublox.c(403): warning:  #550-D: variable "gSpeed"  was set but never used
+  	uint32_t speed,gSpeed,sAcc,cAcc;
+..\Drivers\BSP\Src\ublox.c(403): warning:  #550-D: variable "sAcc"  was set but never used
+  	uint32_t speed,gSpeed,sAcc,cAcc;
+..\Drivers\BSP\Src\ublox.c(403): warning:  #550-D: variable "cAcc"  was set but never used
+  	uint32_t speed,gSpeed,sAcc,cAcc;
+..\Drivers\BSP\Src\ublox.c(474): warning:  #550-D: variable "iTOW"  was set but never used
+  	uint32_t iTOW,ttff,msss;
+..\Drivers\BSP\Src\ublox.c(474): warning:  #550-D: variable "ttff"  was set but never used
+  	uint32_t iTOW,ttff,msss;
+..\Drivers\BSP\Src\ublox.c(474): warning:  #550-D: variable "msss"  was set but never used
+  	uint32_t iTOW,ttff,msss;
+..\Drivers\BSP\Src\ublox.c(475): warning:  #177-D: variable "gpsFix"  was declared but never referenced
+  	uint8_t gpsFix,flags,fixStat,flags2;
+..\Drivers\BSP\Src\ublox.c(475): warning:  #550-D: variable "flags"  was set but never used
+  	uint8_t gpsFix,flags,fixStat,flags2;
+..\Drivers\BSP\Src\ublox.c(475): warning:  #550-D: variable "fixStat"  was set but never used
+  	uint8_t gpsFix,flags,fixStat,flags2;
+..\Drivers\BSP\Src\ublox.c(475): warning:  #550-D: variable "flags2"  was set but never used
+  	uint8_t gpsFix,flags,fixStat,flags2;
+..\Drivers\BSP\Src\ublox.c(520): warning:  #550-D: variable "iTOW"  was set but never used
+  	uint32_t iTOW,hAcc,vAcc;
+..\Drivers\BSP\Src\ublox.c(520): warning:  #550-D: variable "hAcc"  was set but never used
+  	uint32_t iTOW,hAcc,vAcc;
+..\Drivers\BSP\Src\ublox.c(520): warning:  #550-D: variable "vAcc"  was set but never used
+  	uint32_t iTOW,hAcc,vAcc;
+..\Drivers\BSP\Src\ublox.c: 14 warnings, 0 errors
+compiling control.c...
+..\Application\Src\control.c(62): warning:  #177-D: variable "UNUSED"  was declared but never referenced
+  	float *UNUSED;
+..\Application\Src\control.c(405): warning:  #550-D: parameter "Brate"  was set but never used
+  void KB_Line(_point P1,_point P2,float Krate,float Brate,float Offset,_point *Target,_point *Next)
+..\Application\Src\control.c(435): warning:  #177-D: variable "Kp"  was declared but never referenced
+  	   float Kp = 0;
+..\Application\Src\control.c(438): warning:  #177-D: variable "CrossErr"  was declared but never referenced
+  	   float CrossErr;
+..\Application\Src\control.c: 4 warnings, 0 errors
+compiling freertos.c...
 compiling ultrasonic.c...
 linking...
-Program Size: Code=23460 RO-data=980 RW-data=168 ZI-data=45432  
+Program Size: Code=23476 RO-data=980 RW-data=168 ZI-data=56632  
 FromELF: creating hex file...
-"GrassCuttor\GrassCuttor.axf" - 0 Error(s), 0 Warning(s).
+"GrassCuttor\GrassCuttor.axf" - 0 Error(s), 18 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -54,7 +96,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.1.1
-Build Time Elapsed:  00:00:06
+Build Time Elapsed:  00:00:17
 </pre>
 </body>
 </html>

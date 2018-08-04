@@ -22,6 +22,15 @@ _controlDef Control;
 //任务管理级别
 void Control_TaskManage(float T,uint32_t id)
 {
+	    //更新当前的位置信息
+	    Control.Task.CurrentPoint.altitude  = Control.Senser.GPS.altitude;
+	    Control.Task.CurrentPoint.latitude  = Control.Senser.GPS.latitude;
+	    Control.Task.CurrentPoint.longitude = Control.Senser.GPS.longitude;
+	    Control.Task.CurrentPoint.course    = Control.Senser.GPS.course;
+	    Control.Task.CurrentPoint.speed     = Control.Senser.GPS.speed;
+	
+	    
+	    //任务开始
 	    switch(id)
 			{
 				case IdleTask:
@@ -129,7 +138,7 @@ void Control_WorkingTask(float T)
 				   //给目标点赋值
 				   Control.Task.TargetPoint = Control.Task.TargetPoint;
 			}
-		
+/*		
 		  //当前位置和参考边的距离
 		  //计算经纬度，每次上一个点添加0.0000002度即20cm宽度
 		
@@ -138,10 +147,8 @@ void Control_WorkingTask(float T)
 				 Control.Task.firstTimeIntoCircle = 0x00;
 				
 				 //下一个目标点经纬度变化，然后赋值给目标点。
-				
-				
 			}
-			
+		*/	
 			
 		  //计算当前位置和参考方向的偏差
 		  Control_Route(T,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
