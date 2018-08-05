@@ -2,7 +2,7 @@
 #include "ublox.h"
 #include "ultrasonic.h"
 #include "usart.h"
-
+#include "control.h"
 
 #include<stdio.h>
 #include<string.h> 
@@ -51,29 +51,44 @@ extern UART_HandleTypeDef huart6;
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	//uint8_t com_data;
-  if (huart->Instance == USART1)  {
+  if (huart->Instance == USART1)  {//U1
       
 			HAL_UART_Receive_DMA(&huart1, (uint8_t *)RxBuf1, 2);
 			calculate1(RxBuf1);			
     }
-	else if (huart->Instance == USART2)  {
+	else if (huart->Instance == USART2)  {//U2
 		    
       HAL_UART_Receive_DMA(&huart2, (uint8_t *)RxBuf2, 2);//继续下一个字节
 			calculate2(RxBuf2);
     }
-	else if (huart->Instance == USART3)  {
+	else if (huart->Instance == USART3)  {//U3
 		
       HAL_UART_Receive_DMA(&huart3, (uint8_t *)RxBuf3, 2);//继续下一个字节
 			calculate3(RxBuf3);
     }
-	else if (huart->Instance == UART4)  {
+	else if (huart->Instance == UART4)  {//NONE
 		
         HAL_UART_Receive_IT(huart, &RxBuf4, 1);
     }
-	else if (huart->Instance == UART5)  {
+	else if (huart->Instance == UART5)  {//NONE
+		
+		for(uint16_t i = 0;i<sizeof(Control.Car.HLink.rbuff);i++)
+		{
+			  Control.Car.HLink.rxbuff[Control.Car.HLink.r_head] = Control.Car.HLink.rbuff[i];
+			  
+			  Control.Car.HLink.r_head++;
+			  if(Control.Car.HLink.r_head>=sizeof(Control.Car.HLink.rxbuff))
+				{
+					 //如果超过缓冲区大小，那么从头开始存放
+					 Control.Car.HLink.r_head = 0;
+				}
+			  
+		}
+		
+		
 
     }
-	else if (huart->Instance == USART6)  {
+	else if (huart->Instance == USART6)  {//GPS
 				
 		HAL_UART_Receive_IT(huart, &RxBuf6, 1);
 		ublox_Protocol_Prepare(RxBuf6);
@@ -87,10 +102,10 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 				Protocol_T_ultrasonic();
     }
 	  else if (huart->Instance == USART2)  {
-       Protocol_T_ultrasonic();
+        Protocol_T_ultrasonic();
     }
 	  else if (huart->Instance == USART3)  {
-			Protocol_T_ultrasonic();
+			  Protocol_T_ultrasonic();
     }
 	  else if (huart->Instance == UART4)  {
         
@@ -111,7 +126,9 @@ void Protocol_SendData(uint8_t *pData,uint16_t Size)
    	}
 	  
 	  HAL_UART_Transmit_DMA(&huart1,Protocol_TxBuff,Size);
-		HAL_UART_Transmit_DMA(&huart6,Protocol_TxBuff,Size);
+		HAL_UART_Transmit_DMA(&huart2,Protocol_TxBuff,Size);
+		HAL_UART_Transmit_DMA(&huart3,Protocol_TxBuff,Size);
+		//HAL_UART_Transmit_DMA(&huart6,Protocol_TxBuff,Size);
 }
 
 void ublox_Protocol_Send(uint8_t *pData,uint16_t Size)

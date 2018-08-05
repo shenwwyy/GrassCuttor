@@ -106,8 +106,7 @@ void Control_WorkingTask(float T)
 	//小车割草过程中，随时检查自身电量是否达到最低门限，如果到达，那么中断任务，并且记录当前的位置和航向，然后切换至充电任务
 	//割草任务完成，小车启动返航任务
 	
-	
-	
+
 	if(Control.Senser.Voltage.Battery1.Battery <= Control.Senser.Voltage.Battery1.Min)
 	{
 		   Control.Task.Working.BatCount += T;

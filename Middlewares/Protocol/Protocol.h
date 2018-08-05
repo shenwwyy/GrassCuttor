@@ -4,7 +4,7 @@
 #define _PROTOCOL_H_
 
 
-#include "stm32f7xx_hal.h"
+#include "stm32f4xx_hal.h"
 
 /*=================================
 Protocol CMD define

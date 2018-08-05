@@ -41,6 +41,23 @@ extern enum {
 }_charge_status;
 
 
+#define TX_BUFF_SIZE  1024
+#define RX_BUFF_SIZE  1024
+typedef struct {
+	
+	 uint8_t rbuff[10];
+	
+	 uint8_t txbuff[TX_BUFF_SIZE];
+	 uint8_t rxbuff[RX_BUFF_SIZE];
+	
+	 uint16_t r_tail;
+	 uint16_t r_head;
+	
+	 uint16_t t_head;
+	
+}_hlink;
+
+
 
 typedef struct {
 	
@@ -50,6 +67,8 @@ typedef struct {
 	
 	float Diameter;//Ö±¾¶
 	
+	
+	_hlink HLink;
 	
 }_car;
 
@@ -218,6 +237,7 @@ typedef struct {
 
 
 typedef struct {
+	
 	_car Car;
 	_taskDef Task;
 	_senser Senser;

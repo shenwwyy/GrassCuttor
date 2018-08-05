@@ -143,6 +143,11 @@ void StartDefaultTask(void const * argument)
 //	HAL_UART_RxCpltCallback(&huart3);
 //	HAL_UART_TxCpltCallback(&huart3);
 	
+	//数据链接收调用
+	HAL_UART_Receive_DMA(&huart5,Control.Car.HLink.rbuff,sizeof(Control.Car.HLink.rbuff));
+	
+	
+	
   /* Infinite loop */
   for(;;)
   {
@@ -166,7 +171,8 @@ void StartDefaultTask(void const * argument)
 		osDelay(250);
 		
 		
-		//输出控制量
+		//数传解码
+		
 		
 		
 		
