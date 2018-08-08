@@ -78,7 +78,6 @@ void Control_IdleTask(float T)
 	}
 	
 	//等待任务切换的命令在另外的循环完成，这个循环一直检查串口接收buff，和解码程序
-	
 	//任务一旦想要切换过去，那么就要检测当前电压是否能够支持任务如果不支持，拒绝执行切草任务
 	if(Control.Command.WannaTask == WorkingTask)
 	{
@@ -147,7 +146,7 @@ void Control_WorkingTask(float T)
 				
 				 //下一个目标点经纬度变化，然后赋值给目标点。
 			}
-		*/	
+*/	
 			
 		  //计算当前位置和参考方向的偏差
 		  Control_Route(T,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
@@ -170,7 +169,7 @@ void Control_ChargingTask(float T)
 			 //设置目标点
        Control.Task.TargetPoint = Control.Task.ChargePoint;
 			 //航线控制
-			 Control_Route(T,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
+			 Control_Route(T,Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
 			
 			//判断当前点如果在木点内部1m之内，那么认为到达充电点
 			if(Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.TargetPoint,1.0f,0) == true)
@@ -245,7 +244,6 @@ void Control_BackHomeTask(float T)
 {
 	//收到返航命令，小车目标改为充电桩位置，并且一路保持避障，回到充电桩附近，然后寻找充电设备，精确对上后，进入充电桩，完成后切换到空闲任务
 	//这个过程小车可以接受任务命令，例如去一块新的地方进行割草任务，停止刹车等
-	//
 	
 	Control.Task.Task_id = ChargingTask;
 	Control.Task.Charging.ChargeStatus = uncharge;
@@ -421,17 +419,18 @@ void KB_Line(_point P1,_point P2,float Krate,float Brate,float Offset,_point *Ta
 }
 
 
-
-
-
-
-
 //行走控制
-void Control_Route(float T,_point Current,_point Target,_sonar Sonar,float PosOffset)
+void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar,float PosOffset)
 {
 	   float Kp = 0;
 	   float PositionErr,HeadingErr;
 	   float Current_Target_Heading;
+	   float Last_Target_Heading;
+	   float use_Heading;
+	
+	   float CrossDistance;
+	
+	
 	   float CrossErr;
 	
 	   uint8_t SonarFlag = 0;
@@ -448,9 +447,15 @@ void Control_Route(float T,_point Current,_point Target,_sonar Sonar,float PosOf
 	   HeadingErr = To_180_degrees(HeadingErr);
 	
 	   //计算侧偏
-	   
+	   //当前到目标，额角度，距离，计算出侧偏，而且目标值不变的话，那么的出来的侧偏永远都是同一个符号
+	   Last_Target_Heading = POS_Heading(Last.latitude,Last.longitude,Target.latitude,Target.longitude);
 	
-	
+	   use_Heading = Last_Target_Heading - Current_Target_Heading;
+		 //转换到180度格式
+		 use_Heading = To_180_degrees(use_Heading);
+	   //算出侧偏距
+	   CrossDistance = PositionErr * sin(use_Heading * 0.017453278f);//转成弧度制
+		 
 	   //通过侧向的障碍物判断是否要增加航向角误差
 	   
 	   if((Sonar.left.isValid == 0x01)&&(Sonar.left.distance <= 0.2f)) SonarFlag |= 0x04;//0000 0100
@@ -524,7 +529,7 @@ void Control_Route(float T,_point Current,_point Target,_sonar Sonar,float PosOf
 		 
 		 
 		 Control.Task.PositionOutPut = LIMIT(10.0f * PositionErr - 2.0f * Current.speed,-1000,1000);
-		 Control.Task.HeadingOutPut  = LIMIT(10.0f * HeadingErr + 10.0f * PosOffset,-500,500);
+		 Control.Task.HeadingOutPut  = LIMIT(10.0f * HeadingErr + 10.0f * (CrossDistance - PosOffset),-1000,1000);
 }
 
 

@@ -86,6 +86,8 @@ extern _cmd ProtocolCMD;
  *
  *====================================================================
  */
+void Protocol_DataCombin(uint8_t *pData,uint16_t Size) ;
+
 void Protocol_Transmit(float T);
 
 

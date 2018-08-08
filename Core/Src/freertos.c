@@ -66,6 +66,9 @@
 #include "dma.h"
 #include "usart.h"
 #include "gpio.h"
+
+#include "protocol.h"
+
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
@@ -151,7 +154,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(250);//50ms
+    osDelay(100);//50ms
 		LED_Toggle(0);
 		
 		//当前动作运行完成后，开始切换任务，让其他任务得以运行
@@ -160,21 +163,30 @@ void StartDefaultTask(void const * argument)
 		//加入传感器读取
 		//超声波1读取
 		//延时250ms
-		osDelay(250);
+		//osDelay(250);
 		
 		//超声波2读取
 		//延时250ms
-		osDelay(250);
+		//osDelay(250);
 		
 		//超声波3读取
 		//延时250ms
-		osDelay(250);
+		//osDelay(250);
 		
 		
+		//数传发送
+		Protocol_Transmit(0.1f);
 		//数传解码
-		
-		
-		
+		while(Control.Car.HLink.r_tail != Control.Car.HLink.r_head)
+		{
+			 Protocol_Prepare(Control.Car.HLink.rxbuff[Control.Car.HLink.r_tail]);
+			
+			 Control.Car.HLink.r_tail++;
+			 if(Control.Car.HLink.r_tail >= sizeof(Control.Car.HLink.rxbuff))
+			 {
+				 Control.Car.HLink.r_tail = 0;
+			 }
+		}
 		
 		
 		osThreadYield();

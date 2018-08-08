@@ -3,7 +3,7 @@
 #include "stm32f4xx_hal.h"
 #include "protocol.h"
 #include "uart.h"
-
+#include "control.h"
 /*==========================
 命令定义
 ===========================*/
@@ -110,20 +110,22 @@ uint16_t CyclicRedundancyCheck(unsigned char *data)
  *
  *====================================================================
  */
-extern UART_HandleTypeDef huart1;
-extern UART_HandleTypeDef huart3;
+
 
 //uint8_t Protocol_TxBuff[256];//发送的缓存
 
-//void Protocol_SendData(uint8_t *pData,uint16_t Size)  
-//{
-//	  for(uint16_t i = 0;i<Size;i++)
-//	  {
-//			 Protocol_TxBuff[i] = pData[i];
-//   	}
-//	  
-//	  //HAL_UART_Transmit_DMA(&huart5,Protocol_TxBuff,Size);
-//}
+void Protocol_DataCombin(uint8_t *pData,uint16_t Size)  
+{	  
+	 for(uint16_t i = 0;i<Size;i++)
+	{
+		  Control.Car.HLink.txbuff[Control.Car.HLink.t_head] = pData[i];
+	    Control.Car.HLink.t_head++;
+		  if(Control.Car.HLink.t_head >= sizeof(Control.Car.HLink.txbuff))
+			{
+				Control.Car.HLink.t_head = 0;
+			}
+	}
+}
 
 void Protocol_Transmit(float T)
 {
@@ -236,7 +238,7 @@ void Protocol_T_Version(uint16_t Hardware,uint16_t Software,uint16_t Protocol,ui
 	    DataToSend[DataCount++] = SUM;
 			
 			//Send
-			Protocol_SendData(DataToSend,DataCount);
+			Protocol_DataCombin(DataToSend,DataCount);
 }
 
 
@@ -276,7 +278,7 @@ void Protocol_T_Echo(uint8_t ID,uint8_t Echo1,uint8_t Echo2,uint8_t Echo3,uint8_
 	    DataToSend[DataCount++] = SUM;
 			
 			//Send
-			Protocol_SendData(DataToSend,DataCount);
+			Protocol_DataCombin(DataToSend,DataCount);
 }
 
 
@@ -764,7 +766,7 @@ void Protocol_T_PID(uint8_t ID,float PID1_P,float PID1_I,float PID1_D,
 	    DataToSend[DataCount++] = SUM;
 			
 			//Send
-			Protocol_SendData(DataToSend,DataCount);
+			Protocol_DataCombin(DataToSend,DataCount);
 }
 
 
@@ -842,7 +844,7 @@ void Protocol_T_Dot(uint8_t Function,uint8_t Groups,
 			DataToSend[DataCount++] = src.B[1];
 			
 			//Send
-			Protocol_SendData(DataToSend,DataCount);
+			Protocol_DataCombin(DataToSend,DataCount);
 }	
 
 
@@ -925,7 +927,7 @@ void Protocol_T_TaskSetting(uint8_t ID,
 	    DataToSend[DataCount++] = SUM;
 			
 			//Send
-			Protocol_SendData(DataToSend,DataCount);									 				
+			Protocol_DataCombin(DataToSend,DataCount);									 				
 }
 													 
 
@@ -977,7 +979,7 @@ void Protocol_T_Calibration(uint8_t SenserType,
 	    DataToSend[DataCount++] = SUM;
 			
 			//Send
-			Protocol_SendData(DataToSend,DataCount);									 				
+			Protocol_DataCombin(DataToSend,DataCount);									 				
 }
 
 
@@ -1030,7 +1032,7 @@ void Protocol_T_BiasPrameter(uint8_t SenserType,uint8_t DataType,
 	    DataToSend[DataCount++] = SUM;
 			
 			//Send
-			Protocol_SendData(DataToSend,DataCount);									 				
+			Protocol_DataCombin(DataToSend,DataCount);									 				
 }
 
 
@@ -1083,7 +1085,7 @@ void Protocol_T_ServoPolar(uint8_t ID, uint8_t PWM1, uint8_t PWM2, uint8_t PWM3,
    DataToSend[DataCount++]=sum;
      //=========Send=================
    //qDebug() << DataToSend;
-   Protocol_SendData(DataToSend,DataCount);
+   Protocol_DataCombin(DataToSend,DataCount);
 }
 
 void Protocol_T_ServoPolynomial(uint8_t ID,
@@ -1343,7 +1345,7 @@ void Protocol_T_ServoPolynomial(uint8_t ID,
      //=========Send=================
 
    //qDebug() << DataToSend;
-   Protocol_SendData(DataToSend,DataCount);
+   Protocol_DataCombin(DataToSend,DataCount);
 }
 
 
@@ -1422,22 +1424,6 @@ uint8_t Protocol_RingBuf_Read(uint8_t* pData,uint16_t* pLen)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 static unsigned char CheckSum(uint8_t *buff)
 {   
 	  unsigned char i,ReturnVelue;
@@ -1472,7 +1458,7 @@ void Protocol_Prepare(uint8_t data)
 		    ProState=3;
 		    Protocol_RxBuffer[2]=data;		
 	}
-	else if(ProState==3)//第四个字,长度小于64
+	else if(ProState==3)//第四个字,长度小于256
 	{
 		  _data_len = data + 1;
 		  _data_cnt = 4;
@@ -1555,7 +1541,23 @@ void Protocol_R_CMD(uint8_t *data)//00
 		CMDG = CMDG;
 		CMDH = CMDH;
 	
-	
+	  switch(ID)
+		{
+			case 0x04:
+				{  
+					 if((CMDA&0x01) == 0x01)
+					 {
+						 ProtocolCMD.dot.sendDot   = 1;
+						 ProtocolCMD.dot.sendDotGroup = (CMDA&0xFE) >> 1;
+						 ProtocolCMD.dot.sendDotID ++;
+					 }
+					 else
+					 {
+						 ProtocolCMD.dot.sendDot   = 0;
+						 ProtocolCMD.dot.sendDotID = 0;//取消或者完成传输时，把ID号清零，以便于下次传输
+					 }
+				}break;
+		}
 
 	
 }
@@ -1642,6 +1644,13 @@ void Protocol_R_Dot(uint8_t *data)
 			 Protocol_RouteDot[Groups][CurrentPoint][6] = Radius;
 			 Protocol_RouteDot[Groups][CurrentPoint][7] = Action;
 			 
+			 Control.Task.PointGroupsNumber = TotalPoint;
+			 Control.Task.PointGroups[CurrentPoint].Number    = CurrentPoint;
+			 Control.Task.PointGroups[CurrentPoint].longitude = Longitude;
+			 Control.Task.PointGroups[CurrentPoint].latitude  = Latitude;
+			 Control.Task.PointGroups[CurrentPoint].altitude  = Altitude;
+			 Control.Task.PointGroups[CurrentPoint].speed     = Velocity;
+			 Control.Task.PointGroups[CurrentPoint].course    = Radius;
 			 
 			 ProtocolCMD.dot.GetDot   = 0x01;
        ProtocolCMD.dot.GetDotID = CurrentPoint;

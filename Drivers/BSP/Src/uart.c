@@ -131,6 +131,17 @@ void Protocol_SendData(uint8_t *pData,uint16_t Size)
 		//HAL_UART_Transmit_DMA(&huart6,Protocol_TxBuff,Size);
 }
 
+void UART5_SendData(void)  
+{	  
+	 if(Control.Car.HLink.t_head != 0)
+	 if(HAL_OK == HAL_UART_Transmit_DMA(&huart5,Control.Car.HLink.txbuff,Control.Car.HLink.t_head))
+	 {
+		 Control.Car.HLink.t_head = 0;
+	 }
+}
+
+
+
 void ublox_Protocol_Send(uint8_t *pData,uint16_t Size)
 {
 		 for(uint16_t i = 0;i<Size;i++)

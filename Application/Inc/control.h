@@ -266,7 +266,7 @@ uint8_t Control_PolygonCheck(_point Current,_point Target[],uint16_t TargetNumbe
 uint8_t Control_CircleCheck(_point Current,_point Centre,float Radius,uint8_t Side);
 
 
-void Control_Route(float T,_point Current,_point Target,_sonar Sonar,float PosOffset);
+void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar,float PosOffset);
 
 
 #endif
