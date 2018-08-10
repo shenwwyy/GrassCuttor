@@ -74,6 +74,7 @@
 /* Variables -----------------------------------------------------------------*/
 osThreadId ControltTaskHandle;
 osThreadId DataLinkTaskHandle;
+osThreadId SenserTaskHandle;
 
 /* USER CODE BEGIN Variables */
 
@@ -82,6 +83,7 @@ osThreadId DataLinkTaskHandle;
 /* Function prototypes -------------------------------------------------------*/
 void StartDefaultTask(void const * argument);
 void StartTask02(void const * argument);
+void StartTask03(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -119,6 +121,10 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(DataLinkTask, StartTask02, osPriorityNormal, 0, 256);
   DataLinkTaskHandle = osThreadCreate(osThread(DataLinkTask), NULL);
 
+  /* definition and creation of SenserTask */
+  osThreadDef(SenserTask, StartTask03, osPriorityNormal, 0, 256);
+  SenserTaskHandle = osThreadCreate(osThread(SenserTask), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -134,6 +140,30 @@ void StartDefaultTask(void const * argument)
 
   /* USER CODE BEGIN StartDefaultTask */
 	
+  //PWM初始化
+	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_1);
+	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_2);
+	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_3);
+	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_4);
+	
+	HAL_TIM_IC_Start(&htim3,TIM_CHANNEL_1);
+	HAL_TIM_IC_Start(&htim3,TIM_CHANNEL_2);
+	HAL_TIM_IC_Start(&htim3,TIM_CHANNEL_3);
+	HAL_TIM_IC_Start(&htim3,TIM_CHANNEL_4);
+	
+	
+	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_2);
+
+	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_4);
+	
+	HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_4);
+	
+	
 	//添加传感器初始化
 //	ubloxInitGps();
 //	
@@ -146,10 +176,21 @@ void StartDefaultTask(void const * argument)
 //	HAL_UART_RxCpltCallback(&huart3);
 //	HAL_UART_TxCpltCallback(&huart3);
 	
+	//超声波接收调用
+	HAL_UART_Receive_DMA(&huart1,Control.Senser.Sonar.forward.rxbuff,sizeof(Control.Senser.Sonar.forward.rxbuff));
+	HAL_UART_Receive_DMA(&huart2,Control.Senser.Sonar.left.rxbuff,sizeof(Control.Senser.Sonar.left.rxbuff));
+	HAL_UART_Receive_DMA(&huart3,Control.Senser.Sonar.right.rxbuff,sizeof(Control.Senser.Sonar.right.rxbuff));
+	
 	//数据链接收调用
 	HAL_UART_Receive_DMA(&huart5,Control.Car.HLink.rbuff,sizeof(Control.Car.HLink.rbuff));
 	
 	
+	GPS_USART6_UART_Init(9600);
+	
+	
+	//GPS接收调用
+	HAL_UART_Receive_DMA(&huart6,Control.Senser.GPS.rbuff,sizeof(Control.Senser.GPS.rbuff));
+	ubloxInitGps();
 	
   /* Infinite loop */
   for(;;)
@@ -199,36 +240,12 @@ void StartTask02(void const * argument)
 {
   /* USER CODE BEGIN StartTask02 */
 	
-	//HAL_TIM_Base_Start(&htim8);
-	//HAL_TIM_Base_Start(&htim3);
 	
-	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_1);
-	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_2);
-	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_3);
-	HAL_TIM_IC_Start(&htim1,TIM_CHANNEL_4);
+
 	
-	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
-	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_2);
-	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_3);
-	HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_4);
+
 	
-	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_1);
-	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_2);
-	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_3);
-	HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_4);
-	
-	HAL_UART_RxCpltCallback(&huart1);
-	HAL_UART_TxCpltCallback(&huart1);
-	
-	HAL_UART_RxCpltCallback(&huart2);
-	HAL_UART_TxCpltCallback(&huart2);
-	
-	HAL_UART_RxCpltCallback(&huart3);
-	HAL_UART_TxCpltCallback(&huart3);
-	
-	
-	GPS_USART6_UART_Init(9600);
-	ubloxInitGps();
+
 	
 //	MOTOR_PWR_EN();
 //	
@@ -245,6 +262,63 @@ void StartTask02(void const * argument)
 		osThreadYield();
   }
   /* USER CODE END StartTask02 */
+}
+
+/* StartTask03 function */
+void StartTask03(void const * argument)
+{
+  /* USER CODE BEGIN StartTask03 */
+	
+	uint16_t timecount = 0;
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(10);
+		timecount+=10;
+		//读取超声波
+		if((timecount == 250)&&(Control.Senser.Sonar.forward.isUpdated == 0x00))
+		   Ultrasonic_ReadFront();
+		else if((timecount == 500)&&(Control.Senser.Sonar.left.isUpdated == 0x00))
+       Ultrasonic_ReadLeft();
+		else if((timecount == 750)&&(Control.Senser.Sonar.right.isUpdated == 0x00))
+		{
+       Ultrasonic_ReadRight();
+			 timecount = 0;
+		}
+		//解码超声波
+		if(Control.Senser.Sonar.forward.isUpdated)
+		{
+			 Control.Senser.Sonar.forward.isUpdated = 0x00;
+			 calculate1(Control.Senser.Sonar.forward.rxbuff);
+		}
+		
+		if(Control.Senser.Sonar.left.isUpdated)
+		{
+			 Control.Senser.Sonar.left.isUpdated = 0x00;
+			 calculate2(Control.Senser.Sonar.left.rxbuff);
+		}
+		
+		if(Control.Senser.Sonar.right.isUpdated)
+		{
+			 Control.Senser.Sonar.right.isUpdated = 0x00;
+			 calculate3(Control.Senser.Sonar.right.rxbuff);
+		}
+		
+		//解析GPS
+		while(Control.Senser.GPS.r_tail != Control.Senser.GPS.r_head)
+		{
+			 ublox_Protocol_Prepare(Control.Senser.GPS.rxbuff[Control.Senser.GPS.r_tail]);
+			
+			 Control.Senser.GPS.r_tail++;
+			 if(Control.Senser.GPS.r_tail >= sizeof(Control.Senser.GPS.rxbuff))
+			 {
+				 Control.Senser.GPS.r_tail = 0;
+			 }
+		}
+		
+		
+  }
+  /* USER CODE END StartTask03 */
 }
 
 /* USER CODE BEGIN Application */

@@ -105,12 +105,32 @@ typedef struct {
 	float vn;
 	float ve;
 	float vd;
+	
+	uint8_t rbuff[10];
+	
+  uint8_t txbuff[TX_BUFF_SIZE];
+	uint8_t rxbuff[RX_BUFF_SIZE];
+	
+	uint16_t r_tail;
+	uint16_t r_head;
+	
+	uint16_t t_head;
+	
 }_gps;
 
 
 typedef struct {
+	
+	uint32_t TimeCount;
+	
 	uint8_t isValid;
 	float   distance;
+	
+	uint8_t isUpdated;
+	uint8_t rxbuff[2];
+	uint8_t txbuff[1];
+	
+	
 }_sonar_t;
 
 

@@ -149,7 +149,7 @@ void Control_WorkingTask(float T)
 */	
 			
 		  //计算当前位置和参考方向的偏差
-		  Control_Route(T,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
+		  Control_Route(T,Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
 	}
 }
 

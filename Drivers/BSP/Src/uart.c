@@ -52,23 +52,17 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	//uint8_t com_data;
   if (huart->Instance == USART1)  {//U1
-      
-			HAL_UART_Receive_DMA(&huart1, (uint8_t *)RxBuf1, 2);
-			calculate1(RxBuf1);			
+      Control.Senser.Sonar.forward.isUpdated = 0x01;		
     }
 	else if (huart->Instance == USART2)  {//U2
-		    
-      HAL_UART_Receive_DMA(&huart2, (uint8_t *)RxBuf2, 2);//继续下一个字节
-			calculate2(RxBuf2);
+		  Control.Senser.Sonar.left.isUpdated = 0x01;	
     }
 	else if (huart->Instance == USART3)  {//U3
-		
-      HAL_UART_Receive_DMA(&huart3, (uint8_t *)RxBuf3, 2);//继续下一个字节
-			calculate3(RxBuf3);
+		  Control.Senser.Sonar.right.isUpdated = 0x01;	
     }
 	else if (huart->Instance == UART4)  {//NONE
 		
-        HAL_UART_Receive_IT(huart, &RxBuf4, 1);
+        //HAL_UART_Receive_IT(huart, &RxBuf4, 1);
     }
 	else if (huart->Instance == UART5)  {//NONE
 		
@@ -90,22 +84,36 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     }
 	else if (huart->Instance == USART6)  {//GPS
 				
-		HAL_UART_Receive_IT(huart, &RxBuf6, 1);
-		ublox_Protocol_Prepare(RxBuf6);
-			}
+		for(uint16_t i = 0;i<sizeof(Control.Senser.GPS.rbuff);i++)
+		{
+			  Control.Senser.GPS.rxbuff[Control.Senser.GPS.r_head] = Control.Senser.GPS.rbuff[i];
+			  
+			  Control.Senser.GPS.r_head++;
+			  if(Control.Senser.GPS.r_head>=sizeof(Control.Senser.GPS.rxbuff))
+				{
+					 //如果超过缓冲区大小，那么从头开始存放
+					 Control.Senser.GPS.r_head = 0;
+				}
+			  
+		}
+		
+		
+		
+		
+	}
 
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
 	  if (huart->Instance == USART1)  {
-				Protocol_T_ultrasonic();
+				//Protocol_T_ultrasonic();
     }
 	  else if (huart->Instance == USART2)  {
-        Protocol_T_ultrasonic();
+       // Protocol_T_ultrasonic();
     }
 	  else if (huart->Instance == USART3)  {
-			  Protocol_T_ultrasonic();
+			 // Protocol_T_ultrasonic();
     }
 	  else if (huart->Instance == UART4)  {
         
@@ -125,9 +133,9 @@ void Protocol_SendData(uint8_t *pData,uint16_t Size)
 			 Protocol_TxBuff[i] = pData[i];
    	}
 	  
-	  HAL_UART_Transmit_DMA(&huart1,Protocol_TxBuff,Size);
-		HAL_UART_Transmit_DMA(&huart2,Protocol_TxBuff,Size);
-		HAL_UART_Transmit_DMA(&huart3,Protocol_TxBuff,Size);
+	  //HAL_UART_Transmit_DMA(&huart1,Protocol_TxBuff,Size);
+		//HAL_UART_Transmit_DMA(&huart2,Protocol_TxBuff,Size);
+		//HAL_UART_Transmit_DMA(&huart3,Protocol_TxBuff,Size);
 		//HAL_UART_Transmit_DMA(&huart6,Protocol_TxBuff,Size);
 }
 
@@ -144,7 +152,7 @@ void UART5_SendData(void)
 
 void ublox_Protocol_Send(uint8_t *pData,uint16_t Size)
 {
-		 for(uint16_t i = 0;i<Size;i++)
+		for(uint16_t i = 0;i<Size;i++)
 	  {
 			 Protocol_TxBuff[i] = pData[i];
    	}
@@ -152,17 +160,17 @@ void ublox_Protocol_Send(uint8_t *pData,uint16_t Size)
 }
 
 
-void Protocol_T_ultrasonic(void)
-{
-	    uint8_t DataToSend[1];
-	    uint8_t DataCount = 0;
-	
-			//Function;
-	    DataToSend[DataCount++] = 0x55;
-		
-			//Send
-			Protocol_SendData(DataToSend,DataCount);
-}
+//void Protocol_T_ultrasonic(void)
+//{
+//	    uint8_t DataToSend[1];
+//	    uint8_t DataCount = 0;
+//	
+//			//Function;
+//	    DataToSend[DataCount++] = 0x55;
+//		
+//			//Send
+//			Protocol_SendData(DataToSend,DataCount);
+//}
 
 
 

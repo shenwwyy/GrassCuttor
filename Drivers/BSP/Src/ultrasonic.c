@@ -9,6 +9,15 @@
 #include "gpio.h"
 #include "CONTROL.H"
 
+extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart2;
+extern UART_HandleTypeDef huart3;
+extern UART_HandleTypeDef huart4;
+extern UART_HandleTypeDef huart5;
+extern UART_HandleTypeDef huart6;
+
+
+
 uint8_t HighLen1 = 0;
 uint8_t LowLen1 = 0;
 uint16_t Len_mm1 = 0;
@@ -46,12 +55,35 @@ void bsp_init()
 //	HAL_UART_RxCpltCallback(&huart4);
 //	HAL_UART_RxCpltCallback(&huart5);
 	
-	HAL_GPIO_WritePin(MOTOR_EN1_GPIO_Port, MOTOR_EN1_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(MOTOR_EN2_GPIO_Port, MOTOR_EN2_Pin, GPIO_PIN_RESET);
-	HAL_TIM_Encoder_Start(&htim1,TIM_CHANNEL_ALL);
-   //初始化计数器值为0
-   __HAL_TIM_SetCounter(&htim1,0);
+//	HAL_GPIO_WritePin(MOTOR_EN1_GPIO_Port, MOTOR_EN1_Pin, GPIO_PIN_RESET);
+//	HAL_GPIO_WritePin(MOTOR_EN2_GPIO_Port, MOTOR_EN2_Pin, GPIO_PIN_RESET);
+//	HAL_TIM_Encoder_Start(&htim1,TIM_CHANNEL_ALL);
+//   //初始化计数器值为0
+//   __HAL_TIM_SetCounter(&htim1,0);
 }
+
+
+void Ultrasonic_ReadFront(void)
+{
+	 Control.Senser.Sonar.forward.txbuff[0] = 0x55;
+	 HAL_UART_Transmit_DMA(&huart1,Control.Senser.Sonar.forward.txbuff,sizeof(Control.Senser.Sonar.forward.txbuff));
+}
+
+void Ultrasonic_ReadLeft(void)
+{
+	 Control.Senser.Sonar.left.txbuff[0] = 0x55;
+	 HAL_UART_Transmit_DMA(&huart2,Control.Senser.Sonar.left.txbuff,sizeof(Control.Senser.Sonar.left.txbuff));
+}
+
+void Ultrasonic_ReadRight(void)
+{
+	 Control.Senser.Sonar.right.txbuff[0] = 0x55;
+	 HAL_UART_Transmit_DMA(&huart3,Control.Senser.Sonar.right.txbuff,sizeof(Control.Senser.Sonar.right.txbuff));
+}
+
+
+
+
 
 
 void calculate1(uint8_t *data)

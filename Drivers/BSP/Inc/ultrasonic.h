@@ -3,7 +3,31 @@
 #include "stm32f4xx_hal.h"
 
 void Protocol_Send(uint8_t *data,uint8_t Len);
+
+
+
+
+
+
+
+
+
+
+
 void bsp_init(void);
+
+
+
+
+
+void Ultrasonic_ReadFront(void);
+void Ultrasonic_ReadLeft(void);
+void Ultrasonic_ReadRight(void);
+
+
+
+
+
 void calculate1(uint8_t *data);
 void calculate2(uint8_t *data);
 void calculate3(uint8_t *data);
