@@ -198,25 +198,10 @@ void StartDefaultTask(void const * argument)
     osDelay(100);//50ms
 		LED_Toggle(0);
 		
-		//当前动作运行完成后，开始切换任务，让其他任务得以运行
-		
-		
-		//加入传感器读取
-		//超声波1读取
-		//延时250ms
-		//osDelay(250);
-		
-		//超声波2读取
-		//延时250ms
-		//osDelay(250);
-		
-		//超声波3读取
-		//延时250ms
-		//osDelay(250);
-		
-		
+		//当前动作运行完成后，开始切换任务，让其他任务得以运行		
 		//数传发送
 		Protocol_Transmit(0.1f);
+		UART5_SendData();
 		//数传解码
 		while(Control.Car.HLink.r_tail != Control.Car.HLink.r_head)
 		{
@@ -316,7 +301,7 @@ void StartTask03(void const * argument)
 			 }
 		}
 		
-		
+		osThreadYield();
   }
   /* USER CODE END StartTask03 */
 }

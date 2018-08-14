@@ -46,7 +46,7 @@ void ubloxInitGps(void)
 {
 	HAL_Delay(1000);
 	ubloxSet_PRT(9600,UBLOX_PROTOCOL_UBX,UBLOX_PROTOCOL_UBX);	
-	//ubloxSet_PRT(115200,UBLOX_PROTOCOL_UBX,UBLOX_PROTOCOL_UBX);	
+//	ubloxSet_PRT(115200,UBLOX_PROTOCOL_UBX,UBLOX_PROTOCOL_UBX);	
 
 //	HAL_Delay(100);
 //	__HAL_RCC_GPIOC_CLK_DISABLE();
@@ -56,7 +56,7 @@ void ubloxInitGps(void)
 //	GPS_USART6_UART_Init(115200);
 	
 	HAL_Delay(100);
-	ubloxSet_Rate(500);
+	ubloxSet_Rate(100);
 	HAL_Delay(100);	
 	ubloxmsg_Enable(UBLOX_NAV_CLASS,UBLOX_NAV_POSLLH);	
 	HAL_Delay(100);

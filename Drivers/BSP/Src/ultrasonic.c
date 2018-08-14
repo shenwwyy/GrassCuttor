@@ -65,18 +65,21 @@ void bsp_init()
 
 void Ultrasonic_ReadFront(void)
 {
+	 //Control.Senser.Sonar.forward.isUpdated = 0x00;
 	 Control.Senser.Sonar.forward.txbuff[0] = 0x55;
 	 HAL_UART_Transmit_DMA(&huart1,Control.Senser.Sonar.forward.txbuff,sizeof(Control.Senser.Sonar.forward.txbuff));
 }
 
 void Ultrasonic_ReadLeft(void)
 {
+	 //Control.Senser.Sonar.left.isUpdated = 0x00;
 	 Control.Senser.Sonar.left.txbuff[0] = 0x55;
 	 HAL_UART_Transmit_DMA(&huart2,Control.Senser.Sonar.left.txbuff,sizeof(Control.Senser.Sonar.left.txbuff));
 }
 
 void Ultrasonic_ReadRight(void)
 {
+	 //Control.Senser.Sonar.right.isUpdated = 0x00;
 	 Control.Senser.Sonar.right.txbuff[0] = 0x55;
 	 HAL_UART_Transmit_DMA(&huart3,Control.Senser.Sonar.right.txbuff,sizeof(Control.Senser.Sonar.right.txbuff));
 }
