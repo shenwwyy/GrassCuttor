@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
+  * File Name          : ADC.c
+  * Description        : This file provides code for the configuration
+  *                      of the ADC instances.
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -47,84 +47,117 @@
   ******************************************************************************
   */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H__
-#define __MAIN_H__
-
 /* Includes ------------------------------------------------------------------*/
+#include "adc.h"
 
-/* USER CODE BEGIN Includes */
+#include "gpio.h"
 
-/* USER CODE END Includes */
+/* USER CODE BEGIN 0 */
 
-/* Private define ------------------------------------------------------------*/
+/* USER CODE END 0 */
 
-#define LED1_Pin GPIO_PIN_5
-#define LED1_GPIO_Port GPIOE
-#define LED2_Pin GPIO_PIN_6
-#define LED2_GPIO_Port GPIOE
-#define LED3_Pin GPIO_PIN_13
-#define LED3_GPIO_Port GPIOC
-#define Battery1_Pin GPIO_PIN_0
-#define Battery1_GPIO_Port GPIOC
-#define Battery2_Pin GPIO_PIN_1
-#define Battery2_GPIO_Port GPIOC
-#define Battery3_Pin GPIO_PIN_2
-#define Battery3_GPIO_Port GPIOC
-#define Battery4_Pin GPIO_PIN_3
-#define Battery4_GPIO_Port GPIOC
-#define KEY2_Pin GPIO_PIN_0
-#define KEY2_GPIO_Port GPIOA
-#define MOTOR_EN1_Pin GPIO_PIN_2
-#define MOTOR_EN1_GPIO_Port GPIOB
-#define MOTOR_EN2_Pin GPIO_PIN_7
-#define MOTOR_EN2_GPIO_Port GPIOE
-#define SW1_Pin GPIO_PIN_8
-#define SW1_GPIO_Port GPIOD
-#define SW2_Pin GPIO_PIN_9
-#define SW2_GPIO_Port GPIOD
-#define MOTOR_EN3_Pin GPIO_PIN_10
-#define MOTOR_EN3_GPIO_Port GPIOD
-#define MOTOR_EN4_Pin GPIO_PIN_11
-#define MOTOR_EN4_GPIO_Port GPIOD
-#define PWR_EN1_Pin GPIO_PIN_8
-#define PWR_EN1_GPIO_Port GPIOB
-#define PWR_EN2_Pin GPIO_PIN_9
-#define PWR_EN2_GPIO_Port GPIOB
-#define KEY3_Pin GPIO_PIN_0
-#define KEY3_GPIO_Port GPIOE
-#define KEY3_EXTI_IRQn EXTI0_IRQn
-#define KEY4_Pin GPIO_PIN_1
-#define KEY4_GPIO_Port GPIOE
-#define KEY4_EXTI_IRQn EXTI1_IRQn
+ADC_HandleTypeDef hadc1;
 
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1U */
+/* ADC1 init function */
+void MX_ADC1_Init(void)
+{
+  ADC_ChannelConfTypeDef sConfig;
 
-/* USER CODE BEGIN Private defines */
-#if 0
-#ifdef __NVIC_PRIO_BITS
-#undef __NVIC_PRIO_BITS
-#define __NVIC_PRIO_BITS      4
-#endif
-#endif
+    /**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) 
+    */
+  hadc1.Instance = ADC1;
+  hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
+  hadc1.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc1.Init.ScanConvMode = DISABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.NbrOfConversion = 1;
+  hadc1.Init.DMAContinuousRequests = DISABLE;
+  hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+  if (HAL_ADC_Init(&hadc1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
 
-/* USER CODE END Private defines */
+    /**Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time. 
+    */
+  sConfig.Channel = ADC_CHANNEL_10;
+  sConfig.Rank = 1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
 
-#ifdef __cplusplus
- extern "C" {
-#endif
-void _Error_Handler(char *, int);
-
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
-#ifdef __cplusplus
 }
-#endif
 
-#endif /* __MAIN_H__ */
+void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
+{
+
+  GPIO_InitTypeDef GPIO_InitStruct;
+  if(adcHandle->Instance==ADC1)
+  {
+  /* USER CODE BEGIN ADC1_MspInit 0 */
+
+  /* USER CODE END ADC1_MspInit 0 */
+    /* ADC1 clock enable */
+    __HAL_RCC_ADC1_CLK_ENABLE();
+  
+    /**ADC1 GPIO Configuration    
+    PC0     ------> ADC1_IN10
+    PC1     ------> ADC1_IN11
+    PC2     ------> ADC1_IN12
+    PC3     ------> ADC1_IN13 
+    */
+    GPIO_InitStruct.Pin = Battery1_Pin|Battery2_Pin|Battery3_Pin|Battery4_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN ADC1_MspInit 1 */
+
+  /* USER CODE END ADC1_MspInit 1 */
+  }
+}
+
+void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
+{
+
+  if(adcHandle->Instance==ADC1)
+  {
+  /* USER CODE BEGIN ADC1_MspDeInit 0 */
+
+  /* USER CODE END ADC1_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_ADC1_CLK_DISABLE();
+  
+    /**ADC1 GPIO Configuration    
+    PC0     ------> ADC1_IN10
+    PC1     ------> ADC1_IN11
+    PC2     ------> ADC1_IN12
+    PC3     ------> ADC1_IN13 
+    */
+    HAL_GPIO_DeInit(GPIOC, Battery1_Pin|Battery2_Pin|Battery3_Pin|Battery4_Pin);
+
+  /* USER CODE BEGIN ADC1_MspDeInit 1 */
+
+  /* USER CODE END ADC1_MspDeInit 1 */
+  }
+} 
+
+/* USER CODE BEGIN 1 */
+
+/* USER CODE END 1 */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

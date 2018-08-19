@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
+  * File Name          : ADC.h
+  * Description        : This file provides code for the configuration
+  *                      of the ADC instances.
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -46,85 +46,46 @@
   *
   ******************************************************************************
   */
-
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H__
-#define __MAIN_H__
+#ifndef __adc_H
+#define __adc_H
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32f4xx_hal.h"
+#include "main.h"
 
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 
-/* Private define ------------------------------------------------------------*/
-
-#define LED1_Pin GPIO_PIN_5
-#define LED1_GPIO_Port GPIOE
-#define LED2_Pin GPIO_PIN_6
-#define LED2_GPIO_Port GPIOE
-#define LED3_Pin GPIO_PIN_13
-#define LED3_GPIO_Port GPIOC
-#define Battery1_Pin GPIO_PIN_0
-#define Battery1_GPIO_Port GPIOC
-#define Battery2_Pin GPIO_PIN_1
-#define Battery2_GPIO_Port GPIOC
-#define Battery3_Pin GPIO_PIN_2
-#define Battery3_GPIO_Port GPIOC
-#define Battery4_Pin GPIO_PIN_3
-#define Battery4_GPIO_Port GPIOC
-#define KEY2_Pin GPIO_PIN_0
-#define KEY2_GPIO_Port GPIOA
-#define MOTOR_EN1_Pin GPIO_PIN_2
-#define MOTOR_EN1_GPIO_Port GPIOB
-#define MOTOR_EN2_Pin GPIO_PIN_7
-#define MOTOR_EN2_GPIO_Port GPIOE
-#define SW1_Pin GPIO_PIN_8
-#define SW1_GPIO_Port GPIOD
-#define SW2_Pin GPIO_PIN_9
-#define SW2_GPIO_Port GPIOD
-#define MOTOR_EN3_Pin GPIO_PIN_10
-#define MOTOR_EN3_GPIO_Port GPIOD
-#define MOTOR_EN4_Pin GPIO_PIN_11
-#define MOTOR_EN4_GPIO_Port GPIOD
-#define PWR_EN1_Pin GPIO_PIN_8
-#define PWR_EN1_GPIO_Port GPIOB
-#define PWR_EN2_Pin GPIO_PIN_9
-#define PWR_EN2_GPIO_Port GPIOB
-#define KEY3_Pin GPIO_PIN_0
-#define KEY3_GPIO_Port GPIOE
-#define KEY3_EXTI_IRQn EXTI0_IRQn
-#define KEY4_Pin GPIO_PIN_1
-#define KEY4_GPIO_Port GPIOE
-#define KEY4_EXTI_IRQn EXTI1_IRQn
-
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1U */
+extern ADC_HandleTypeDef hadc1;
 
 /* USER CODE BEGIN Private defines */
-#if 0
-#ifdef __NVIC_PRIO_BITS
-#undef __NVIC_PRIO_BITS
-#define __NVIC_PRIO_BITS      4
-#endif
-#endif
 
 /* USER CODE END Private defines */
 
-#ifdef __cplusplus
- extern "C" {
-#endif
-void _Error_Handler(char *, int);
+extern void _Error_Handler(char *, int);
 
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
+void MX_ADC1_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+
+/* USER CODE END Prototypes */
+
 #ifdef __cplusplus
 }
 #endif
+#endif /*__ adc_H */
 
-#endif /* __MAIN_H__ */
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

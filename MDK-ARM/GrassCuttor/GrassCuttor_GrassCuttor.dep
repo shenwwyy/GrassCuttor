@@ -1,9 +1,9 @@
 Dependencies for Project 'GrassCuttor', Target 'GrassCuttor': (DO NOT MODIFY !)
-F (..\Application\Src\control.c)(0x5B79154F)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\control.o --omf_browse grasscuttor\control.crf --depend grasscuttor\control.d)
-I (..\Application\Inc\control.h)(0x5B78FA29)
+F (..\Application\Src\control.c)(0x5B798418)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\control.o --omf_browse grasscuttor\control.crf --depend grasscuttor\control.d)
+I (..\Application\Inc\control.h)(0x5B797E36)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -23,6 +23,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -35,10 +37,10 @@ I (E:\Keil_v5\ARM\ARMCC\include\math.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x588B8344)
 I (..\Drivers\BSP\Inc\motor.h)(0x5B624CC2)
 I (..\Middlewares\AL\mymath.h)(0x5B78F25F)
-F (../Core/Src/main.c)(0x5B72F4CC)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\main.o --omf_browse grasscuttor\main.crf --depend grasscuttor\main.d)
-I (../Core/Inc/main.h)(0x5B729847)
+F (../Core/Src/main.c)(0x5B791B4E)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\main.o --omf_browse grasscuttor\main.crf --depend grasscuttor\main.d)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -58,6 +60,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -69,7 +73,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -81,17 +85,18 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x5B05087F)
-I (../Core/Inc/dma.h)(0x5B729843)
-I (../Core/Inc/tim.h)(0x5B729845)
-I (../Core/Inc/usart.h)(0x5B729846)
-I (../Core/Inc/gpio.h)(0x5B729837)
+I (../Core/Inc/adc.h)(0x5B791B4A)
+I (../Core/Inc/dma.h)(0x5B791B4B)
+I (../Core/Inc/tim.h)(0x5B791B4D)
+I (../Core/Inc/usart.h)(0x5B791B4D)
+I (../Core/Inc/gpio.h)(0x5B791B3E)
 I (..\Drivers\BSP\Inc\led.h)(0x5B3C24F5)
 I (..\Drivers\BSP\Inc\motor.h)(0x5B624CC2)
-F (../Core/Src/gpio.c)(0x5B729837)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\gpio.o --omf_browse grasscuttor\gpio.crf --depend grasscuttor\gpio.d)
-I (../Core/Inc/gpio.h)(0x5B729837)
+F (../Core/Src/gpio.c)(0x5B791B3E)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\gpio.o --omf_browse grasscuttor\gpio.crf --depend grasscuttor\gpio.d)
+I (../Core/Inc/gpio.h)(0x5B791B3E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -111,6 +116,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -119,11 +126,11 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
-F (../Core/Src/dma.c)(0x5B729843)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\dma.o --omf_browse grasscuttor\dma.crf --depend grasscuttor\dma.d)
-I (../Core/Inc/dma.h)(0x5B729843)
+F (../Core/Src/adc.c)(0x5B791B4A)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\adc.o --omf_browse grasscuttor\adc.crf --depend grasscuttor\adc.d)
+I (../Core/Inc/adc.h)(0x5B791B4A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -143,6 +150,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -151,12 +160,47 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
-F (../Core/Src/freertos.c)(0x5B7907AE)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\freertos.o --omf_browse grasscuttor\freertos.crf --depend grasscuttor\freertos.d)
+I (../Core/Inc/gpio.h)(0x5B791B3E)
+F (../Core/Src/dma.c)(0x5B791B4B)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\dma.o --omf_browse grasscuttor\dma.crf --depend grasscuttor\dma.d)
+I (../Core/Inc/dma.h)(0x5B791B4B)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x5B050865)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x5B05086C)
+I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (../Drivers/CMSIS/Include/core_cmInstr.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/core_cmFunc.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/core_cmSimd.h)(0x5B05086C)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x5B050865)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5B05086D)
+I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
+F (../Core/Src/freertos.c)(0x5B797E5F)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\freertos.o --omf_browse grasscuttor\freertos.crf --depend grasscuttor\freertos.d)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -171,7 +215,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x5B05087F)
 I (..\Drivers\BSP\Inc\led.h)(0x5B3C24F5)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -190,6 +234,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -199,21 +245,22 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 I (..\Drivers\BSP\Inc\motor.h)(0x5B624CC2)
-I (../Core/Inc/tim.h)(0x5B729845)
+I (../Core/Inc/tim.h)(0x5B791B4D)
+I (../Core/Inc/adc.h)(0x5B791B4A)
 I (..\Drivers\BSP\Inc\ublox.h)(0x5B61C15E)
 I (..\Drivers\BSP\Inc\uart.h)(0x5B6D0202)
 I (..\Drivers\BSP\Inc\ultrasonic.h)(0x5B6D0F1E)
-I (..\Application\Inc\control.h)(0x5B78FA29)
-I (../Core/Inc/dma.h)(0x5B729843)
-I (../Core/Inc/usart.h)(0x5B729846)
-I (../Core/Inc/gpio.h)(0x5B729837)
+I (..\Application\Inc\control.h)(0x5B797E36)
+I (../Core/Inc/dma.h)(0x5B791B4B)
+I (../Core/Inc/usart.h)(0x5B791B4D)
+I (../Core/Inc/gpio.h)(0x5B791B3E)
 I (..\Middlewares\Protocol\protocol.h)(0x5B6D0202)
 I (..\Middlewares\AL\mymath.h)(0x5B78F25F)
-F (../Core/Src/tim.c)(0x5B729845)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\tim.o --omf_browse grasscuttor\tim.crf --depend grasscuttor\tim.d)
-I (../Core/Inc/tim.h)(0x5B729845)
+F (../Core/Src/tim.c)(0x5B791B4C)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\tim.o --omf_browse grasscuttor\tim.crf --depend grasscuttor\tim.d)
+I (../Core/Inc/tim.h)(0x5B791B4D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -233,6 +280,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -241,12 +290,12 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
-I (../Core/Inc/gpio.h)(0x5B729837)
-F (../Core/Src/usart.c)(0x5B729846)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\usart.o --omf_browse grasscuttor\usart.crf --depend grasscuttor\usart.d)
-I (../Core/Inc/usart.h)(0x5B729846)
+I (../Core/Inc/gpio.h)(0x5B791B3E)
+F (../Core/Src/usart.c)(0x5B791B4D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\usart.o --omf_browse grasscuttor\usart.crf --depend grasscuttor\usart.d)
+I (../Core/Inc/usart.h)(0x5B791B4D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -266,6 +315,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -274,12 +325,12 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
-I (../Core/Inc/gpio.h)(0x5B729837)
-I (../Core/Inc/dma.h)(0x5B729843)
-F (../Core/Src/stm32f4xx_it.c)(0x5B729846)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_it.o --omf_browse grasscuttor\stm32f4xx_it.crf --depend grasscuttor\stm32f4xx_it.d)
+I (../Core/Inc/gpio.h)(0x5B791B3E)
+I (../Core/Inc/dma.h)(0x5B791B4B)
+F (../Core/Src/stm32f4xx_it.c)(0x5B791B4D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_it.o --omf_browse grasscuttor\stm32f4xx_it.crf --depend grasscuttor\stm32f4xx_it.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -299,6 +350,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -307,11 +360,11 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_it.h)(0x5B729846)
+I (../Core/Inc/stm32f4xx_it.h)(0x5B791B4D)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -323,10 +376,10 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x5B05087F)
-F (../Core/Src/stm32f4xx_hal_msp.c)(0x5B729847)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_msp.o --omf_browse grasscuttor\stm32f4xx_hal_msp.crf --depend grasscuttor\stm32f4xx_hal_msp.d)
+F (../Core/Src/stm32f4xx_hal_msp.c)(0x5B791B4E)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_msp.o --omf_browse grasscuttor\stm32f4xx_hal_msp.crf --depend grasscuttor\stm32f4xx_hal_msp.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -346,6 +399,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -354,10 +409,10 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
-F (../Core/Src/stm32f4xx_hal_timebase_TIM.c)(0x5B729847)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_timebase_tim.o --omf_browse grasscuttor\stm32f4xx_hal_timebase_tim.crf --depend grasscuttor\stm32f4xx_hal_timebase_tim.d)
+F (../Core/Src/stm32f4xx_hal_timebase_TIM.c)(0x5B791B4E)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_timebase_tim.o --omf_browse grasscuttor\stm32f4xx_hal_timebase_tim.crf --depend grasscuttor\stm32f4xx_hal_timebase_tim.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -377,6 +432,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -385,14 +442,14 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
-F (startup_stm32f407xx.s)(0x5B72984A)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1" -I ..\Core\Inc-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 524" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1"--list startup_stm32f407xx.lst --xref -o grasscuttor\startup_stm32f407xx.o --depend grasscuttor\startup_stm32f407xx.d)
+F (startup_stm32f407xx.s)(0x5B791B51)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1" -I ..\Core\Inc-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 524" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1"--list startup_stm32f407xx.lst --xref -o grasscuttor\startup_stm32f407xx.o --depend grasscuttor\startup_stm32f407xx.d)
 F (../Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c)(0x5B05087F)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\heap_4.o --omf_browse grasscuttor\heap_4.crf --depend grasscuttor\heap_4.d)
 I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -404,8 +461,8 @@ F (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c)(0x5
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -417,8 +474,8 @@ F (../Middlewares/Third_Party/FreeRTOS/Source/croutine.c)(0x5B05087F)(--c99 -c -
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -432,8 +489,8 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -448,8 +505,8 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -462,8 +519,8 @@ I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -478,8 +535,8 @@ I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -494,8 +551,8 @@ I (E:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -511,8 +568,8 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -536,8 +593,8 @@ I (../Drivers/CMSIS/Include/core_cmFunc.h)(0x5B05086C)
 I (../Drivers/CMSIS/Include/core_cmSimd.h)(0x5B05086C)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x5B050865)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5B05086D)
@@ -548,6 +605,74 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
+F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_adc.o --omf_browse grasscuttor\stm32f4xx_hal_adc.crf --depend grasscuttor\stm32f4xx_hal_adc.d)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x5B050865)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x5B05086C)
+I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (../Drivers/CMSIS/Include/core_cmInstr.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/core_cmFunc.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/core_cmSimd.h)(0x5B05086C)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x5B050865)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5B05086D)
+I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
+F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc_ex.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_adc_ex.o --omf_browse grasscuttor\stm32f4xx_hal_adc_ex.crf --depend grasscuttor\stm32f4xx_hal_adc_ex.d)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x5B050865)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x5B05086C)
+I (E:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (../Drivers/CMSIS/Include/core_cmInstr.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/core_cmFunc.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/core_cmSimd.h)(0x5B05086C)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x5B050865)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5B05086D)
+I (E:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -558,8 +683,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_tim.o --omf_browse grasscuttor\stm32f4xx_hal_tim.crf --depend grasscuttor\stm32f4xx_hal_tim.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -579,6 +704,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -589,8 +716,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c)(0x5B05086E)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_tim_ex.o --omf_browse grasscuttor\stm32f4xx_hal_tim_ex.crf --depend grasscuttor\stm32f4xx_hal_tim_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -610,6 +737,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -620,8 +749,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c)(0x5B05086E)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_uart.o --omf_browse grasscuttor\stm32f4xx_hal_uart.crf --depend grasscuttor\stm32f4xx_hal_uart.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -641,6 +770,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -651,8 +782,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_rcc.o --omf_browse grasscuttor\stm32f4xx_hal_rcc.crf --depend grasscuttor\stm32f4xx_hal_rcc.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -672,6 +803,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -682,8 +815,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_rcc_ex.o --omf_browse grasscuttor\stm32f4xx_hal_rcc_ex.crf --depend grasscuttor\stm32f4xx_hal_rcc_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -703,6 +836,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -713,8 +848,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_flash.o --omf_browse grasscuttor\stm32f4xx_hal_flash.crf --depend grasscuttor\stm32f4xx_hal_flash.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -734,6 +869,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -744,8 +881,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_flash_ex.o --omf_browse grasscuttor\stm32f4xx_hal_flash_ex.crf --depend grasscuttor\stm32f4xx_hal_flash_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -765,6 +902,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -775,8 +914,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_flash_ramfunc.o --omf_browse grasscuttor\stm32f4xx_hal_flash_ramfunc.crf --depend grasscuttor\stm32f4xx_hal_flash_ramfunc.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -796,6 +935,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -806,8 +947,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_gpio.o --omf_browse grasscuttor\stm32f4xx_hal_gpio.crf --depend grasscuttor\stm32f4xx_hal_gpio.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -827,6 +968,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -837,8 +980,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_dma_ex.o --omf_browse grasscuttor\stm32f4xx_hal_dma_ex.crf --depend grasscuttor\stm32f4xx_hal_dma_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -858,6 +1001,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -868,8 +1013,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_dma.o --omf_browse grasscuttor\stm32f4xx_hal_dma.crf --depend grasscuttor\stm32f4xx_hal_dma.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -889,6 +1034,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -899,8 +1046,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_pwr.o --omf_browse grasscuttor\stm32f4xx_hal_pwr.crf --depend grasscuttor\stm32f4xx_hal_pwr.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -920,6 +1067,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -930,8 +1079,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_pwr_ex.o --omf_browse grasscuttor\stm32f4xx_hal_pwr_ex.crf --depend grasscuttor\stm32f4xx_hal_pwr_ex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -951,6 +1100,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -961,8 +1112,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal_cortex.o --omf_browse grasscuttor\stm32f4xx_hal_cortex.crf --depend grasscuttor\stm32f4xx_hal_cortex.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -982,6 +1133,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -992,8 +1145,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c)(0x5B05086D)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\stm32f4xx_hal.o --omf_browse grasscuttor\stm32f4xx_hal.crf --depend grasscuttor\stm32f4xx_hal.d)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -1013,6 +1166,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -1024,8 +1179,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (..\Drivers\BSP\Src\LED.c)(0x5B3C24F5)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\led.o --omf_browse grasscuttor\led.crf --depend grasscuttor\led.d)
 I (..\Drivers\BSP\Inc\led.h)(0x5B3C24F5)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -1045,6 +1200,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -1056,8 +1213,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (..\Drivers\BSP\Src\MOTOR.c)(0x5B78F394)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\motor.o --omf_browse grasscuttor\motor.crf --depend grasscuttor\motor.d)
 I (..\Drivers\BSP\Inc\motor.h)(0x5B624CC2)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -1077,6 +1234,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -1085,12 +1244,12 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
-I (../Core/Inc/tim.h)(0x5B729845)
+I (../Core/Inc/tim.h)(0x5B791B4D)
 F (..\Drivers\BSP\Src\Senser.c)(0x5B3C24F5)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\senser.o --omf_browse grasscuttor\senser.crf --depend grasscuttor\senser.d)
 I (..\Drivers\BSP\Inc\Senser.h)(0x5B3C24F5)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -1110,6 +1269,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -1118,12 +1279,12 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
-I (..\Application\Inc\control.h)(0x5B78FA29)
+I (..\Application\Inc\control.h)(0x5B797E36)
 F (..\Drivers\BSP\Src\uart.c)(0x5B6D2B23)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\uart.o --omf_browse grasscuttor\uart.crf --depend grasscuttor\uart.d)
 I (..\Drivers\BSP\Inc\uart.h)(0x5B6D0202)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -1143,6 +1304,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -1153,14 +1316,14 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 I (..\Drivers\BSP\Inc\ublox.h)(0x5B61C15E)
 I (..\Drivers\BSP\Inc\ultrasonic.h)(0x5B6D0F1E)
-I (../Core/Inc/usart.h)(0x5B729846)
-I (..\Application\Inc\control.h)(0x5B78FA29)
+I (../Core/Inc/usart.h)(0x5B791B4D)
+I (..\Application\Inc\control.h)(0x5B797E36)
 I (E:\Keil_v5\ARM\ARMCC\include\string.h)(0x588B8344)
 F (..\Drivers\BSP\Src\ublox.c)(0x5B72DF2F)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\ublox.o --omf_browse grasscuttor\ublox.crf --depend grasscuttor\ublox.d)
 I (..\Drivers\BSP\Inc\ublox.h)(0x5B61C15E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -1180,6 +1343,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -1189,14 +1354,14 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 I (..\Drivers\BSP\Inc\uart.h)(0x5B6D0202)
-I (../Core/Inc/usart.h)(0x5B729846)
-I (..\Application\Inc\control.h)(0x5B78FA29)
+I (../Core/Inc/usart.h)(0x5B791B4D)
+I (..\Application\Inc\control.h)(0x5B797E36)
 I (..\Drivers\BSP\Inc\senser.h)(0x5B3C24F5)
 F (..\Drivers\BSP\Src\ultrasonic.c)(0x5B790248)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\ultrasonic.o --omf_browse grasscuttor\ultrasonic.crf --depend grasscuttor\ultrasonic.d)
 I (..\Drivers\BSP\Inc\ultrasonic.h)(0x5B6D0F1E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -1216,6 +1381,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -1224,12 +1391,12 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
-I (../Core/Inc/usart.h)(0x5B729846)
+I (../Core/Inc/usart.h)(0x5B791B4D)
 I (..\Drivers\BSP\Inc\uart.h)(0x5B6D0202)
 I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x5B05087F)
 I (E:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x588B8344)
-I (../Core/Inc/FreeRTOSConfig.h)(0x5B729845)
+I (../Core/Inc/FreeRTOSConfig.h)(0x5B791B4C)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x5B05087F)
@@ -1241,15 +1408,15 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x5B05087F)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x5B05087F)
-I (../Core/Inc/dma.h)(0x5B729843)
-I (../Core/Inc/tim.h)(0x5B729845)
-I (../Core/Inc/gpio.h)(0x5B729837)
-I (..\Application\Inc\CONTROL.H)(0x5B78FA29)
+I (../Core/Inc/dma.h)(0x5B791B4B)
+I (../Core/Inc/tim.h)(0x5B791B4D)
+I (../Core/Inc/gpio.h)(0x5B791B3E)
+I (..\Application\Inc\CONTROL.H)(0x5B797E36)
 F (..\Middlewares\AL\mymath.c)(0x5AA784F2)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\mymath.o --omf_browse grasscuttor\mymath.crf --depend grasscuttor\mymath.d)
 I (..\Middlewares\AL\mymath.h)(0x5B78F25F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
-I (../Core/Inc/main.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -1269,6 +1436,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -1278,10 +1447,10 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 I (E:\Keil_v5\ARM\ARMCC\include\math.h)(0x588B8344)
-F (..\Middlewares\Protocol\Protocol.c)(0x5B79184C)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\protocol.o --omf_browse grasscuttor\protocol.crf --depend grasscuttor\protocol.d)
-I (../Core/Inc/main.h)(0x5B729847)
+F (..\Middlewares\Protocol\Protocol.c)(0x5B79271C)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IE:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IE:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="524" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\protocol.o --omf_browse grasscuttor\protocol.crf --depend grasscuttor\protocol.d)
+I (../Core/Inc/main.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
-I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B729847)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
 I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
@@ -1301,6 +1470,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
@@ -1311,4 +1482,4 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 I (..\Middlewares\Protocol\protocol.h)(0x5B6D0202)
 I (..\Drivers\BSP\Inc\uart.h)(0x5B6D0202)
-I (..\Application\Inc\control.h)(0x5B78FA29)
+I (..\Application\Inc\control.h)(0x5B797E36)

@@ -1575,6 +1575,19 @@ void Protocol_R_CMD(uint8_t *data)//00
 	
 	  switch(ID)
 		{
+			
+			case 0x02:
+			{
+				 if(CMDA == 0X6D)
+				 {
+					 Control.Command.EmergencyStop = 0x6D;
+					 CMDA = 0;
+				 }
+			}break;
+			
+			
+			
+			
 			case 0x04:
 				{  
 					 if((CMDA&0x01) == 0x01)
@@ -1589,6 +1602,28 @@ void Protocol_R_CMD(uint8_t *data)//00
 						 ProtocolCMD.dot.sendDotID = 0;//取消或者完成传输时，把ID号清零，以便于下次传输
 					 }
 				}break;
+				
+				
+		  case 0x05:
+			{
+				 switch(CMDA)
+				 {
+					 case 0x11:
+					 {
+						 Control.Command.WannaTask = 0x01;
+						 Control.Command.EmergencyStop = 0x00;
+					 }break;
+					 
+					 case 0x44:
+					 {
+						 Control.Task.Task_id = 0x03;
+						 Control.Command.EmergencyStop = 0x00;
+					 }break;
+					 
+				 }
+				 
+			}break;
+				
 		}
 
 	

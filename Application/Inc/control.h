@@ -283,8 +283,21 @@ void Control_ChargingTask(float T);
 void Control_BackHomeTask(float T);
 
 
+
+typedef struct {
+	
+	float (* Distance)(void *);
+	float (* Heading)(void *);
+	void (* LatLon)(void *);
+}_pos;
+
+extern _pos POS;
+
 float POS_Distance(float lat1,float lon1,float lat2,float lon2);
 float POS_Heading(float lat1,float lon1,float lat2,float lon2);
+void  POS_LatLon(float lat1,float lon1,float dLat,float dLon,float *lat2,float *lon2);
+
+
 
 uint8_t Control_PolygonCheck(_point Current,_point Target[],uint16_t TargetNumber,uint8_t Side);
 uint8_t Control_CircleCheck(_point Current,_point Centre,float Radius,uint8_t Side);

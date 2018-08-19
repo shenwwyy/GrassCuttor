@@ -22,19 +22,21 @@ Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
 F:\myFlightControlSystem\GrassCuttor\MDK-ARM\GrassCuttor.uvprojx
-Project File Date:  08/14/2018
+Project File Date:  08/19/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'GrassCuttor'
-compiling Protocol.c...
-..\Middlewares\Protocol\Protocol.c(133): warning:  #177-D: variable "RSSI"  was declared but never referenced
-  	   static uint8_t RSSI = 0;
-..\Middlewares\Protocol\Protocol.c: 1 warning, 0 errors
+compiling control.c...
+..\Application\Src\control.c(62): warning:  #177-D: variable "UNUSED"  was declared but never referenced
+  	float *UNUSED;
+..\Application\Src\control.c(416): warning:  #550-D: parameter "Brate"  was set but never used
+  void KB_Line(_point P1,_point P2,float Krate,float Brate,float Offset,_point *Target,_point *Next)
+..\Application\Src\control.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=31188 RO-data=1008 RW-data=716 ZI-data=126340  
+Program Size: Code=33000 RO-data=1012 RW-data=716 ZI-data=126412  
 FromELF: creating hex file...
-"GrassCuttor\GrassCuttor.axf" - 0 Error(s), 1 Warning(s).
+"GrassCuttor\GrassCuttor.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -57,7 +59,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.1.1
-Build Time Elapsed:  00:00:06
+Build Time Elapsed:  00:00:07
 </pre>
 </body>
 </html>

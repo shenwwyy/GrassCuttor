@@ -16,7 +16,7 @@ _controlDef Control;
 0）待机任务
 1）割草任务
 2）充电任务
-3) 返航任务
+3）返航任务
  */
 
 //任务管理级别
@@ -140,20 +140,11 @@ void Control_WorkingTask(float T)
 				   //保持当前点作为上一个点
 				   Control.Task.LastPoint   = Control.Task.CurrentPoint;
 				   //给目标点赋值
+				
+				   //计算出下一个点的经纬度
+				
 				   Control.Task.TargetPoint = Control.Task.TargetPoint;
 			}
-/*		
-		  //当前位置和参考边的距离
-		  //计算经纬度，每次上一个点添加0.0000002度即20cm宽度
-		
-			if(Control.Task.firstTimeIntoCircle == 0x01)
-			{
-				 Control.Task.firstTimeIntoCircle = 0x00;
-				
-				 //下一个目标点经纬度变化，然后赋值给目标点。
-			}
-*/	
-			
 		  //计算当前位置和参考方向的偏差
 			Control.Car.isunLock = 0x57;
 		  Control_Route(T,Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
@@ -382,6 +373,21 @@ float POS_Heading(float lat1,float lon1,float lat2,float lon2){
 	if(temp < 0)temp += 360.0f;
 	return temp;
 }
+
+/*
+计算经纬度,通过xy的距离分别计算出第二点的经纬度
+dLat为纬度方向的长度单位米，朝北为正
+dLon为经度方向的长度单位米，朝东为正
+*/
+void POS_LatLon(float lat1,float lon1,float dLat,float dLon,float *lat2,float *lon2){
+	
+	*lat2 = lat1 + dLat/110946.0f;
+	*lon2 = lon1 + dLon/(cos(((*lat2 + lat1)/2)* 0.0174532925f)*111318.0f);//纬度1度 = 大约111km = 111319.5米
+	
+}
+
+
+
 
 
 //计算出斜率和偏差y=kx+b
