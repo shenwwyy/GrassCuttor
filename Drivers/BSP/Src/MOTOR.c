@@ -28,14 +28,14 @@ void MOTOR_PWR_DIS(void)
 	  HAL_GPIO_WritePin(PWR_EN2_GPIO_Port,PWR_EN2_Pin,GPIO_PIN_SET);
 }
 
-#define MOTOR_EN1_Pin GPIO_PIN_2
-#define MOTOR_EN1_GPIO_Port GPIOB
-#define MOTOR_EN2_Pin GPIO_PIN_7
-#define MOTOR_EN2_GPIO_Port GPIOE
-#define MOTOR_EN3_Pin GPIO_PIN_10
-#define MOTOR_EN3_GPIO_Port GPIOD
-#define MOTOR_EN4_Pin GPIO_PIN_11
-#define MOTOR_EN4_GPIO_Port GPIOD
+//#define MOTOR_EN1_Pin GPIO_PIN_2
+//#define MOTOR_EN1_GPIO_Port GPIOB
+//#define MOTOR_EN2_Pin GPIO_PIN_7
+//#define MOTOR_EN2_GPIO_Port GPIOE
+//#define MOTOR_EN3_Pin GPIO_PIN_10
+//#define MOTOR_EN3_GPIO_Port GPIOD
+//#define MOTOR_EN4_Pin GPIO_PIN_11
+//#define MOTOR_EN4_GPIO_Port GPIOD
 
 
 void MOTOR_EN(uint8_t Wheel,uint8_t Status)

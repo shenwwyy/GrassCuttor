@@ -70,6 +70,10 @@ typedef struct {
 	
 	_hlink HLink;
 	
+	
+	float BaisThrottle;
+	uint8_t isunLock;
+	
 }_car;
 
 

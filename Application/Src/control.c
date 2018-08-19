@@ -81,16 +81,22 @@ void Control_IdleTask(float T)
 	//任务一旦想要切换过去，那么就要检测当前电压是否能够支持任务如果不支持，拒绝执行切草任务
 	if(Control.Command.WannaTask == WorkingTask)
 	{
-		 if(Control.Senser.Voltage.Battery1.Battery <= (Control.Senser.Voltage.Battery1.Max - Control.Senser.Voltage.Battery1.Min)*0.3f)
+		 if(Control.Senser.Voltage.Battery1.Battery <= ((Control.Senser.Voltage.Battery1.Max - Control.Senser.Voltage.Battery1.Min)*0.3f + Control.Senser.Voltage.Battery1.Min))
 		 {
 				Control.Command.WannaTask = -1;//清除切草任务命令
 			  Control.Task.Task_id = ChargingTask;//切换至充电任务
 			  Control.Task.Charging.ChargeStatus = uncharge;//在充电的路上
 		 }
+		 else
+		 {
+			  Control.Command.WannaTask = -1;//清除切草任务命令
+			  Control.Task.Task_id = WorkingTask;//切换至工作任务
+		 }
 	}
 	
 	
 	//清空输出
+	Control.Car.isunLock = 0x00;
 	Control.Task.PositionOutPut = 0;
 	Control.Task.HeadingOutPut  = 0;
 	
@@ -149,6 +155,7 @@ void Control_WorkingTask(float T)
 */	
 			
 		  //计算当前位置和参考方向的偏差
+			Control.Car.isunLock = 0x57;
 		  Control_Route(T,Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
 	}
 }
@@ -169,6 +176,7 @@ void Control_ChargingTask(float T)
 			 //设置目标点
        Control.Task.TargetPoint = Control.Task.ChargePoint;
 			 //航线控制
+			 Control.Car.isunLock = 0x57;
 			 Control_Route(T,Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
 			
 			//判断当前点如果在木点内部1m之内，那么认为到达充电点
@@ -201,6 +209,7 @@ void Control_ChargingTask(float T)
 				 Control.Task.Charging.ChargeCount = 0;
 			 }
 			 //清空输出
+			 Control.Car.isunLock = 0x00;
 			 Control.Task.PositionOutPut = 0;
 			 Control.Task.HeadingOutPut  = 0;
 			 
@@ -230,6 +239,7 @@ void Control_ChargingTask(float T)
 			 }
 			 
 			 //清空输出
+			 Control.Car.isunLock = 0x00;
 			 Control.Task.PositionOutPut = 0;
 			 Control.Task.HeadingOutPut  = 0;
 			 
@@ -420,8 +430,7 @@ void KB_Line(_point P1,_point P2,float Krate,float Brate,float Offset,_point *Ta
 
 
 //行走控制
-void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar,float PosOffset)
-{
+
 	   float Kp = 0;
 	   float PositionErr,HeadingErr;
 	   float Current_Target_Heading;
@@ -432,19 +441,24 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 	
 	
 	   float CrossErr;
+ uint8_t SonarFlag = 0;
+
+void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar,float PosOffset)
+{
+
 	
-	   uint8_t SonarFlag = 0;
+	  
 	
 	   //计算当前点和目标点的距离，得出前向的输出
 	
 	   PositionErr = POS_Distance(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
 	   
 	   //计算前向，侧向的障碍物，结合当前的航迹角，得出侧向控制输出
-	   //0~360
-	   Current_Target_Heading = POS_Heading(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
+	   //-180~180
+	   Current_Target_Heading = To_180_degrees(POS_Heading(Current.latitude,Current.longitude,Target.latitude,Target.longitude));
 	
-	   HeadingErr = Current_Target_Heading - Current.course;
-	   HeadingErr = To_180_degrees(HeadingErr);
+	   //HeadingErr = Current_Target_Heading - Current.course;
+	   //HeadingErr = To_180_degrees(HeadingErr);
 	
 	   //计算侧偏
 	   //当前到目标，额角度，距离，计算出侧偏，而且目标值不变的话，那么的出来的侧偏永远都是同一个符号
@@ -458,14 +472,14 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 
 	   //通过侧向的障碍物判断是否要增加航向角误差
 	   
-	   if((Sonar.left.isValid == 0x01)&&(Sonar.left.distance <= 0.2f)) SonarFlag |= 0x04;//0000 0100
-		 else                                                            SonarFlag &= 0xfb;//1111 1011
+	   if((Sonar.left.isValid == 0x01)&&(Sonar.left.distance <= 20.2f)) SonarFlag |= 0x04;//0000 0100
+		 else                                                             SonarFlag &= 0xfb;//1111 1011
 		 
-		 if((Sonar.forward.isValid == 0x01)&&(Sonar.forward.distance <= 0.2f)) SonarFlag |= 0x02;//0000 0010
-		 else                                                                  SonarFlag &= 0xfd;//1111 1101
+		 if((Sonar.forward.isValid == 0x01)&&(Sonar.forward.distance <= 20.2f)) SonarFlag |= 0x02;//0000 0010
+		 else                                                                   SonarFlag &= 0xfd;//1111 1101
 		 
-		 if((Sonar.right.isValid == 0x01)&&(Sonar.right.distance <= 0.2f)) SonarFlag |= 0x01;//0000 0001
-		 else                                                              SonarFlag &= 0xfe;//1111 1110
+		 if((Sonar.right.isValid == 0x01)&&(Sonar.right.distance <= 20.2f)) SonarFlag |= 0x01;//0000 0001
+		 else                                                               SonarFlag &= 0xfe;//1111 1110
 		 
 		 SonarFlag &= 0x07;//0000 0111
 	
@@ -473,12 +487,19 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 {
 			 case 0://没有障碍物
 			 {
-				   HeadingErr += 0;
+				   if(HeadingErr > 0)
+				      HeadingErr += (-90.0f);
+					 else if(HeadingErr < 0)
+					    HeadingErr += (90.0f);
+					 else HeadingErr = 0;
+						 
+				   HeadingErr = LIMIT(HeadingErr,-90,90);
 			 }break;
 			 case 1://右侧有障碍物
 			 {
 				   //偏航
-				   HeadingErr += (-10.0f) * T;
+				   HeadingErr += (-25.0f) * T;
+				   HeadingErr = LIMIT(HeadingErr,-90,90);
 				   
 			 }break;
 			 case 2://前向有障碍物
@@ -487,7 +508,8 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 				   //把距离目标值置零，让电机停止
 				   PositionErr = 0;
 				   //偏航
-				   HeadingErr += (-45.0f) * T;
+				   HeadingErr += (-25.0f) * T;
+				   HeadingErr = LIMIT(HeadingErr,-90,90);
 				 
 			 }break;
 			 case 3://右侧和前向有障碍物
@@ -496,18 +518,21 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 				   //把距离目标值置零，让电机停止
 				   PositionErr = 0;
 				   //偏航
-				   HeadingErr += (-45.0f) * T;
+				   HeadingErr += (-25.0f) * T;
+				   HeadingErr = LIMIT(HeadingErr,-90,90);
 				 
 			 }break;
 			 case 4://左侧有障碍物
 			 {
 				   //偏航
-				   HeadingErr += (-10.0f) * T;
+				   HeadingErr += (25.0f) * T;
+				   HeadingErr = LIMIT(HeadingErr,-90,90);
 			 }break;
 			 case 5://左右两侧有障碍物
 			 {
 				   //保持直行，并且调整两侧的侧偏一致
-				   HeadingErr += (Sonar.right.distance - Sonar.left.distance) * 10.0f * T;
+				   HeadingErr += (Sonar.right.distance - Sonar.left.distance) * T;
+				   HeadingErr = LIMIT(HeadingErr,-90,90);
 			 }break;
 			 case 6://左侧和前向有障碍物
 			 {
@@ -515,21 +540,26 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 				   //把距离目标值置零，让电机停止
 				   PositionErr = 0;
 				   //偏航
-				   HeadingErr += (45.0f) * T;
+				   HeadingErr += (25.0f) * T;
+				   HeadingErr = LIMIT(HeadingErr,-90,90);
 			 }break;
 			 case 7://三个方向都有障碍物
 			 {
 				   //停止，掉头
 				   PositionErr = 0;
 				   //偏航
-				   HeadingErr += (-180.0f) * T;
+				   HeadingErr += (-25.0f) * T;
+				   HeadingErr = LIMIT(HeadingErr,-90,90);
 			 }break;
 			
 		 }
+		 //测试
+		 PositionErr = 0;
 		 
+		// + 10.0f * (CrossDistance - PosOffset)
 		 
-		 Control.Task.PositionOutPut = LIMIT(10.0f * PositionErr - 2.0f * Current.speed,-1000,1000);
-		 Control.Task.HeadingOutPut  = LIMIT(10.0f * HeadingErr + 10.0f * (CrossDistance - PosOffset),-1000,1000);
+		 Control.Task.PositionOutPut = LIMIT(10.0f * PositionErr - 2.0f * Current.speed,-70,70);
+		 Control.Task.HeadingOutPut  = LIMIT(        HeadingErr ,-90,90);
 }
 
 

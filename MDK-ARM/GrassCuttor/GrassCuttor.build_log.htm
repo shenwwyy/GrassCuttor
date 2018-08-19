@@ -27,12 +27,14 @@ Project File Date:  08/14/2018
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'GrassCuttor'
-compiling main.c...
-compiling freertos.c...
+compiling Protocol.c...
+..\Middlewares\Protocol\Protocol.c(133): warning:  #177-D: variable "RSSI"  was declared but never referenced
+  	   static uint8_t RSSI = 0;
+..\Middlewares\Protocol\Protocol.c: 1 warning, 0 errors
 linking...
-Program Size: Code=27592 RO-data=1012 RW-data=688 ZI-data=126328  
+Program Size: Code=31188 RO-data=1008 RW-data=716 ZI-data=126340  
 FromELF: creating hex file...
-"GrassCuttor\GrassCuttor.axf" - 0 Error(s), 0 Warning(s).
+"GrassCuttor\GrassCuttor.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -55,7 +57,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.1.1
-Build Time Elapsed:  00:00:09
+Build Time Elapsed:  00:00:06
 </pre>
 </body>
 </html>

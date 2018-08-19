@@ -69,6 +69,8 @@
 
 #include "protocol.h"
 
+#include "mymath.h"
+
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
@@ -225,22 +227,76 @@ void StartTask02(void const * argument)
 {
   /* USER CODE BEGIN StartTask02 */
 	
-	
+	static uint16_t HAL_Baisthr;
 
 	
-
+  
+	Control.Senser.Voltage.Battery1.Max = 8.4f;
+	Control.Senser.Voltage.Battery1.Min = 7.0f;
+	Control.Senser.Voltage.Battery1.Battery = 8.0f;
 	
-
+	Control.Senser.Voltage.Battery2.Max = 8.4f;
+	Control.Senser.Voltage.Battery2.Min = 7.0f;
+	Control.Senser.Voltage.Battery2.Battery = 8.0f;
 	
-//	MOTOR_PWR_EN();
+	Control.Senser.Voltage.Battery3.Max = 8.4f;
+	Control.Senser.Voltage.Battery3.Min = 7.0f;
+	Control.Senser.Voltage.Battery3.Battery = 8.0f;
+	
+	Control.Senser.Voltage.Battery4.Max = 8.4f;
+	Control.Senser.Voltage.Battery4.Min = 7.0f;
+	Control.Senser.Voltage.Battery4.Battery = 8.0f;
+	
+	MOTOR_PWR_EN();
 //	
-//	MOTOR_EN(0,0x00);//使能是0x01,
+	MOTOR_EN(0,0x01);//使能是0x01,
+	
+	
+	Control.Car.BaisThrottle = 25;//设定基本油门
 	
   /* Infinite loop */
   for(;;)
   {
     osDelay(20);
+		
 		Control_TaskManage(0.02f,Control.Task.Task_id);
+		
+		
+		//电机输出控制
+		/*
+		
+		
+		
+		
+		*/
+		if(Control.Car.isunLock == 0x57)
+		{
+			TIM2->CCR1 = LIMIT(Control.Car.BaisThrottle + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,100);//左后 1>2正向
+			TIM2->CCR2 = 0;//左后 1<2反向
+			
+			TIM4->CCR1 = LIMIT(Control.Car.BaisThrottle + Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,100);//右前 1>2正向
+			TIM4->CCR2 = 0;//右前 1<2反向
+			
+			TIM4->CCR3 = LIMIT(Control.Car.BaisThrottle + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,100);//左前 3>4正向
+			TIM4->CCR4 = 0;//左前 3<4反向
+			
+			TIM8->CCR3 = LIMIT(Control.Car.BaisThrottle + Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,100);//右后 3>4正向
+			TIM8->CCR4 = 0;//右后 3<4反向
+		}
+		else
+		{
+			TIM2->CCR1 = 0;//左后 1>2正向
+			TIM2->CCR2 = 0;//左后 1<2反向
+			
+			TIM4->CCR1 = 0;//右前 1>2正向
+			TIM4->CCR2 = 0;//右前 1<2反向
+			
+			TIM4->CCR3 = 0;//左前 3>4正向
+			TIM4->CCR4 = 0;//左前 3<4反向
+			
+			TIM8->CCR3 = 0;//右后 3>4正向
+			TIM8->CCR4 = 0;//右后 3<4反向
+		}
 		
 		
 		

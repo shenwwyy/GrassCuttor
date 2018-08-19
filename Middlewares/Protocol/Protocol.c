@@ -133,6 +133,38 @@ void Protocol_Transmit(float T)
 	   static uint8_t RSSI = 0;
 	   Time +=T;
 	
+	   //发送经纬度
+	   if(Time>=0.5f)
+		 {
+			   Time = 0;
+				 Protocol_T_Remote(0,
+													 0, 0, 0,
+													 0, 0, 0,
+													 0, 0, 0,
+													 0, 0, 0,
+													 0, 0, 0,
+													 0, 0, 0,
+													 Control.Senser.GPS.fix,Control.Senser.GPS.latitude,Control.Senser.GPS.longitude,Control.Senser.GPS.altitude,Control.Senser.GPS.course,
+													 Control.Senser.GPS.fix,Control.Senser.GPS.latitude,Control.Senser.GPS.longitude,Control.Senser.GPS.altitude,Control.Senser.GPS.course,
+													 0,0,0,
+													 0, 0,
+													 Control.Senser.GPS.vn,Control.Senser.GPS.ve,Control.Senser.GPS.vd,
+													 Control.Senser.GPS.vn,Control.Senser.GPS.ve,Control.Senser.GPS.vd,
+													 Control.Senser.Voltage.Battery1.Battery,Control.Senser.Voltage.Battery1.Battery,Control.Senser.Voltage.Battery1.Battery,
+													 0,0,0,0,0,
+													 0,0,0,0,0,
+													 0,0,0,0,0,
+													 0,0,0,
+													 0,0,0,
+													 0,0,0,0,
+													 0,
+													 0,0,
+													 0,0);
+			}
+	
+	
+	
+	
 		 //发送航点
 		 if(ProtocolCMD.dot.sendDot)
 		 {
@@ -619,7 +651,7 @@ void Protocol_T_Remote(uint8_t IMUSelect,
 	    DataToSend[DataCount++] = SUM;
 			
 			//Send
-			Protocol_SendData(DataToSend,DataCount);
+			Protocol_DataCombin(DataToSend,DataCount);
 }
 
 
