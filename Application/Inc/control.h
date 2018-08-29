@@ -246,6 +246,19 @@ typedef struct {
 	
 	float PositionOutPut;
 	float HeadingOutPut;
+	float SpeedOutPut;
+	
+	float Speed_Kp;
+	float Speed_Ki;
+	float Speed_Out;
+	float Speed_Err;
+	float Speed_i;
+	
+	
+	
+	float Heading_Kp;
+	
+	float Position_Kp;
 	
 	//Êä³ö
 	float LeftForeWheel;
@@ -295,7 +308,7 @@ extern _pos POS;
 
 float POS_Distance(float lat1,float lon1,float lat2,float lon2);
 float POS_Heading(float lat1,float lon1,float lat2,float lon2);
-void  POS_LatLon(float lat1,float lon1,float dLat,float dLon,float *lat2,float *lon2);
+void  POS_LatLon(double lat1,double lon1,double dLat,double dLon,double *lat2,double *lon2);
 
 
 

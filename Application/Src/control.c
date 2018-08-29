@@ -5,8 +5,16 @@
 #include <stdbool.h>
 #include "motor.h"
 #include "mymath.h"
+#include "LinePoint.h"
 
 _controlDef Control;
+
+
+
+
+_linear Line_1_2;
+_linear Line_1_n;
+_linear Line_2_3;
 
 
 
@@ -133,18 +141,99 @@ void Control_WorkingTask(float T)
 	}
 	else//执行正常任务
 	{  
-		  //计算是否应该切换航线
-		  if(Control_PolygonCheck(Control.Task.CurrentPoint,Control.Task.PointGroups,Control.Task.PointGroupsNumber,1) == true)
+			//检查是否到达目标点
+			if(Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.TargetPoint,1.0f,0) == true)
 			{
-				   //切换新的航点作为目标
-				   //保持当前点作为上一个点
-				   Control.Task.LastPoint   = Control.Task.CurrentPoint;
-				   //给目标点赋值
+				   //计算参考点1,2，的斜率和偏差值
+				   double k_1_2,b_1_2;
+					 double k_1_n,b_1_n;
+					 double k_2_3,b_2_3;
+				   double dm = 0.5f;//设定m为两条线之间的差值
 				
-				   //计算出下一个点的经纬度
+				   double dlat,dlon,dg;
+		       LinePoint_KB(Control.Task.LastPoint.latitude,Control.Task.LastPoint.longitude,
+				                Control.Task.TargetPoint.latitude,Control.Task.TargetPoint.longitude,
+				                &k_1_2,&b_1_2);		  
+  
+				   Line_1_2.k = k_1_2;
+				   Line_1_2.b = b_1_2;
 				
-				   Control.Task.TargetPoint = Control.Task.TargetPoint;
+				   //求出差值为dm，对应的经纬度偏差
+				   double heading,heading_1_2,heading_2_3;
+				   
+				   heading_1_2 = POS_Heading(Control.Task.LastPoint.latitude,Control.Task.LastPoint.longitude,
+				                             Control.Task.TargetPoint.latitude,Control.Task.TargetPoint.longitude);
+				   heading_2_3 = POS_Heading(Control.Task.PointGroups[2].latitude,Control.Task.PointGroups[2].longitude,
+				                             Control.Task.PointGroups[3].latitude,Control.Task.PointGroups[3].longitude);
+				   
+					 heading = heading_2_3 - heading_1_2;
+					 if(heading<0) heading = heading + 360;
+					 
+				   if(heading > 0) heading = heading_1_2 + 90;
+					 else            heading = heading_1_2 - 90;
+				
+				   //恢复到360度模式
+				   if(heading>360)    heading = heading - 360;
+					 else if(heading<0) heading = heading + 360;
+					 else               heading = heading;
+						 
+				
+				   LinePoint_LatLon(Control.Task.TargetPoint.latitude,Control.Task.TargetPoint.longitude,
+				                    dm,heading,&dlat,&dlon);
+				   dg = my_sqrt(dlat * dlat + dlon *dlon);//计算出角度长度
+				   //求出平移后的直线
+				   //y=kx+b-dg*sqrt(k*k +1)
+		       
+					 Line_1_2.b = b_1_2 - dg*sqrt(Line_1_2.k * Line_1_2.k +1);
+					 
+           //计算，1n，23线段
+				
+				   LinePoint_KB(Control.Task.PointGroups[1].latitude,Control.Task.PointGroups[1].longitude,
+				                Control.Task.PointGroups[2].latitude,Control.Task.PointGroups[2].longitude,
+				                &k_1_n,&b_1_n);	
+				   Line_1_n.k = k_1_n;
+				   Line_1_n.b = b_1_n;
+				
+				
+				   LinePoint_KB(Control.Task.PointGroups[1].latitude,Control.Task.PointGroups[1].longitude,
+				                Control.Task.PointGroups[2].latitude,Control.Task.PointGroups[2].longitude,
+				                &k_2_3,&b_2_3);	
+												
+					 Line_2_3.k = k_2_3;
+				   Line_2_3.b = b_2_3;
+				
+				   //计算两个目标点
+					 double x1,y1;
+					 double x2,y2;
+					 LinePoint_LineLine(Line_1_2.k,Line_1_2.b,Line_1_n.k,Line_1_n.b,&x1,&y1);
+					 LinePoint_LineLine(Line_1_2.k,Line_1_2.b,Line_2_3.k,Line_2_3.b,&x2,&y2);
+					 //计算当前点和两个点的距离，哪个比较近，哪个就是上一点，远的视为目标点。
+					 double distance_1_n,distance_2_3;
+					 
+					 distance_1_n = POS_Distance(Control.Task.CurrentPoint.latitude,Control.Task.ChargePoint.longitude,x1,y1);
+					 distance_2_3 = POS_Distance(Control.Task.CurrentPoint.latitude,Control.Task.ChargePoint.longitude,x2,y2);
+					 
+					 if(distance_1_n > distance_2_3)
+					 {
+						  Control.Task.TargetPoint.latitude = x1;
+						  Control.Task.TargetPoint.longitude = y1;
+						  Control.Task.TargetPoint.speed = Control.Task.PointGroups[1].speed;
+						 
+						  Control.Task.LastPoint.latitude = x2;
+						  Control.Task.LastPoint.longitude = y2;
+					 }
+					 else
+					 {
+						  Control.Task.TargetPoint.latitude = x2;
+						  Control.Task.TargetPoint.longitude = y2;
+						  Control.Task.TargetPoint.speed = Control.Task.PointGroups[1].speed;
+						 
+						  Control.Task.LastPoint.latitude = x1;
+						  Control.Task.LastPoint.longitude = y1;
+					 }
+					 
 			}
+			
 		  //计算当前位置和参考方向的偏差
 			Control.Car.isunLock = 0x57;
 		  Control_Route(T,Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
@@ -379,7 +468,7 @@ float POS_Heading(float lat1,float lon1,float lat2,float lon2){
 dLat为纬度方向的长度单位米，朝北为正
 dLon为经度方向的长度单位米，朝东为正
 */
-void POS_LatLon(float lat1,float lon1,float dLat,float dLon,float *lat2,float *lon2){
+void POS_LatLon(double lat1,double lon1,double dLat,double dLon,double *lat2,double *lon2){
 	
 	*lat2 = lat1 + dLat/110946.0f;
 	*lon2 = lon1 + dLon/(cos(((*lat2 + lat1)/2)* 0.0174532925f)*111318.0f);//纬度1度 = 大约111km = 111319.5米
@@ -451,12 +540,8 @@ void KB_Line(_point P1,_point P2,float Krate,float Brate,float Offset,_point *Ta
 
 void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar,float PosOffset)
 {
-
-	
-	  
 	
 	   //计算当前点和目标点的距离，得出前向的输出
-	
 	   PositionErr = POS_Distance(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
 	   
 	   //计算前向，侧向的障碍物，结合当前的航迹角，得出侧向控制输出
@@ -471,7 +556,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 	   Last_Target_Heading = POS_Heading(Last.latitude,Last.longitude,Target.latitude,Target.longitude);
 	
 	   use_Heading = Last_Target_Heading - Current_Target_Heading;
-		 //转换到180度格式
+		 //转换到180度格式3
 		 use_Heading = To_180_degrees(use_Heading);
 	   //算出侧偏距
 	   CrossDistance = PositionErr * sin(use_Heading * 0.017453278f);//转成弧度制
@@ -504,7 +589,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 			 case 1://右侧有障碍物
 			 {
 				   //偏航
-				   HeadingErr += (-25.0f) * T;
+				   HeadingErr += (-(Sonar.right.distance - 20.0f)) * T;
 				   HeadingErr = LIMIT(HeadingErr,-90,90);
 				   
 			 }break;
@@ -562,12 +647,20 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 //测试
 		 PositionErr = 0;
 		 
-		// + 10.0f * (CrossDistance - PosOffset)
-		 
-		 Control.Task.PositionOutPut = LIMIT(10.0f * PositionErr - 2.0f * Current.speed,-70,70);
-		 Control.Task.HeadingOutPut  = LIMIT(        HeadingErr ,-90,90);
-}
+	
+		 //速度控制
+		 Control.Task.Speed_Err = LIMIT(Target.speed - Current.speed,-10,10) * Control.Task.Speed_Kp;
+		 Control.Task.Speed_i  += Control.Task.Speed_Err * Control.Task.Speed_Ki * T;
+		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-20,70);
+		 Control.Task.Speed_Out = Control.Task.Speed_Err + Control.Task.Speed_i;
 
+		 //航线控制
+		 
+		 
+		 Control.Task.PositionOutPut = LIMIT(10.0f * PositionErr - 2.0f * Current.speed,-50,50);
+		 Control.Task.HeadingOutPut  = LIMIT(        HeadingErr ,-50,50);
+		 Control.Task.SpeedOutPut    = LIMIT(Control.Task.Speed_Out,0,70);
+}
 
 
 

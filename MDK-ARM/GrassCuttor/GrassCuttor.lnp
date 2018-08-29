@@ -45,6 +45,7 @@
 "grasscuttor\ublox.o"
 "grasscuttor\ultrasonic.o"
 "grasscuttor\mymath.o"
+"grasscuttor\linepoint.o"
 "grasscuttor\protocol.o"
 --library_type=microlib --strict --scatter "GrassCuttor\GrassCuttor.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

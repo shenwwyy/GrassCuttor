@@ -1612,13 +1612,40 @@ void Protocol_R_CMD(uint8_t *data)//00
 					 {
 						 Control.Command.WannaTask = 0x01;
 						 Control.Command.EmergencyStop = 0x00;
+						  
+						 Control.Task.TargetPoint.altitude  = Control.Task.PointGroups[1].altitude;
+						 Control.Task.TargetPoint.latitude  = Control.Task.PointGroups[1].latitude;
+						 Control.Task.TargetPoint.longitude = Control.Task.PointGroups[1].longitude;
+						 Control.Task.TargetPoint.speed     = Control.Task.PointGroups[1].speed;
+						 Control.Task.TargetPoint.course    = Control.Task.PointGroups[1].course;
+						 
+						 Control.Task.LastPoint.altitude  = Control.Task.CurrentPoint.altitude;
+						 Control.Task.LastPoint.latitude  = Control.Task.CurrentPoint.latitude;
+						 Control.Task.LastPoint.longitude = Control.Task.CurrentPoint.longitude;
+						 Control.Task.LastPoint.speed     = Control.Task.CurrentPoint.speed;
+						 Control.Task.LastPoint.course    = Control.Task.CurrentPoint.course;
+						 
+						 
 					 }break;
 					 
 					 case 0x44:
 					 {
 						 Control.Task.Task_id = 0x03;
 						 Control.Command.EmergencyStop = 0x00;
+						 //进入充电模式，给目标点更新为充电点
+						 Control.Task.TargetPoint = Control.Task.ChargePoint;
+						 
+						 
 					 }break;
+					 
+					 case 0x55:
+					 {//设定当前点为充电点
+						 Control.Task.ChargePoint.altitude = Control.Senser.GPS.altitude;
+						 Control.Task.ChargePoint.latitude = Control.Senser.GPS.latitude;
+						 Control.Task.ChargePoint.longitude= Control.Senser.GPS.longitude;
+						 Control.Task.ChargePoint.course   = Control.Senser.GPS.course;
+					 }break;
+					 
 					 
 				 }
 				 
