@@ -211,7 +211,16 @@ void Protocol_Transmit(float T)
 			  Protocol_T_Echo(0x04,0x07,src.B[0],src.B[1],0,0,0,0,0);
 		 }
 			 
-		 
+		 if(ProtocolCMD.sendPID.MultiRotorAngle)
+		 {
+			 ProtocolCMD.sendPID.MultiRotorAngle = 0;
+			 Protocol_T_PID(0x01,Control.Task.Speed_Kp,Control.Task.Speed_Ki,0,
+			                     Control.Task.Position_Kp,Control.Task.Position_Ki,0,
+			                     Control.Task.Heading_Kp,Control.Task.Heading_Ki,0,
+			                     0,1,2,
+			                     3,4,5,
+			                     6,7,8); 
+		 }
 		 
 	
 	
@@ -1516,7 +1525,10 @@ void Protocol_Prepare(uint8_t data)
 										case 0x05:{ Protocol_R_CMD(Protocol_RxBuffer);       }break;//cmd
 										case 0x06:{ Protocol_R_CMD(Protocol_RxBuffer);       }break;//cmd
 										case 0x07:{ Protocol_R_CMD(Protocol_RxBuffer);       }break;//cmd
-										
+										case 0x31:{ Protocol_R_PID(Protocol_RxBuffer);       }break;//cmd
+										case 0x32:{ Protocol_R_PID(Protocol_RxBuffer);       }break;//cmd
+										case 0x33:{ Protocol_R_PID(Protocol_RxBuffer);       }break;//cmd
+										case 0x34:{ Protocol_R_PID(Protocol_RxBuffer);       }break;//cmd
 										
 										default  :{ ProState=0;}break;//unfine
 							 }		 
@@ -1583,6 +1595,13 @@ void Protocol_R_CMD(uint8_t *data)//00
 					 Control.Command.EmergencyStop = 0x6D;
 					 CMDA = 0;
 				 }
+				 else
+				 {
+					 if((CMDA&0x01) == 0x01)   ProtocolCMD.sendPID.MultiRotorAngle    = 1;
+					 if((CMDA&0x02) == 0x02)   ProtocolCMD.sendPID.MultiRotorPosition = 1;
+					 if((CMDA&0x04) == 0x04)   ProtocolCMD.sendPID.FixedWingAngle     = 1;
+					 if((CMDA&0x08) == 0x08)   ProtocolCMD.sendPID.FixedWingPosition  = 1;
+				 }
 			}break;
 			
 			
@@ -1612,6 +1631,8 @@ void Protocol_R_CMD(uint8_t *data)//00
 					 {
 						 Control.Command.WannaTask = 0x01;
 						 Control.Command.EmergencyStop = 0x00;
+						 
+						 Control.Task.FirstTimeIntoRoute = 0x01;
 						  
 						 Control.Task.TargetPoint.altitude  = Control.Task.PointGroups[1].altitude;
 						 Control.Task.TargetPoint.latitude  = Control.Task.PointGroups[1].latitude;
@@ -1644,6 +1665,8 @@ void Protocol_R_CMD(uint8_t *data)//00
 						 Control.Task.ChargePoint.latitude = Control.Senser.GPS.latitude;
 						 Control.Task.ChargePoint.longitude= Control.Senser.GPS.longitude;
 						 Control.Task.ChargePoint.course   = Control.Senser.GPS.course;
+						 
+						 
 					 }break;
 					 
 					 
@@ -1737,7 +1760,7 @@ void Protocol_R_Dot(uint8_t *data)
 			 Protocol_RouteDot[Groups][CurrentPoint][5] = Velocity;
 			 Protocol_RouteDot[Groups][CurrentPoint][6] = Radius;
 			 Protocol_RouteDot[Groups][CurrentPoint][7] = Action;
-			 
+			                                      
 			 Control.Task.PointGroupsNumber = TotalPoint;
 			 Control.Task.PointGroups[CurrentPoint].Number    = CurrentPoint;
 			 Control.Task.PointGroups[CurrentPoint].longitude = Longitude;
@@ -1752,4 +1775,255 @@ void Protocol_R_Dot(uint8_t *data)
 		 }
 		 
 }
+
+
+//===================PID==========================
+void Protocol_R_PID(uint8_t *data)
+{
+	  union {uint8_t B[4];float F;}src;
+		
+		uint8_t ID;
+		
+		float PID1_P,PID1_I,PID1_D;
+		float PID2_P,PID2_I,PID2_D;
+		float PID3_P,PID3_I,PID3_D;
+		float PID4_P,PID4_I,PID4_D;
+		float PID5_P,PID5_I,PID5_D;
+		float PID6_P,PID6_I,PID6_D;
+		
+		uint8_t DataCount = 5;
+		
+		ID = data[2];
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID1_P = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID1_I = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID1_D = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID2_P = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID2_I = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID2_D = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID3_P = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID3_I = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID3_D = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID4_P = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID4_I = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID4_D = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID5_P = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID5_I = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID5_D = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID6_P = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID6_I = src.F;
+		
+		src.B[0] = data[DataCount++];
+		src.B[1] = data[DataCount++];
+		src.B[2] = data[DataCount++];
+		src.B[3] = data[DataCount++];
+		PID6_D = src.F;
+		
+		switch(ID)
+		{
+			case 0x31 :
+			{
+				 Control.Task.Speed_Kp = PID1_P;
+				 Control.Task.Speed_Ki = PID1_I;
+				 PID1_D = PID1_D;
+				
+				 Control.Task.Position_Kp = PID2_P;
+				 Control.Task.Position_Ki = PID2_I;
+				 PID2_D = PID2_D;
+				
+				 Control.Task.Heading_Kp = PID3_P;
+				 Control.Task.Heading_Ki = PID3_I;
+				 PID3_D = PID3_D;
+				
+//				 Parameter_PID.MultiRotor.Angle.Roll.kp = PID4_P;
+//				 Parameter_PID.MultiRotor.Angle.Roll.ki = PID4_I;
+//				 Parameter_PID.MultiRotor.Angle.Roll.kd = PID4_D;
+//				
+//				 Parameter_PID.MultiRotor.Angle.Pitch.kp = PID5_P;
+//				 Parameter_PID.MultiRotor.Angle.Pitch.ki = PID5_I;
+//				 Parameter_PID.MultiRotor.Angle.Pitch.kd = PID5_D;
+//				
+//				 Parameter_PID.MultiRotor.Angle.Yaw.kp = PID6_P;
+//				 Parameter_PID.MultiRotor.Angle.Yaw.ki = PID6_I;
+//				 Parameter_PID.MultiRotor.Angle.Yaw.kd = PID6_D;
+				 
+				   Control.Parameter.isSaveParameter = 1;
+			}break;//ÐýÒí
+			case 0x32 :
+			{
+//				 Parameter_PID.FixedWing.AngleRate.RollRate.kp = PID1_P;
+//				 Parameter_PID.FixedWing.AngleRate.RollRate.ki = PID1_I;
+//				 Parameter_PID.FixedWing.AngleRate.RollRate.kd = PID1_D;
+//				
+//				 Parameter_PID.FixedWing.AngleRate.PitchRate.kp = PID2_P;
+//				 Parameter_PID.FixedWing.AngleRate.PitchRate.ki = PID2_I;
+//				 Parameter_PID.FixedWing.AngleRate.PitchRate.kd = PID2_D;
+//				
+//				 Parameter_PID.FixedWing.AngleRate.YawRate.kp = PID3_P;
+//				 Parameter_PID.FixedWing.AngleRate.YawRate.ki = PID3_I;
+//				 Parameter_PID.FixedWing.AngleRate.YawRate.kd = PID3_D;
+//				
+//				 Parameter_PID.FixedWing.Angle.Roll.kp = PID4_P;
+//				 Parameter_PID.FixedWing.Angle.Roll.ki = PID4_I;
+//				 Parameter_PID.FixedWing.Angle.Roll.kd = PID4_D;
+//				
+//				 Parameter_PID.FixedWing.Angle.Pitch.kp = PID5_P;
+//				 Parameter_PID.FixedWing.Angle.Pitch.ki = PID5_I;
+//				 Parameter_PID.FixedWing.Angle.Pitch.kd = PID5_D;
+//				
+//				 Parameter_PID.FixedWing.Angle.Yaw.kp = PID6_P;
+//				 Parameter_PID.FixedWing.Angle.Yaw.ki = PID6_I;
+//				 Parameter_PID.FixedWing.Angle.Yaw.kd = PID6_D;
+//				 
+//				 ParameterSave.SaveFixedWingPID = 1;
+			}break;//¹Ì¶¨
+			case 0x33 :
+			{
+//				 Parameter_PID.MultiRotor.Speed.Speed_x.kp = PID1_P;
+//				 Parameter_PID.MultiRotor.Speed.Speed_x.ki = PID1_I;
+//				 Parameter_PID.MultiRotor.Speed.Speed_x.kd = PID1_D;
+//				
+//				 Parameter_PID.MultiRotor.Speed.Speed_y.kp = PID2_P;
+//				 Parameter_PID.MultiRotor.Speed.Speed_y.ki = PID2_I;
+//				 Parameter_PID.MultiRotor.Speed.Speed_y.kd = PID2_D;
+//				
+//				 Parameter_PID.MultiRotor.Speed.Speed_z.kp = PID3_P;
+//				 Parameter_PID.MultiRotor.Speed.Speed_z.ki = PID3_I;
+//				 Parameter_PID.MultiRotor.Speed.Speed_z.kd = PID3_D;
+//				
+//				 Parameter_PID.MultiRotor.Distance.Distance_x.kp = PID4_P;
+//				 Parameter_PID.MultiRotor.Distance.Distance_x.ki = PID4_I;
+//				 Parameter_PID.MultiRotor.Distance.Distance_x.kd = PID4_D;
+//				
+//				 Parameter_PID.MultiRotor.Distance.Distance_y.kp = PID5_P;
+//				 Parameter_PID.MultiRotor.Distance.Distance_y.ki = PID5_I;
+//				 Parameter_PID.MultiRotor.Distance.Distance_y.kd = PID5_D;
+//				
+//				 Parameter_PID.MultiRotor.Distance.Distance_z.kp = PID6_P;
+//				 Parameter_PID.MultiRotor.Distance.Distance_z.ki = PID6_I;
+//				 Parameter_PID.MultiRotor.Distance.Distance_z.kd = PID6_D;
+//				 
+//				 ParameterSave.SaveMultiRotorPID = 1;
+			}break;//ÐýÒí
+			case 0x34 :
+			{
+//				 Parameter_PID.FixedWing.Route.TravelSpeed.kp = PID1_P;
+//				 Parameter_PID.FixedWing.Route.TravelSpeed.ki = PID1_I;
+//				 Parameter_PID.FixedWing.Route.TravelSpeed.kd = PID1_D;
+//				
+//				 Parameter_PID.FixedWing.Distance.Distance_z.kp = PID2_P;
+//				 Parameter_PID.FixedWing.Distance.Distance_z.ki = PID2_I;
+//				 Parameter_PID.FixedWing.Distance.Distance_z.kd = PID2_D;
+//				
+//				 Parameter_PID.FixedWing.Route.TravelDistance.kp = PID3_P;
+//				 Parameter_PID.FixedWing.Route.TravelDistance.ki = PID3_I;
+//				 Parameter_PID.FixedWing.Route.TravelDistance.kd = PID3_D;
+//				
+//				 Parameter_PID.FixedWing.Route.TravelCourse.kp = PID4_P;
+//				 Parameter_PID.FixedWing.Route.TravelCourse.ki = PID4_I;
+//				 Parameter_PID.FixedWing.Route.TravelCourse.kd = PID4_D;
+//				
+//				 ParameterSave.SaveFixedWingPID = 1;
+			}break;//¹Ì¶¨
+		}
+		
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 

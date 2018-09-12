@@ -59,6 +59,21 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     }
 	else if (huart->Instance == USART3)  {//U3
 		  Control.Senser.Sonar.right.isUpdated = 0x01;	
+		
+		  	/*for(uint16_t i = 0;i<sizeof(Control.Car.HLink.rbuff);i++)
+				{
+					Control.Car.HLink.rxbuff[Control.Car.HLink.r_head] = Control.Car.HLink.rbuff[i];
+					
+					Control.Car.HLink.r_head++;
+					if(Control.Car.HLink.r_head>=sizeof(Control.Car.HLink.rxbuff))
+					{
+						 //如果超过缓冲区大小，那么从头开始存放
+						 Control.Car.HLink.r_head = 0;
+					}
+			  
+				}
+		*/
+		
     }
 	else if (huart->Instance == UART4)  {//NONE
 		

@@ -6,6 +6,10 @@
 
 //通过一条线上的而两个点，计算出来过这两个点的直线的斜率和常数项
 //y=kx+b，y=lat，x=lon
+//y1 = kx1 + b
+//y2 = kx2 + b
+//k = (y1 - y2)/(x1 - x2)
+//b = y1 - (y1x1 - y2x1)/(x1 -x2) = (y2x1 - y1x2)/(x1 -x2)
 void LinePoint_KB(double lat1,double lon1,double lat2,double lon2,double *k,double *b)
 {
 	if((lon1 == lon2)&&(lat1 == lat2))
@@ -26,9 +30,11 @@ void LinePoint_KB(double lat1,double lon1,double lat2,double lon2,double *k,doub
 	else
 	{
 	   *k = (lat2 - lat1)/(lon2 - lon1);
-	   *b = ((lat2+lat1) - ((lat2 - lat1)*(lon2+lon1))/(lon2 - lon1))*0.5f;
+		 *b =(lat2 * lon1 - lat1 * lon2)/(lon1 -lon2);
 	}
 }
+
+
 /*
   通过距离偏差计算出想要的经纬度
 
@@ -74,7 +80,7 @@ double LinePoint_Distance(double lat,double lon,double K,double B)
 		}
 		else if(K >= 100000000)
 		{
-			dL = B;
+			dL = lon - B;
 		}
 		else
 		{
@@ -84,6 +90,10 @@ double LinePoint_Distance(double lat,double lon,double K,double B)
 }
 
 //求解两条直线的交点坐标
+//y = k1x + b1
+//y = k2x + b2
+//x = (b2 - b1)/(k1 - k2)
+//y = (k2b1 - k1b2)/(k2 - k1) 
 void LinePoint_LineLine(double K1,double B1,
 	                      double K2,double B2,
 											  double *x,double *y)

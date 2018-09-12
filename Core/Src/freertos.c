@@ -71,6 +71,8 @@
 
 #include "mymath.h"
 
+#include "flash.h"
+
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
@@ -142,6 +144,9 @@ void StartDefaultTask(void const * argument)
 
   /* USER CODE BEGIN StartDefaultTask */
 	
+//	Parameter_R_PID();//读取参数
+	
+	
 	uint32_t Bat[4];
 	
 	//电池电压测量读取调用
@@ -176,7 +181,10 @@ void StartDefaultTask(void const * argument)
 	HAL_UART_Receive_DMA(&huart3,Control.Senser.Sonar.right.rxbuff,sizeof(Control.Senser.Sonar.right.rxbuff));
 	
 	//数据链接收调用
+	//normal
 	HAL_UART_Receive_DMA(&huart5,Control.Car.HLink.rbuff,sizeof(Control.Car.HLink.rbuff));
+	//test
+	//HAL_UART_Receive_DMA(&huart3,Control.Car.HLink.rbuff,sizeof(Control.Car.HLink.rbuff));
 	
 	
 	GPS_USART6_UART_Init(9600);
@@ -195,7 +203,15 @@ void StartDefaultTask(void const * argument)
 		//当前动作运行完成后，开始切换任务，让其他任务得以运行		
 		//数传发送
 		Protocol_Transmit(0.1f);
+		
 		UART5_SendData();
+		
+//		if(Control.Car.HLink.t_head != 0)
+//	  if(HAL_OK == HAL_UART_Transmit_DMA(&huart3,Control.Car.HLink.txbuff,Control.Car.HLink.t_head))
+//	  {
+//		  Control.Car.HLink.t_head = 0;
+//	  }
+		
 		//数传解码
 		while(Control.Car.HLink.r_tail != Control.Car.HLink.r_head)
 		{
@@ -206,6 +222,14 @@ void StartDefaultTask(void const * argument)
 			 {
 				 Control.Car.HLink.r_tail = 0;
 			 }
+		}
+		
+		
+		//保存数据
+		if(Control.Parameter.isSaveParameter == 0x01)
+		{
+			 Control.Parameter.isSaveParameter = 0;
+//			 Parameter_S_PID();
 		}
 		
 		
@@ -241,7 +265,7 @@ void StartTask02(void const * argument)
 	MOTOR_EN(0,0x01);//使能是0x01,
 	
 	
-	Control.Car.BaisThrottle = 90;//设定基本油门
+	Control.Car.BaisThrottle = 0;//设定基本油门
 	
   /* Infinite loop */
   for(;;)
@@ -276,38 +300,11 @@ void StartTask02(void const * argument)
 			
 			
 			*/
+			TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
+			TIM2->CCR2 = 0;//左后 1<2反向
 			
-			
-			
-			if(Control.Task.HeadingOutPut == 0)
-			{
-				  TIM4->CCR3 = LIMIT(Control.Car.BaisThrottle + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,100);//左前 3>4正向
-					TIM4->CCR4 = 0;//左前 3<4反向
-					
-					TIM2->CCR1 = LIMIT(Control.Car.BaisThrottle + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,100);//左后 1>2正向
-					TIM2->CCR2 = 0;//左后 1<2反向
-					
-					TIM4->CCR1 = LIMIT(Control.Car.BaisThrottle - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,100);//右前 1>2正向
-					TIM4->CCR2 = 0;//右前 1<2反向
-
-					TIM8->CCR3 = LIMIT(Control.Car.BaisThrottle - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,100);//右后 3>4正向
-					TIM8->CCR4 = 0;//右后 3<4反向
-			}
-			else if(Control.Task.HeadingOutPut > 0)
-			{
-					TIM4->CCR3 = LIMIT(Control.Car.BaisThrottle + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,100);//左前 3>4正向
-					TIM4->CCR4 = LIMIT(Control.Car.BaisThrottle - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,100);//左前 3<4反向
-					
-					TIM2->CCR1 = LIMIT(Control.Car.BaisThrottle + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,100);//左后 1>2正向
-					TIM2->CCR2 = LIMIT(Control.Car.BaisThrottle - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,100);//左后 1<2反向
-					
-					TIM4->CCR1 = LIMIT(Control.Car.BaisThrottle - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,100);//右前 1>2正向
-					TIM4->CCR2 = LIMIT(Control.Car.BaisThrottle + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,100);//右前 1<2反向
-
-					TIM8->CCR3 = LIMIT(Control.Car.BaisThrottle - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,100);//右后 3>4正向
-					TIM8->CCR4 = LIMIT(Control.Car.BaisThrottle + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,100);//右后 3<4反向
-			}
-			
+			TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
+			TIM8->CCR4 = 0;//右后 3<4反向
 		}
 		else
 		{

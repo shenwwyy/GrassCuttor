@@ -41,8 +41,8 @@ extern enum {
 }_charge_status;
 
 
-#define TX_BUFF_SIZE  1024
-#define RX_BUFF_SIZE  1024
+#define TX_BUFF_SIZE  512
+#define RX_BUFF_SIZE  512
 typedef struct {
 	
 	 uint8_t rbuff[10];
@@ -169,15 +169,7 @@ typedef struct {
 
 typedef struct {
 	
-	
-	
-	float out_x;//前向
-	float out_y;//侧向
-	float out_z;//旋转
-	
-	
-	
-	
+   uint8_t isSaveParameter;
 	
 	
 	
@@ -240,6 +232,11 @@ typedef struct {
 	_workingtask Working;
 	_chargingtask Charging;
 	
+	uint8_t FirstTimeIntoRoute;
+	
+	float PositiveMaxDistance;
+	float NegativeMaxDistance;
+	
 	
 	float Diff_Heading;
 	float Diff_Position;
@@ -257,8 +254,17 @@ typedef struct {
 	
 	
 	float Heading_Kp;
+	float Heading_Ki;
+	float Heading_Out;
+	float Heading_Err;
+	float Heading_i;
+	
 	
 	float Position_Kp;
+	float Position_Ki;
+	float Position_Out;
+	float Position_Err;
+	float Position_i;
 	
 	//输出
 	float LeftForeWheel;
