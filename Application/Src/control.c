@@ -166,8 +166,6 @@ void Control_WorkingTask(float T)
 		  //检查是否在已经到达航线内，如果没有到达，那么执行进入航线的程序
 		  if((Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.PointGroups[1],1.0f,0) == true)&&(Control.Task.FirstTimeIntoRoute == 0x01))
 			{
-				Control.Task.FirstTimeIntoRoute = 0x00;
-				
 				//首次进入，那么计算正向负向最大值
 				double Kr_1_2 = 0,Br_1_2 = 0;
 				LinePoint_KB(Control.Task.PointGroups[1].latitude,Control.Task.PointGroups[1].longitude,
@@ -182,14 +180,26 @@ void Control_WorkingTask(float T)
 				   Control.Task.NegativeMaxDistance = (Control.Task.NegativeMaxDistance <= MaxDistance)?(Control.Task.NegativeMaxDistance):(MaxDistance);
 				}
 				
+				//给赋值上一点为第一点，目标点为第二点
+				Control.Task.LastPoint.altitude = Control.Task.PointGroups[1].altitude;
+				Control.Task.LastPoint.latitude = Control.Task.PointGroups[1].latitude;
+				Control.Task.LastPoint.longitude = Control.Task.PointGroups[1].longitude;
 				
+				Control.Task.TargetPoint.altitude = Control.Task.PointGroups[2].altitude;
+				Control.Task.TargetPoint.latitude = Control.Task.PointGroups[2].latitude;
+				Control.Task.TargetPoint.longitude = Control.Task.PointGroups[2].longitude;
+				
+				//然后开始航线任务
+				
+				//清除首次计入航线的标志
+				Control.Task.FirstTimeIntoRoute = 0x00;
 				
 			}
 		
 		  //否则执行航线里面的程序
 		
 			//检查是否到达目标点
-			if(Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.TargetPoint,1.0f,0) == true)
+			if((Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.TargetPoint,1.0f,0) == true)&&(Control.Task.FirstTimeIntoRoute == 0x00))
 			{
 				   //计算参考点1,2，的斜率和偏差值
 //				   double k_1_2,b_1_2;
@@ -199,8 +209,8 @@ void Control_WorkingTask(float T)
 //				
 //				   double dlat,dlon,dg;
 				   //斜率计算错误,需要修正，第一次进入区域的时候需要判断目标点是什么
-		       LinePoint_KB(Control.Task.PointGroups[1].latitude,Control.Task.PointGroups[1].longitude,
-				                Control.Task.PointGroups[2].latitude,Control.Task.PointGroups[2].longitude,
+		       LinePoint_KB(Control.Task.LastPoint.latitude,Control.Task.LastPoint.longitude,
+				                Control.Task.TargetPoint.latitude,Control.Task.TargetPoint.longitude,
 				                &k_1_2,&b_1_2);		  
   
 				   Line_1_2.k = k_1_2;
@@ -209,8 +219,8 @@ void Control_WorkingTask(float T)
 				   //求出差值为dm，对应的经纬度偏差
 //				   double heading_e,heading_1_2,heading_2_3;
 				   
-				   heading_1_2 = POS_Heading(Control.Task.PointGroups[1].latitude,Control.Task.PointGroups[1].longitude,
-				                             Control.Task.PointGroups[2].latitude,Control.Task.PointGroups[2].longitude);
+				   heading_1_2 = POS_Heading(Control.Task.LastPoint.latitude,Control.Task.LastPoint.longitude,
+				                             Control.Task.TargetPoint.latitude,Control.Task.TargetPoint.longitude);
 				   heading_2_3 = POS_Heading(Control.Task.PointGroups[2].latitude,Control.Task.PointGroups[2].longitude,
 				                             Control.Task.PointGroups[3].latitude,Control.Task.PointGroups[3].longitude);
 				   
@@ -228,17 +238,14 @@ void Control_WorkingTask(float T)
 //					 else                 heading_e = heading_e;
 						 
 				   //计算出下一条直线 x,y方向需要偏移多少值
-				   LinePoint_LatLon(Control.Task.PointGroups[1].latitude,Control.Task.PointGroups[1].longitude,
+				   LinePoint_LatLon(Control.Task.TargetPoint.latitude,Control.Task.TargetPoint.longitude,
 				                    dm,heading_e,&dlat,&dlon);
-					 
-					 //给偏差增加0.5m					
-					 dm += 0.5f;
 														
 				   dg = my_sqrt(dlat * dlat + dlon *dlon);//计算出角度长度
 				   //求出平移后的直线(往上为加)
 				   //y=kx+b + dg*sqrt(k*k +1)
 		       //b_1_2 应该计算出当前直线的B值
-					 Line_1_2.b = b_1_2 + dlat - Line_1_2.k * dlon ;
+					 Line_1_2.b = Line_1_2.b + dlat - Line_1_2.k * dlon ;
 					 
            //计算，1n，23线段
 				
@@ -284,33 +291,7 @@ void Control_WorkingTask(float T)
 						 
 						  Control.Task.LastPoint.latitude = y1;
 						  Control.Task.LastPoint.longitude = x1;
-					 }
-					 
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+1][0] = 1;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+1][1] = 20;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+1][2] = Control.Task.LastPoint.longitude;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+1][3] = Control.Task.LastPoint.latitude;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+1][4] = 0;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+1][5] = 0;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+1][6] = 0;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+1][7] = 0;
-					 
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+2][0] = 1;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+2][1] = 20;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+2][2] = Control.Task.TargetPoint.longitude;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+2][3] = Control.Task.TargetPoint.latitude;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+2][4] = 0;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+2][5] = 0;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+2][6] = 0;
-					 Protocol_RouteDot[0][Control.Task.PointGroupsNumber+PointCount+2][7] = 0;
-					 
-					 PointCount += 2;
-					 Protocol_RouteDot[0][1][1] = 20;
-					 Protocol_RouteDot[0][2][1] = 20;
-					 Protocol_RouteDot[0][3][1] = 20;
-					 Protocol_RouteDot[0][4][1] = 20;
-					 
-					 
+					 }	 
 			}
 			
 		  //计算当前位置和参考方向的偏差
@@ -639,7 +620,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 
 		 //航线控制
 		 
-	   /* 
+	    
 		 //计算侧偏
 	   PositionErr = POS_Distance(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
 	   
@@ -656,9 +637,14 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 use_Heading = To_180_degrees(use_Heading);
 	   //算出侧偏距
 	   CrossDistance = PositionErr * sin(use_Heading * 0.017453278f);//转成弧度制	 
-     */
+     
 		 //使用点到直线距离来计算侧偏距比较好
-		 LinePoint_Distance(0,0,0,0);
+		 
+//		 double Krate = 0,Brate = 0;
+//		 LinePoint_KB(Last.latitude,Last.longitude,
+//				          Target.latitude,Target.longitude,
+//				          &Krate,&Brate);	
+//		 CrossDistance = LinePoint_Distance(Current.latitude,Current.longitude,Krate,Brate);
 
 
 

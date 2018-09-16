@@ -71,6 +71,8 @@ void LinePoint_LatLon(double Lat1,double Lon1,double dL,double course,double *dL
 
 //计算一个点到一条直线的距离
 //坐标 点在线的左边的出距离为负，在右为正
+//输入 基准点经纬度，直线斜率K和B值
+//返回 米
 double LinePoint_Distance(double lat,double lon,double K,double B)
 {
 	  double dL;
@@ -86,6 +88,35 @@ double LinePoint_Distance(double lat,double lon,double K,double B)
 		{
 	     dL = -(K*lon + lat - B)/my_sqrt(K*K + 1);
 		}
+		
+//		//计算两条直线的交点
+//	  double K2 = 0,B2 = 0;
+//	
+//	  if(K == 0)
+//		{
+//			K2 = 100000000;
+//		}
+//		else if(K >= 100000000)
+//		{
+//			K2 = 0;
+//		}
+//		else
+//		{
+//	     K2 = -1.0f/K;
+//		}
+//		//计算出L2的B值
+//		B2 = lat - K2 * lon;
+//		double lat2 = 0,lon2 = 0;
+//		LinePoint_LineLine(K,B,K2,B2,&lon2,&lat2);
+//		if((lon2 >= (-180))&&(lon2 <= 180)&&(lat2>= (-90))&&(lat2 <= 90))
+//		{
+//		   dL = POS_Distance(lat,lon,lat,lon2);
+//		}
+//		else 
+//		{
+//			dL =  -1;
+//		}
+		
 	  return dL;
 }
 

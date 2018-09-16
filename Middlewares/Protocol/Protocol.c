@@ -1632,7 +1632,7 @@ void Protocol_R_CMD(uint8_t *data)//00
 						 Control.Command.WannaTask = 0x01;
 						 Control.Command.EmergencyStop = 0x00;
 						 
-						 Control.Task.FirstTimeIntoRoute = 0x01;
+						 Control.Task.FirstTimeIntoRoute = 0x01;//首次进入航线循环
 						  
 						 Control.Task.TargetPoint.altitude  = Control.Task.PointGroups[1].altitude;
 						 Control.Task.TargetPoint.latitude  = Control.Task.PointGroups[1].latitude;
