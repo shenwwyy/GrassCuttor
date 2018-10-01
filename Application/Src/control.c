@@ -33,11 +33,11 @@ _linear Line_2_3;
 void Control_TaskManage(float T,uint32_t id)
 {
 	    //更新当前的位置信息
-//	    Control.Task.CurrentPoint.altitude  = Control.Senser.GPS.altitude;
-//	    Control.Task.CurrentPoint.latitude  = Control.Senser.GPS.latitude;
-//	    Control.Task.CurrentPoint.longitude = Control.Senser.GPS.longitude;
-//	    Control.Task.CurrentPoint.course    = Control.Senser.GPS.course;
-//	    Control.Task.CurrentPoint.speed     = Control.Senser.GPS.speed;
+	    Control.Task.CurrentPoint.altitude  = Control.Senser.GPS.altitude;
+	    Control.Task.CurrentPoint.latitude  = Control.Senser.GPS.latitude;
+	    Control.Task.CurrentPoint.longitude = Control.Senser.GPS.longitude;
+	    Control.Task.CurrentPoint.course    = Control.Senser.GPS.course;
+	    Control.Task.CurrentPoint.speed     = Control.Senser.GPS.speed;
 	
 	    
 	    //任务开始
@@ -195,6 +195,13 @@ void Control_WorkingTask(float T)
 				Control.Task.FirstTimeIntoRoute = 0x00;
 				
 			}
+			//如果当前距离大于最大距离，那么认为任务结束
+			/*if()
+			{
+			S
+		  }*/
+			
+			
 		
 		  //否则执行航线里面的程序
 		
@@ -615,7 +622,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 //速度控制
 		 Control.Task.Speed_Err = LIMIT(Target.speed - Current.speed,-10,10) * Control.Task.Speed_Kp;
 		 Control.Task.Speed_i  += Control.Task.Speed_Err * Control.Task.Speed_Ki * T;
-		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-20,70);
+		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-70,70);
 		 Control.Task.Speed_Out = Control.Task.Speed_Err + Control.Task.Speed_i;
 
 		 //航线控制
@@ -670,12 +677,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 
 		 Control.Task.Heading_Out  = Control.Task.Heading_Kp * HeadingErr;//这个是偏航角
 		 
-		 
-		 
-		 
-		 
-		 
-		 
+	
 		 Control.Task.PositionOutPut = LIMIT(Control.Task.Position_Out,-60,60);
 		 Control.Task.HeadingOutPut  = LIMIT(Control.Task.Heading_Out,-60,60);
 		 Control.Task.SpeedOutPut    = LIMIT(Control.Task.Speed_Out,0,90);
