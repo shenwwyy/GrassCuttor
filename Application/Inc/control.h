@@ -120,7 +120,7 @@ typedef struct {
 	
 	uint16_t t_head;
 	
-}_gps;
+}_gps_;
 
 
 typedef struct {
@@ -161,7 +161,7 @@ typedef struct {
 
 typedef struct {
 	
-	_gps   GPS;
+	_gps_   GPS;
 	_sonar Sonar;
 	_voltage Voltage;
 }_senser;
@@ -173,7 +173,7 @@ typedef struct {
 	
 	
 	
-}_parameter;
+}_parameter_;
 
 
 
@@ -284,7 +284,7 @@ typedef struct {
 	_car Car;
 	_taskDef Task;
 	_senser Senser;
-	_parameter Parameter;
+	_parameter_ Parameter;
 	_command Command;
 }_controlDef;
 

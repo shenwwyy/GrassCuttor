@@ -176,15 +176,16 @@ void StartDefaultTask(void const * argument)
 	HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_4);
 
 	//超声波接收调用
-	HAL_UART_Receive_DMA(&huart1,Control.Senser.Sonar.forward.rxbuff,sizeof(Control.Senser.Sonar.forward.rxbuff));
+	//HAL_UART_Receive_DMA(&huart1,Control.Senser.Sonar.forward.rxbuff,sizeof(Control.Senser.Sonar.forward.rxbuff));
 	HAL_UART_Receive_DMA(&huart2,Control.Senser.Sonar.left.rxbuff,sizeof(Control.Senser.Sonar.left.rxbuff));
+	HAL_UART_Receive_DMA(&huart1,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
 	HAL_UART_Receive_DMA(&huart3,Control.Senser.Sonar.right.rxbuff,sizeof(Control.Senser.Sonar.right.rxbuff));
 	
 	//数据链接收调用
 	//normal
-	HAL_UART_Receive_DMA(&huart5,Control.Car.HLink.rbuff,sizeof(Control.Car.HLink.rbuff));
+	//HAL_UART_Receive_DMA(&huart5,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
 	//test
-	//HAL_UART_Receive_DMA(&huart3,Control.Car.HLink.rbuff,sizeof(Control.Car.HLink.rbuff));
+	//HAL_UART_Receive_DMA(&huart2,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
 	
 	
 	GPS_USART6_UART_Init(9600);
@@ -198,32 +199,15 @@ void StartDefaultTask(void const * argument)
   for(;;)
   {
     osDelay(100);//50ms
-		LED_Toggle(0);
+		//LED_Toggle(0);
 		
 		//当前动作运行完成后，开始切换任务，让其他任务得以运行		
 		//数传发送
-		Protocol_Transmit(0.1f);
-		
-		UART5_SendData();
-		
-//		if(Control.Car.HLink.t_head != 0)
-//	  if(HAL_OK == HAL_UART_Transmit_DMA(&huart3,Control.Car.HLink.txbuff,Control.Car.HLink.t_head))
-//	  {
-//		  Control.Car.HLink.t_head = 0;
-//	  }
-		
+    Protocol_T_Parameter();
+		Protocol_T_WayPoint();
 		//数传解码
-		while(Control.Car.HLink.r_tail != Control.Car.HLink.r_head)
-		{
-			 Protocol_Prepare(Control.Car.HLink.rxbuff[Control.Car.HLink.r_tail]);
-			
-			 Control.Car.HLink.r_tail++;
-			 if(Control.Car.HLink.r_tail >= sizeof(Control.Car.HLink.rxbuff))
-			 {
-				 Control.Car.HLink.r_tail = 0;
-			 }
-		}
-		
+
+		Protocol_Rev();
 		
 		//保存数据
 		if(Control.Parameter.isSaveParameter == 0x01)
@@ -340,6 +324,7 @@ void StartTask03(void const * argument)
     osDelay(10);
 		timecount+=10;
 		//读取超声波
+		/*
 		if((timecount == 250)&&(Control.Senser.Sonar.forward.isUpdated == 0x00))
 		   Ultrasonic_ReadFront();
 		else if((timecount == 500)&&(Control.Senser.Sonar.left.isUpdated == 0x00))
@@ -349,7 +334,9 @@ void StartTask03(void const * argument)
        Ultrasonic_ReadRight();
 			 timecount = 0;
 		}
+		*/
 		//解码超声波
+		/*
 		if(Control.Senser.Sonar.forward.isUpdated)
 		{
 			 Control.Senser.Sonar.forward.isUpdated = 0x00;
@@ -367,7 +354,7 @@ void StartTask03(void const * argument)
 			 Control.Senser.Sonar.right.isUpdated = 0x00;
 			 calculate3(Control.Senser.Sonar.right.rxbuff);
 		}
-		
+		*/
 		//解析GPS
 		while(Control.Senser.GPS.r_tail != Control.Senser.GPS.r_head)
 		{

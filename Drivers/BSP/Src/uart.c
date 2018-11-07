@@ -3,9 +3,9 @@
 #include "ultrasonic.h"
 #include "usart.h"
 #include "control.h"
-
-#include<stdio.h>
-#include<string.h> 
+#include "protocol.h"
+#include <stdio.h>
+#include <string.h> 
 
 uint8_t TxBuffer1[256];
 uint8_t TxCounter1=0;
@@ -59,42 +59,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     }
 	else if (huart->Instance == USART3)  {//U3
 		  Control.Senser.Sonar.right.isUpdated = 0x01;	
-		
-		  	/*for(uint16_t i = 0;i<sizeof(Control.Car.HLink.rbuff);i++)
-				{
-					Control.Car.HLink.rxbuff[Control.Car.HLink.r_head] = Control.Car.HLink.rbuff[i];
-					
-					Control.Car.HLink.r_head++;
-					if(Control.Car.HLink.r_head>=sizeof(Control.Car.HLink.rxbuff))
-					{
-						 //如果超过缓冲区大小，那么从头开始存放
-						 Control.Car.HLink.r_head = 0;
-					}
-			  
-				}
-		*/
-		
+			
     }
 	else if (huart->Instance == UART4)  {//NONE
 		
-        //HAL_UART_Receive_IT(huart, &RxBuf4, 1);
     }
-	else if (huart->Instance == UART5)  {//NONE
-		
-		for(uint16_t i = 0;i<sizeof(Control.Car.HLink.rbuff);i++)
-		{
-			  Control.Car.HLink.rxbuff[Control.Car.HLink.r_head] = Control.Car.HLink.rbuff[i];
-			  
-			  Control.Car.HLink.r_head++;
-			  if(Control.Car.HLink.r_head>=sizeof(Control.Car.HLink.rxbuff))
-				{
-					 //如果超过缓冲区大小，那么从头开始存放
-					 Control.Car.HLink.r_head = 0;
-				}
-			  
-		}
-		
-		
+	else if (huart->Instance == UART5)  {//DLINK
 
     }
 	else if (huart->Instance == USART6)  {//GPS
@@ -122,22 +92,23 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
 	  if (huart->Instance == USART1)  {
-				//Protocol_T_ultrasonic();
+				HAL_IO.U1.isReadyToSend = 0x00;
+			  HAL_IO.U5.isReadyToSend = 0x00;
     }
 	  else if (huart->Instance == USART2)  {
-       // Protocol_T_ultrasonic();
+       HAL_IO.U2.isReadyToSend = 0x00;
     }
 	  else if (huart->Instance == USART3)  {
-			 // Protocol_T_ultrasonic();
+			 HAL_IO.U3.isReadyToSend = 0x00;
     }
 	  else if (huart->Instance == UART4)  {
-        
+       HAL_IO.U4.isReadyToSend = 0x00;
     }
 	  else if (huart->Instance == UART5)  {
-					
+			 HAL_IO.U5.isReadyToSend = 0x00;
 		}
 		else if (huart->Instance == USART6)  {
-					
+			 HAL_IO.U6.isReadyToSend = 0x00;
 		}
 }
 
@@ -175,19 +146,78 @@ void ublox_Protocol_Send(uint8_t *pData,uint16_t Size)
 }
 
 
-//void Protocol_T_ultrasonic(void)
-//{
-//	    uint8_t DataToSend[1];
-//	    uint8_t DataCount = 0;
-//	
-//			//Function;
-//	    DataToSend[DataCount++] = 0x55;
+
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+	if(&huart1 == huart)
+	{		
+//		HAL_UART_Receive_DMA(&huart1,HAL_IO.U1.rxbuf,sizeof(HAL_IO.U1.rxbuf));
+//	  HAL_IO.U1.rxtail = 0;
 //		
-//			//Send
-//			Protocol_SendData(DataToSend,DataCount);
-//}
+//		HAL_IO.U1.isReadyToSend = 0x00;
+				HAL_UART_Receive_DMA(&huart1,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
+	  HAL_IO.U5.rxtail = 0;
+		
+		if(HAL_IO.U5.isReadyToSend == 0x01)
+		{
+		  HAL_IO.U5.isReadyToSend = 0x00;
+		}
+	}
+	else if(&huart2 == huart)
+	{		
+		
+//		HAL_UART_Receive_DMA(&huart2,HAL_IO.U2.rxbuf,sizeof(HAL_IO.U2.rxbuf));
+//	  HAL_IO.U2.rxtail = 0;
+//		
+//		if(HAL_IO.U2.isReadyToSend == 0x01)
+//		{
+//		  HAL_IO.U2.isReadyToSend = 0x00;
+//		}
 
-
-
+		
+	}
+	else if(&huart3 == huart)
+	{		
+//		HAL_UART_Receive_DMA(&huart3,HAL_IO.U3.rxbuf,sizeof(HAL_IO.U3.rxbuf));
+//	  HAL_IO.U3.rxtail = 0;
+//		
+//		HAL_IO.U3.isReadyToSend = 0x00;
+	}
+	else if(&huart4 == huart)
+	{		
+		
+		HAL_UART_Receive_DMA(&huart4,HAL_IO.U4.rxbuf,sizeof(HAL_IO.U4.rxbuf));
+	  HAL_IO.U4.rxtail = 0;
+		
+		if(HAL_IO.U4.isReadyToSend == 0x01)
+		{
+		  HAL_IO.U4.isReadyToSend = 0x00;
+		}
+	}
+	else if(&huart5 == huart)
+	{		
+		HAL_UART_Receive_DMA(&huart5,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
+	  HAL_IO.U5.rxtail = 0;
+		
+		if(HAL_IO.U5.isReadyToSend == 0x01)
+		{
+		  HAL_IO.U5.isReadyToSend = 0x00;
+		}
+		
+	}
+	else if(&huart6 == huart)
+	{		
+		
+//		HAL_UART_Receive_DMA(&huart6,HAL_IO.U6.rxbuf,sizeof(HAL_IO.U6.rxbuf));
+//	  HAL_IO.U6.rxtail = 0;
+//		
+//		if(HAL_IO.U6.isReadyToSend == 0x01)
+//		{
+//		  HAL_IO.U6.isReadyToSend = 0x00;
+//		}
+	}
+	
+	
+}
 
 

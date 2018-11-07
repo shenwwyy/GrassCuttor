@@ -5,77 +5,141 @@
 
 
 #include "stm32f4xx_hal.h"
+#include "stdbool.h"
 
 /*=================================
 Protocol CMD define
 ==================================*/
-typedef struct {
-	uint8_t MultiRotorAngle;
-	uint8_t MultiRotorPosition;
-	uint8_t FixedWingAngle;
-	uint8_t FixedWingPosition;
-}_cmdpid;
+
+#define TXBUFFSIZE 512
+#define RXBUFFSIZE 512
 
 typedef struct {
-	uint8_t Acc;
-	uint8_t Gyro;
-	uint8_t Mag;
-	uint8_t Airspeed;
-	uint8_t Pressure;
-}_cmdsenser;
+	//Ö÷»º´æ
+	uint8_t txbuf[TXBUFFSIZE];
+	uint16_t txhead;
+	//±¸·Ý»º´æ
+	uint8_t txbuf_bak[TXBUFFSIZE];
+	uint16_t txhead_bak;
+	uint8_t tx_sel;
+	uint16_t tx_max;
+	
+	uint8_t rxbuf[RXBUFFSIZE];
+	uint8_t rxtemp;
+	uint16_t rxtail;
+	uint16_t rxhead;
+	
+	uint8_t isReadyToSend;
+	uint8_t isRecieveReady;
+	
+	uint8_t txsyn;
+	uint8_t rxsyn;
+	
+}_uart;
 
 typedef struct {
-	
-	uint8_t Takeoff;
-	uint8_t Circle;
-	uint8_t Cruise;
-	uint8_t BackHome;
-	uint8_t Landing;
-	uint8_t CutOff;
-	
-	uint8_t SendSetting;
-	uint8_t SendCount;
-	
-}_tasksetting;
-
-
-typedef struct {
-	
-	uint8_t  sendDot;
-	uint8_t  sendDotGroup;
-	uint16_t sendDotID;
-	float    sendDotCount;
-	
-	uint8_t  GetDot;
-  uint16_t GetDotID;
-}_dotsetting;
-
-typedef struct {
-	
-	uint8_t  sendpolar;
-	uint8_t  sendpolynomial;
-	
-}_outputsetting;
-
-
+		uint8_t version;
+		uint8_t heardbeat;
+		uint8_t id;
+}_heardbeat;
 
 
 typedef struct {
-	
-	uint8_t    sendVersion;
-	_cmdpid    sendPID;
-	_cmdsenser sendSenser1;
-	_cmdsenser completeSenser1;
-	_cmdsenser sendSenser2;
-	_cmdsenser completeSenser2;
-	_dotsetting dot;
-	_tasksetting sendTaskSetting;
-	
-	_outputsetting sendOutPut;
-	
+	float speed_Kp;
+	float speed_Ki;
+	float speed_Kd;
+
+	float distance_Kp;
+	float distance_Ki;
+	float distance_Kd;
+
+	float heading_Kp;
+	float heading_Ki;
+	float heading_Kd;
+
+}_parameter;
+
+typedef struct {
+		uint8_t fixtype;
+		uint8_t svn;
+		float  altitude;
+		double latitude;
+		double longitude;
+		float  groundspeed;
+		float  course;
+}_gps;
+
+typedef struct {
+		float left;
+		float front;
+		float right;
+}_ultrasonic;
+
+typedef struct {
+		uint16_t id;
+		uint16_t type;//0 point 1 line 2 circle
+		uint16_t action;
+		float altitude;
+		double latitude;
+		double longitude;
+		float speed;
+		float course;
+}_waypoint;
+
+typedef struct {
+
+		bool ReadParameter;
+		bool StartMission;
+		bool StopMission;
+		bool BackHome;
+    bool TranferWayPoint;
 }_cmd;
 
-extern _cmd ProtocolCMD;
+typedef struct {
+
+		uint8_t isGetWayPoint;
+		uint8_t StartMission;
+		uint8_t StopMission;
+		uint8_t BackHome;
+    
+}_echo;
+
+
+typedef  struct {
+	
+	
+	uint32_t LED_Count;
+	uint32_t HL_Count;
+	uint32_t DIO_Count;
+	uint32_t VOLTAGE_Count;
+	uint32_t PWM_Count;
+	uint32_t ENGINE_Count;
+  
+	
+	
+	uint32_t SendWayPointCount;
+	uint32_t ReadWayPointCount;
+
+	_heardbeat HeardBeat;
+	_parameter Parameter;
+	_gps GPS;
+	_ultrasonic Ultrasonic;
+	_waypoint WayPoint;
+	//_status Satuts;
+	_cmd CMD;
+	_echo Echo;
+	
+	_uart U1;
+	_uart U2;
+	_uart U3;
+	_uart U4;
+	_uart U5;
+	_uart U6;
+	
+}_hal_io;
+
+
+extern _hal_io HAL_IO;
 
 
 
@@ -92,81 +156,6 @@ void Protocol_Transmit(float T);
 
 
 //Protocol Transmit
-void Protocol_T_Version(uint16_t Hardware,uint16_t Software,uint16_t Protocol,uint16_t Airplane,uint8_t *AirplaneName);
-void Protocol_T_Echo(uint8_t ID,uint8_t Echo1,uint8_t Echo2,uint8_t Echo3,uint8_t Echo4,uint8_t Echo5,uint8_t Echo6,uint8_t Echo7,uint8_t Echo8);
-void Protocol_T_Remote(uint8_t IMUSelect,
-	                     float ACC1_X, float ACC1_Y, float ACC1_Z,
-                       float GYRO1_X,float GYRO1_Y,float GYRO1_Z,
-                       float ROLL1,  float PITCH1, float YAW1,
-                       float ACC2_X, float ACC2_Y, float ACC2_Z,
-                       float GYRO2_X,float GYRO2_Y,float GYRO2_Z,
-                       float ROLL2,  float PITCH2, float YAW2,
-                       uint8_t GPS1_Status,double Latitude1,double Longitude1,float Altitude1,float Course1,
-											 uint8_t GPS2_Status,double Latitude2,double Longitude2,float Altitude2,float Course2,
-											 uint8_t Hour,uint8_t Minute,uint8_t Second,
-											 uint8_t SpeedSelect, float AirSpeed,
-											 float NorthSpeed1,float EastSpeed1,float DownSpeed1,
-											 float NorthSpeed2,float EastSpeed2,float DownSpeed2,
-											 float VotageMultiRotor,float VotageFixedWing,float VotageSystem,
-											 uint8_t isRCValid,  float ROL,      float PIT,    float THR,     float RUD,
-											 float RotorThrottle,float Rotor1,   float Rotor2, float Rotor3,  float Rotor4,
-											 float Throttle1,    float Throttle2,float Aileron,float Elevator,float Rudder,
-											 uint16_t CurrentTargetPoint,uint16_t WaitToFlight,float DiffrentDistance,
-											 float DiffrentAngle,float DiffrentHeigh,float DiffrentSpeed,
-											 float TargetRoll,   float TargetPitch,  float TargetYaw,float TargetHeigh,
-											 float RelativeHeight,
-											 uint8_t Status1,uint8_t Status2,
-											 uint8_t Command1,uint8_t Command2);
-void Protocol_T_PID(uint8_t ID,float PID1_P,float PID1_I,float PID1_D,
-	                             float PID2_P,float PID2_I,float PID2_D,
-															 float PID3_P,float PID3_I,float PID3_D,
-															 float PID4_P,float PID4_I,float PID4_D,
-															 float PID5_P,float PID5_I,float PID5_D,
-															 float PID6_P,float PID6_I,float PID6_D);
-void Protocol_T_Dot(uint8_t Function,uint8_t Groups,
-	                    uint16_t TotalPoint,uint16_t CurrentPoint,
-                      double Longitude,double Latitude,float Altitude,
-											uint16_t Velocity,uint16_t Radius,uint16_t Action);
-void Protocol_T_TaskSetting(uint8_t ID,
-	                         float Setting1,float Setting2,float Setting3,float Setting4,
-													 float Setting5,float Setting6,float Setting7,float Setting8);
-
-void Protocol_T_Calibration(uint8_t SenserType,
-	                          float X,float Y,float Z);
-
-void Protocol_T_BiasPrameter(uint8_t SenserType,uint8_t DataType,
-	                           float X,float Y,float Z);
-													 
-
-void Protocol_T_ServoPolar(uint8_t ID, uint8_t PWM1, uint8_t PWM2, uint8_t PWM3,
-                            uint8_t PWM4, uint8_t PWM5, uint8_t PWM6, uint8_t PWM7,
-                            uint8_t PWM8, uint8_t PWM9, uint8_t PWM10, uint8_t PWM11,
-                            uint8_t PWM12, uint8_t PWM13, uint8_t PWM14, uint8_t PWM15,
-                            uint8_t PWM16, uint8_t Freq1, uint8_t Freq2, uint8_t Freq3, uint8_t Freq4);
-
-void Protocol_T_ServoPolynomial(uint8_t ID,
-                                 float Poly_A_PWM1, float Poly_B_PWM1, float Poly_C_PWM1,
-                                 float Poly_A_PWM2, float Poly_B_PWM2, float Poly_C_PWM2,
-                                 float Poly_A_PWM3, float Poly_B_PWM3, float Poly_C_PWM3,
-                                 float Poly_A_PWM4, float Poly_B_PWM4, float Poly_C_PWM4,
-                                 float Poly_A_PWM5, float Poly_B_PWM5, float Poly_C_PWM5,
-                                 float Poly_A_PWM6, float Poly_B_PWM6, float Poly_C_PWM6,
-                                 float Poly_A_PWM7, float Poly_B_PWM7, float Poly_C_PWM7,
-                                 float Poly_A_PWM8, float Poly_B_PWM8, float Poly_C_PWM8,
-                                 float Poly_A_PWM9, float Poly_B_PWM9, float Poly_C_PWM9,
-                                 float Poly_A_PWM10, float Poly_B_PWM10, float Poly_C_PWM10,
-                                 float Poly_A_PWM11, float Poly_B_PWM11, float Poly_C_PWM11,
-                                 float Poly_A_PWM12, float Poly_B_PWM12, float Poly_C_PWM12,
-                                 float Poly_A_PWM13, float Poly_B_PWM13, float Poly_C_PWM13,
-                                 float Poly_A_PWM14, float Poly_B_PWM14, float Poly_C_PWM14,
-                                 float Poly_A_PWM15, float Poly_B_PWM15, float Poly_C_PWM15,
-                                 float Poly_A_PWM16, float Poly_B_PWM16, float Poly_C_PWM16,
-                                 float Poly_A_ROTOR1, float Poly_B_ROTOR1, float Poly_C_ROTOR1,
-                                 float Poly_A_ROTOR2, float Poly_B_ROTOR2, float Poly_C_ROTOR2,
-                                 float Poly_A_ROTOR3, float Poly_B_ROTOR3, float Poly_C_ROTOR3,
-                                 float Poly_A_ROTOR4, float Poly_B_ROTOR4, float Poly_C_ROTOR4,
-                                 float Poly_A_ROTOR5, float Poly_B_ROTOR5, float Poly_C_ROTOR5);
-
 
 
 /*====================================================================
@@ -176,34 +165,29 @@ void Protocol_T_ServoPolynomial(uint8_t ID,
  *====================================================================
  */			
 
-
+extern _waypoint WayPointList[500];
 																 
-																 
-																 
-extern double Protocol_RouteDot[5][200][8];
 
+void Protocol_T_HL(uint32_t T);
+void Protocol_T_VOLTAGE(uint32_t T);
+void Protocol_T_DI(uint32_t T);
+void Protocol_T_ENGINE(uint32_t T);
 
-void Protocol_RingBuf_Write(uint8_t data);																 
-uint8_t Protocol_RingBuf_Read(uint8_t* pData,uint16_t* pLen);
-																 
-void Protocol_Prepare(uint8_t data);
-													 
-void Protocol_R_Beat(uint8_t *data);//00
-void Protocol_R_CMD(uint8_t *data);//01~09
-void Protocol_R_PID(uint8_t *data);
-void Protocol_R_Dot(uint8_t *data);//0x41
+bool getchar_uart2(uint8_t* c);
+void Protocol_Rev(void);
+void Protocol_R_Prepare(uint8_t c);
 
-void Protocol_R_TaskSetting(uint8_t *data);//0x50
-
-
-void Protocol_R_Scale(uint8_t *data);//0xA1
-void Protocol_R_ServoPolar(uint8_t *data);//0xB2
-void Protocol_R_ServoPoly(uint8_t *data);//0XB3
+void Protocol_R_LED(uint8_t *data);
+void Protocol_R_CMD(uint8_t *data);
+void Protocol_R_Parameter(uint8_t *data);
+void Protocol_R_WayPoint(uint8_t *data);
 
 
 
 
-
+void Protocol_T_Echo(uint32_t ID,uint32_t Value);//0x04
+void Protocol_T_Parameter(void);//0x10;
+void Protocol_T_WayPoint(void);//0x40
 #endif
 
 

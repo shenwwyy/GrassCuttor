@@ -74,7 +74,7 @@ void Ultrasonic_ReadLeft(void)
 {
 	 //Control.Senser.Sonar.left.isUpdated = 0x00;
 	 Control.Senser.Sonar.left.txbuff[0] = 0x55;
-	 HAL_UART_Transmit_DMA(&huart2,Control.Senser.Sonar.left.txbuff,sizeof(Control.Senser.Sonar.left.txbuff));
+	 //HAL_UART_Transmit_DMA(&huart2,Control.Senser.Sonar.left.txbuff,sizeof(Control.Senser.Sonar.left.txbuff));
 }
 
 void Ultrasonic_ReadRight(void)
