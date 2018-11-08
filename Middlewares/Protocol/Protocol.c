@@ -383,18 +383,20 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 		 case 0x40:{//航线专用 
 			 if(Value  == 0x07)//发送航点
 			 { 
-				    HAL_IO.CMD.TranferWayPoint = 0x01;
-				 
-				    HAL_IO.SendWayPointCount ++;
 						if(HAL_IO.SendWayPointCount < HAL_IO.ReadWayPointCount)
 						{
+							 HAL_IO.CMD.TranferWayPoint = 0x01;
 							 memcpy(&HAL_IO.WayPoint,&WayPointList[HAL_IO.SendWayPointCount],sizeof(HAL_IO.WayPoint));
+						   HAL_IO.SendWayPointCount ++;//使用完成后自加，下一次用来检查
 						}
 						else
 						{
+							 HAL_IO.CMD.TranferWayPoint = 0x00;
 							 HAL_IO.SendWayPointCount = 0;
 							 Protocol_T_Echo(0x40,0x08);
 						}
+						
+						
 				
 				   
 				 
