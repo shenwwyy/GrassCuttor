@@ -144,7 +144,7 @@ void StartDefaultTask(void const * argument)
 
   /* USER CODE BEGIN StartDefaultTask */
 	
-//	Parameter_R_PID();//读取参数
+	Parameter_R_PID();//读取参数
 	
 	
 	uint32_t Bat[4];
@@ -205,6 +205,9 @@ void StartDefaultTask(void const * argument)
 		//数传发送
     Protocol_T_Parameter();
 		Protocol_T_WayPoint();
+		Protocol_T_Status(100);
+		
+		
 		//数传解码
 
 		Protocol_Rev();
@@ -213,7 +216,8 @@ void StartDefaultTask(void const * argument)
 		if(Control.Parameter.isSaveParameter == 0x01)
 		{
 			 Control.Parameter.isSaveParameter = 0;
-//			 Parameter_S_PID();
+			 Flash_EraseSectors();//写之前擦除
+			 Parameter_S_PID();
 		}
 		
 		
@@ -226,9 +230,6 @@ void StartDefaultTask(void const * argument)
 void StartTask02(void const * argument)
 {
   /* USER CODE BEGIN StartTask02 */
-
-	
-
 	Control.Senser.Voltage.Battery1.Max = 8.4f;
 	Control.Senser.Voltage.Battery1.Min = 7.0f;
 	Control.Senser.Voltage.Battery1.Battery = 8.0f;
@@ -245,6 +246,12 @@ void StartTask02(void const * argument)
 	Control.Senser.Voltage.Battery4.Min = 7.0f;
 	Control.Senser.Voltage.Battery4.Battery = 8.0f;
 	
+	HAL_IO.Satuts.voltage1 = Control.Senser.Voltage.Battery1.Battery;
+	HAL_IO.Satuts.voltage2 = Control.Senser.Voltage.Battery2.Battery;
+	HAL_IO.Satuts.voltage3 = Control.Senser.Voltage.Battery3.Battery;
+	HAL_IO.Satuts.voltage4 = Control.Senser.Voltage.Battery4.Battery;
+	
+	
 	MOTOR_PWR_EN();
 	MOTOR_EN(0,0x01);//使能是0x01,
 	
@@ -254,10 +261,11 @@ void StartTask02(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(20);
+    osDelay(20);//50hz
 		
 		Control_TaskManage(0.02f,Control.Task.Task_id);
 		
+		//HAL_IO.Satuts.currentwaypoint++;
 		
 		//电机输出控制
 		/*
@@ -267,7 +275,7 @@ void StartTask02(void const * argument)
 		
 		*/
 		
-		if(Control.Command.EmergencyStop == 0x6d)
+		if(Control.Command.EmergencyStop == 0x6d)//进入紧急停止模式
 		{
 			Control.Task.Task_id = 0;//清除任务ID
 			Control.Car.isunLock = 0x00;//机器上锁
@@ -278,11 +286,7 @@ void StartTask02(void const * argument)
 			/*
 			   Control.Task.PositionOutPut
 			   Control.Task.HeadingOutPut
-			
 			   往左为负
-			
-			
-			
 			*/
 			TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
 			TIM2->CCR2 = 0;//左后 1<2反向

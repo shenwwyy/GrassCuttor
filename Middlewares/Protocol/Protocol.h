@@ -105,6 +105,17 @@ typedef struct {
 }_echo;
 
 
+typedef struct {
+    uint16_t currentwaypoint;
+	  float voltage1;
+		float voltage2;
+		float voltage3;
+		float voltage4;
+	  
+}_status;
+
+
+
 typedef  struct {
 	
 	
@@ -115,17 +126,18 @@ typedef  struct {
 	uint32_t PWM_Count;
 	uint32_t ENGINE_Count;
   
-	
+	uint32_t STATUS_Count;
 	
 	uint32_t SendWayPointCount;
 	uint32_t ReadWayPointCount;
+	uint32_t MaxWayPointCount;
 
 	_heardbeat HeardBeat;
 	_parameter Parameter;
 	_gps GPS;
 	_ultrasonic Ultrasonic;
 	_waypoint WayPoint;
-	//_status Satuts;
+	_status Satuts;
 	_cmd CMD;
 	_echo Echo;
 	
@@ -188,6 +200,7 @@ void Protocol_R_WayPoint(uint8_t *data);
 void Protocol_T_Echo(uint32_t ID,uint32_t Value);//0x04
 void Protocol_T_Parameter(void);//0x10;
 void Protocol_T_WayPoint(void);//0x40
+void Protocol_T_Status(uint32_t T);//0x50
 #endif
 
 

@@ -336,7 +336,7 @@ void ublox_Protocol_Prepare(uint8_t data)
 					case UBLOX_NAV_STATUS: Protocol_NAV_STATUS(ublox_ProRxBuffer);//解析STATUS
 						break;
 					case UBLOX_NAV_POSLLH: Protocol_NAV_POSLLH(ublox_ProRxBuffer);//解析POSLLH
-						break;																											//case 0x41:{ Protocol_R_GetRoute(ProRxBuffer); }break;//GetRoute 这个是CRC校验
+						break;																											//
 					default  : ublox_ProState=0;
 						break;
 				}
@@ -429,7 +429,7 @@ void Protocol_NAV_VELNED(uint8_t *data)
 	src.B[2] = data[data_count++];
 	src.B[3] = data[data_count++];
 	NAV_VELNED[src_count++] = src.W;
-	Control.Senser.GPS.ve=NAV_VELNED[3] * 1e-2;
+	Control.Senser.GPS.vd=NAV_VELNED[3] * 1e-2;
 	
 	src.B[0] = data[data_count++];
 	src.B[1] = data[data_count++];

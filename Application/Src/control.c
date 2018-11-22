@@ -7,7 +7,7 @@
 #include "mymath.h"
 #include "LinePoint.h"
 #include "protocol.h"
-
+#include "protocol.h"
 
 _controlDef Control;
 
@@ -39,7 +39,6 @@ void Control_TaskManage(float T,uint32_t id)
 	    Control.Task.CurrentPoint.course    = Control.Senser.GPS.course;
 	    Control.Task.CurrentPoint.speed     = Control.Senser.GPS.speed;
 	
-	    
 	    //任务开始
 	    switch(id)
 			{
@@ -112,21 +111,21 @@ void Control_IdleTask(float T)
 	
 }
 
-				   double k_1_2,b_1_2;
-					 double k_1_n,b_1_n;
-					 double k_2_3,b_2_3;
-				   double dm = 0.5f;//设定m为两条线之间的差值
-				
-				   double dlat,dlon,dg;
+double k_1_2,b_1_2;
+double k_1_n,b_1_n;
+double k_2_3,b_2_3;
+double dm = 0.5f;//设定m为两条线之间的差值
 
-           double heading_e,heading_1_2,heading_2_3;
+double dlat,dlon,dg;
 
-           double x1,y1;
-					 double x2,y2;
+double heading_e,heading_1_2,heading_2_3;
 
-           double distance_1_n,distance_2_3;
-    
-           uint16_t PointCount = 0;
+double x1,y1;
+double x2,y2;
+
+double distance_1_n,distance_2_3;
+
+uint16_t PointCount = 0;
 
            
 
@@ -302,8 +301,12 @@ void Control_WorkingTask(float T)
 			}
 			
 		  //计算当前位置和参考方向的偏差
-			Control.Car.isunLock = 0x57;
-		  Control_Route(T,Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
+			//Control.Car.isunLock = 0x57;
+		  Control_Route(T,
+			              Control.Task.LastPoint,
+			              Control.Task.CurrentPoint,
+			              Control.Task.TargetPoint,
+			              Control.Senser.Sonar,0);
 			
 			
 			//检查是否完成切割任务
@@ -314,28 +317,18 @@ void Control_WorkingTask(float T)
 }
 
 void Control_ChargingTask(float T)
-{
-	//小车执行充电任务，充电任务完成，回到刚刚中断的位置，继续执行割草任务
-	//触发充电任务，寻找充电位置，一路避障走到充电位置附近，开始寻找充电设备，然后准确对上，开始充电。
-	//充电任务完成，检测是否有存在未完成的割草任务，如果有，那么去到刚刚任务打断的位置，寻找好目标航向，切换至割草任务进行割草
-	//如果不存在未完成任务，那么停留在充电桩内不动，然后切换至空闲任务。
-	
-	
+{	
 	switch(Control.Task.Charging.ChargeStatus)
 	{
 		case uncharge:
 		{
-			  //寻找充电桩
-			 //设置目标点
        Control.Task.TargetPoint = Control.Task.ChargePoint;
-			 //航线控制
+
 			 Control.Car.isunLock = 0x57;
 			 Control_Route(T,Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,Control.Senser.Sonar,0);
 			
-			//判断当前点如果在木点内部1m之内，那么认为到达充电点
 			if(Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.TargetPoint,1.0f,0) == true)
 			{
-				   //切换到充电模式
 				   Control.Task.Charging.ChargeStatus = charging;
 					 Control.Task.Charging.ChargeCount = 0;
 			}
@@ -346,10 +339,8 @@ void Control_ChargingTask(float T)
 		
 		case charging:
 		{
-			 //充电期间，不接受任何任务指令
 			 if(Control.Senser.Voltage.Battery1.Battery >= Control.Senser.Voltage.Battery1.Max)
 			 {
-				 //如果大于等于了，那么等一段时间，的确是大了，那么认为充电完成。
 				 Control.Task.Charging.ChargeCount += T;
 				 if(Control.Task.Charging.ChargeCount > 300)//时间大于300秒
 				 {
@@ -357,11 +348,10 @@ void Control_ChargingTask(float T)
 					 Control.Task.Charging.ChargeCount = 0;
 				 }
 			 }
-			 else//如果没有进入最大电压
+			 else
 			 {
 				 Control.Task.Charging.ChargeCount = 0;
 			 }
-			 //清空输出
 			 Control.Car.isunLock = 0x00;
 			 Control.Task.PositionOutPut = 0;
 			 Control.Task.HeadingOutPut  = 0;
@@ -370,19 +360,19 @@ void Control_ChargingTask(float T)
 
 		case charged :
 		{
-			 if(Control.Command.WannaTask == WorkingTask)//如果有任务，那么切换到其中，并执行
+			 if(Control.Command.WannaTask == WorkingTask)
 			 {
 				 Control.Task.Task_id = WorkingTask;
 				 
-				 if(Control.Task.Working.isInterrupt == 0x01)//如果是任务被打断，那么继续充电前的任务
+				 if(Control.Task.Working.isInterrupt == 0x01)
 				 {
 					   Control.Task.TargetPoint = Control.Task.InterruptPoint;
-					   Control.Task.Working.isInterrupt = 0x00;//清空中断标志
+					   Control.Task.Working.isInterrupt = 0x00;
 				 }
-				 else//如果不是任务被打断，那么切换到新的任务
+				 else
 				 {
-					   Control.Task.TargetPoint = Control.Task.PointGroups[1];//切换到第一点
-					   Control.Task.Working.isInterrupt = 0x00;//清空中断标志
+					   Control.Task.TargetPoint.Number = WayPointList[0].id;
+					   Control.Task.Working.isInterrupt = 0x00;
 				 }
 				 
 			 }
@@ -612,16 +602,14 @@ void KB_Line(_point P1,_point P2,float Krate,float Brate,float Offset,_point *Ta
 	   float use_Heading;
 	
 	   float CrossDistance;
-	
-	
 	   float CrossErr;
  uint8_t SonarFlag = 0;
 
 void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar,float PosOffset)
 {
 		 //速度控制
-		 Control.Task.Speed_Err = LIMIT(Target.speed - Current.speed,-10,10) * Control.Task.Speed_Kp;
-		 Control.Task.Speed_i  += Control.Task.Speed_Err * Control.Task.Speed_Ki * T;
+		 Control.Task.Speed_Err = LIMIT(Target.speed - Current.speed,-10,10) * HAL_IO.Parameter.speed_Kp;
+		 Control.Task.Speed_i  += Control.Task.Speed_Err * HAL_IO.Parameter.speed_Ki * T;
 		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-70,70);
 		 Control.Task.Speed_Out = Control.Task.Speed_Err + Control.Task.Speed_i;
 
@@ -632,7 +620,6 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 	   PositionErr = POS_Distance(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
 	   
 	   //计算前向，侧向的障碍物，结合当前的航迹角，得出侧向控制输出
-	   //-180~180
 	   Current_Target_Heading = To_180_degrees(POS_Heading(Current.latitude,Current.longitude,Target.latitude,Target.longitude));
 
 	   //计算侧偏
@@ -644,29 +631,16 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 use_Heading = To_180_degrees(use_Heading);
 	   //算出侧偏距
 	   CrossDistance = PositionErr * sin(use_Heading * 0.017453278f);//转成弧度制	 
-     
-		 //使用点到直线距离来计算侧偏距比较好
-		 
-//		 double Krate = 0,Brate = 0;
-//		 LinePoint_KB(Last.latitude,Last.longitude,
-//				          Target.latitude,Target.longitude,
-//				          &Krate,&Brate);	
-//		 CrossDistance = LinePoint_Distance(Current.latitude,Current.longitude,Krate,Brate);
 
-
-
-
-		 Control.Task.Position_Err = LIMIT(CrossDistance,-10,10) * Control.Task.Position_Kp;
-		 Control.Task.Position_i  += Control.Task.Position_Err * Control.Task.Position_Ki * T;
+		 Control.Task.Position_Err = LIMIT(CrossDistance,-10,10) * HAL_IO.Parameter.distance_Kp;
+		 Control.Task.Position_i  += Control.Task.Position_Err * HAL_IO.Parameter.distance_Ki * T;
 		 Control.Task.Position_i   = LIMIT(Control.Task.Position_i,-40,40);
 		 Control.Task.Position_Out = Control.Task.Position_Err + Control.Task.Position_i;//这个是侧偏
-		 
-		 
-		 
+
 		 //计算偏航，使用导弹的引导方式
 		 if((Current.latitude != Target.latitude)||(Current.longitude != Target.longitude))//如果经纬度一样，那么不求解
 		 {
-		    HeadingErr = Control.Senser.GPS.course -  POS_Heading(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
+		    HeadingErr = Current.course -  POS_Heading(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
 		 }
 		 else
 		 {
@@ -675,7 +649,9 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 //转化到180度格式
 		 HeadingErr = To_180_degrees(HeadingErr);
 		 
-		 Control.Task.Heading_Out  = Control.Task.Heading_Kp * HeadingErr;//这个是偏航角
+		 Control.Task.Heading_i    = HAL_IO.Parameter.heading_Kp *  HAL_IO.Parameter.heading_Ki * HeadingErr * T;//这个是偏航角
+		 Control.Task.Heading_i    = LIMIT(Control.Task.Position_i,-40,40);
+		 Control.Task.Heading_Out  = HAL_IO.Parameter.heading_Kp * HeadingErr + Control.Task.Heading_i;//这个是偏航角
 		 
 	
 		 Control.Task.PositionOutPut = LIMIT(Control.Task.Position_Out,-60,60);

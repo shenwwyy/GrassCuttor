@@ -358,32 +358,43 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 	 {
 		 case 0x05:{ 
 			 if(Value  == 0xa9) HAL_IO.CMD.ReadParameter = 0x01;break;
-		 }
+		 }break;//end 05 
 		 case 0x06:{ 
 			 if(Value  == 0x05) 
 			 { 
 				 HAL_IO.CMD.StartMission = 0x01;
 				 HAL_IO.CMD.StopMission  = 0x00;
+				 Control.Car.isunLock = 0x57;//解锁开始任务
+				 Control.Command.EmergencyStop = 0x00;//解除紧急停止
+				 Control.Task.Task_id = 1;//工作任务
 			 }
 			 else if(Value  == 0x06)
 			 {
 				 HAL_IO.CMD.StartMission = 0x00;
 				 HAL_IO.CMD.StopMission  = 0x01;
 				 HAL_IO.CMD.BackHome     = 0x00;
+				 
+				 Control.Command.EmergencyStop = 0x6d;//紧急停止
+				 Control.Task.Task_id = 0;//待机模式
+				 
+				 
 			 }
 			 else if(Value  == 0x07)
 			 { 
 				 if(HAL_IO.CMD.StopMission  == 0x00)
 				 {
 				    HAL_IO.CMD.BackHome     = 0x01;
+					  Control.Car.isunLock = 0x57;//解锁开始任务
+				    Control.Command.EmergencyStop = 0x00;//解除紧急停止
+					 Control.Task.Task_id = 3;//返航模式
 				 }
 			 }
 			 
-		 }break;
+		 }break;//end 06
 		 case 0x40:{//航线专用 
 			 if(Value  == 0x07)//发送航点
 			 { 
-						if(HAL_IO.SendWayPointCount < HAL_IO.ReadWayPointCount)
+						if(HAL_IO.SendWayPointCount < HAL_IO.MaxWayPointCount)
 						{
 							 HAL_IO.CMD.TranferWayPoint = 0x01;
 							 memcpy(&HAL_IO.WayPoint,&WayPointList[HAL_IO.SendWayPointCount],sizeof(HAL_IO.WayPoint));
@@ -394,24 +405,53 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 							 HAL_IO.CMD.TranferWayPoint = 0x00;
 							 HAL_IO.SendWayPointCount = 0;
 							 Protocol_T_Echo(0x40,0x08);
-						}
-						
-						
-				
-				   
-				 
+						} 
 			 }
 			 else if(Value  == 0x08)//停止发送航点
 			 { 
+				    HAL_IO.SendWayPointCount = 0;
 				    HAL_IO.CMD.TranferWayPoint = 0x00;
 			 }
-		 }
+		 }break;//end 40
+		 case 0x41:{//航线专用,开始发送航点 
+			      HAL_IO.ReadWayPointCount = 0;                                                                          
+			      HAL_IO.MaxWayPointCount = Value;
+		 }break;//end 41
+		 case 0x60:{
+			 if(Value == 0x00)//设置当前点为家
+			 {
+				  //给充电定点设定为当前经纬度
+				  Control.Task.ChargePoint.altitude  = Control.Task.CurrentPoint.altitude;
+					Control.Task.ChargePoint.latitude  = Control.Task.CurrentPoint.latitude;
+					Control.Task.ChargePoint.longitude = Control.Task.CurrentPoint.longitude;
+					Control.Task.ChargePoint.course    = Control.Task.CurrentPoint.course;
+					Control.Task.ChargePoint.speed     = Control.Task.CurrentPoint.speed;
+			 }
+			 else if(Value == 0x01)//设置当前点经纬度和目标经纬度一致
+			 {
+				  Control.Task.CurrentPoint.altitude  = Control.Task.TargetPoint.altitude;
+					Control.Task.CurrentPoint.latitude  = Control.Task.TargetPoint.latitude;
+					Control.Task.CurrentPoint.longitude = Control.Task.TargetPoint.longitude;
+					Control.Task.CurrentPoint.course    = Control.Task.TargetPoint.course;
+					Control.Task.CurrentPoint.speed     = Control.Task.TargetPoint.speed;
+			 }
+				 
+			 
+		 }break;//end 60
+		 
+		 
+		 
+		 
+		 
+		 
 	 }
 }
 
 void Protocol_R_Parameter(uint8_t *data)//0x10
 {
    memcpy(&HAL_IO.Parameter,data+7,sizeof(HAL_IO.Parameter));
+	
+	 Control.Parameter.isSaveParameter = 0x01;
 }
 
 void Protocol_R_WayPoint(uint8_t *data)
@@ -421,10 +461,10 @@ void Protocol_R_WayPoint(uint8_t *data)
 	memcpy(&WayPointList[HAL_IO.WayPoint.id],&HAL_IO.WayPoint,sizeof(HAL_IO.WayPoint));
 
 		
-  if(HAL_IO.WayPoint.id == 0)
-	{
-		HAL_IO.ReadWayPointCount = 0;
-	}
+//  if(HAL_IO.WayPoint.id == 0)
+//	{
+//		HAL_IO.ReadWayPointCount = 0;
+//	}
 	HAL_IO.ReadWayPointCount ++;
 	
 	Protocol_T_Echo(0x40,0x07);
@@ -547,5 +587,42 @@ void Protocol_T_WayPoint(void)//0x40
 				
 		}
 }
+
+void Protocol_T_Status(uint32_t T)
+{
+	      HAL_IO.STATUS_Count += T;
+	      if(HAL_IO.STATUS_Count >= 1000)
+				{
+					union{uint8_t B[2];uint16_t D;}src;
+					uint8_t  DataToSend[100];
+					uint16_t DataCount = 0;
+
+					DataToSend[DataCount++] = 0xEB;
+					DataToSend[DataCount++] = 0x90;
+
+					src.D = 0x0050;//ID
+					DataToSend[DataCount++] = src.B[0];
+					DataToSend[DataCount++] = src.B[1];
+
+
+					DataToSend[DataCount++] = HAL_IO.U5.txsyn++;
+
+					src.D = sizeof(HAL_IO.Satuts);//LEN
+					DataToSend[DataCount++] = src.B[0];
+					DataToSend[DataCount++] = src.B[1];
+
+					memcpy(DataToSend + DataCount,&HAL_IO.Satuts,sizeof(HAL_IO.Satuts));
+					DataCount += sizeof(HAL_IO.Satuts);
+
+
+					src.D = CRC_CheckSum(DataToSend,DataCount);
+					DataToSend[DataCount++] = src.B[0];
+					DataToSend[DataCount++] = src.B[1];
+
+					Protocol_T_Combin(DataToSend,DataCount);
+			 }
+}
+
+
 
 

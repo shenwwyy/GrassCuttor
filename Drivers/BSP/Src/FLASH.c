@@ -4,6 +4,7 @@
 #include "protocol.h"
 #include "control.h"
 
+
 /* Base address of the Flash sectors */
 #define ADDR_FLASH_SECTOR_0     ((uint32_t)0x08000000) /* Base @ of Sector 0, 16 Kbytes */
 #define ADDR_FLASH_SECTOR_1     ((uint32_t)0x08004000) /* Base @ of Sector 1, 16 Kbytes */
@@ -20,7 +21,7 @@
 
 
 
-#define PID_ADDR    ((uint32_t)(ADDR_FLASH_SECTOR_11 + 0x00000000))
+#define PARA_ADDR    ((uint32_t)(ADDR_FLASH_SECTOR_11 + 0x00001000))//参数保存地址
 
 
 
@@ -41,9 +42,10 @@ void Flash_EraseSectors()
 	  EraseInitStruct.TypeErase     = FLASH_TYPEERASE_SECTORS;
     EraseInitStruct.VoltageRange  = FLASH_VOLTAGE_RANGE_3;
     EraseInitStruct.Sector        = FLASH_SECTOR_11;
+	  EraseInitStruct.Banks         = 1;
     EraseInitStruct.NbSectors     = 1;
 	
-		if(HAL_FLASHEx_Erase(&EraseInitStruct,&error)!= HAL_OK) //擦除sector8
+		if(HAL_FLASHEx_Erase(&EraseInitStruct,&error)!= HAL_OK) //擦除
 	  {
 			 Error_Handler();
 	  }
@@ -77,37 +79,36 @@ void Flash_Read(uint32_t addr,uint16_t *data,uint32_t len)
 }
 
 
-
-
-
-
 //save
+
+uint16_t SAVED[200];
+uint32_t cou = 0;
 void Parameter_S_PID(void)
 {
-	  union{uint16_t D[12];float F[6];}src;
-
-		src.F[0] = Control.Task.Speed_Kp;
-		src.F[1] = Control.Task.Speed_Ki;
-		src.F[2] = Control.Task.Position_Kp;
-		src.F[3] = Control.Task.Position_Ki;
-		src.F[4] = Control.Task.Heading_Kp;
-		src.F[5] = Control.Task.Heading_Ki;
-		
-    Flash_Write(PID_ADDR,src.D,sizeof(src.D));
+    uint16_t D[200];
+	  cou = sizeof(HAL_IO.Parameter)/2;
+	  memcpy(D,&HAL_IO.Parameter,sizeof(HAL_IO.Parameter));
+	
+    Flash_Write(PARA_ADDR,D,sizeof(HAL_IO.Parameter)/2);
 }
 
+uint16_t READD[200];
 void Parameter_R_PID(void)
 {
-	  union{uint16_t D[12];float F[6];}src;
+	  uint16_t D[200];
 
-		Flash_Read(PID_ADDR,src.D,sizeof(src.D));
+		Flash_Read(PARA_ADDR,D,sizeof(HAL_IO.Parameter)/2);
+		memcpy(&HAL_IO.Parameter,D,sizeof(HAL_IO.Parameter));
+
 		
+		/*
 		Control.Task.Speed_Kp    = src.F[0];
 		Control.Task.Speed_Ki    = src.F[1];
 		Control.Task.Position_Kp = src.F[2];
 		Control.Task.Position_Ki = src.F[3];
 		Control.Task.Heading_Kp  = src.F[4];
 		Control.Task.Heading_Ki  = src.F[5];
+		*/
 		
     
 }

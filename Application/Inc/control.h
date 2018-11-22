@@ -1,7 +1,7 @@
 #ifndef _CONTROL_H_
 #define _CONTROL_H_
 #include "stm32f4xx_hal.h"
-
+#include "stdbool.h"
 
 #define MaxPoint 200
 
@@ -250,6 +250,7 @@ typedef struct {
 	float Speed_Out;
 	float Speed_Err;
 	float Speed_i;
+	float Speed_d;
 	
 	
 	
@@ -258,7 +259,7 @@ typedef struct {
 	float Heading_Out;
 	float Heading_Err;
 	float Heading_i;
-	
+	float Heading_d;
 	
 	float Position_Kp;
 	float Position_Ki;
@@ -273,7 +274,7 @@ typedef struct {
 	float RightBackWheel;
 	
 	uint8_t firstTimeIntoCircle;//首次进入圈内
-	
+	bool  isCompeletTask;
 	
 }_taskDef;
 
