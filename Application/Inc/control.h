@@ -159,11 +159,26 @@ typedef struct {
 	_voltage_t Battery4;
 }_voltage;
 
+typedef struct {//deg
+	float ax;
+	float zy;
+	float az;
+	
+	float gx;
+	float gy;
+	float gz;
+	
+	float roll;
+	float pitch;
+	float yaw;
+}_imu;
+
 typedef struct {
 	
 	_gps_   GPS;
 	_sonar Sonar;
 	_voltage Voltage;
+	_imu IMU;
 }_senser;
 
 

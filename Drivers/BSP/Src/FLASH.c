@@ -81,18 +81,18 @@ void Flash_Read(uint32_t addr,uint16_t *data,uint32_t len)
 
 //save
 
-uint16_t SAVED[200];
-uint32_t cou = 0;
+//uint16_t SAVED[200];
+//uint32_t cou = 0;
 void Parameter_S_PID(void)
 {
     uint16_t D[200];
-	  cou = sizeof(HAL_IO.Parameter)/2;
+//	  cou = sizeof(HAL_IO.Parameter)/2;
 	  memcpy(D,&HAL_IO.Parameter,sizeof(HAL_IO.Parameter));
 	
     Flash_Write(PARA_ADDR,D,sizeof(HAL_IO.Parameter)/2);
 }
 
-uint16_t READD[200];
+//uint16_t READD[200];
 void Parameter_R_PID(void)
 {
 	  uint16_t D[200];

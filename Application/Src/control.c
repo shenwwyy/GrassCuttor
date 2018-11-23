@@ -33,11 +33,11 @@ _linear Line_2_3;
 void Control_TaskManage(float T,uint32_t id)
 {
 	    //更新当前的位置信息
-	    Control.Task.CurrentPoint.altitude  = Control.Senser.GPS.altitude;
-	    Control.Task.CurrentPoint.latitude  = Control.Senser.GPS.latitude;
-	    Control.Task.CurrentPoint.longitude = Control.Senser.GPS.longitude;
-	    Control.Task.CurrentPoint.course    = Control.Senser.GPS.course;
-	    Control.Task.CurrentPoint.speed     = Control.Senser.GPS.speed;
+//	    Control.Task.CurrentPoint.altitude  = Control.Senser.GPS.altitude;
+//	    Control.Task.CurrentPoint.latitude  = Control.Senser.GPS.latitude;
+//	    Control.Task.CurrentPoint.longitude = Control.Senser.GPS.longitude;
+//	    Control.Task.CurrentPoint.course    = Control.Senser.GPS.course;
+//	    Control.Task.CurrentPoint.speed     = Control.Senser.GPS.speed;
 	
 	    //任务开始
 	    switch(id)
@@ -144,173 +144,65 @@ void Control_WorkingTask(float T)
 		   Control.Task.Working.BatCount += T;
 		   if(Control.Task.Working.BatCount >= 60)//1分钟
 			 {
-				   //出现电池过低现象，需要中断任务去充电
 				   Control.Task.Working.BatCount = 0;
-				   Control.Task.Working.isInterrupt = 1;//中断任务，去充电
-				   Control.Task.Task_id = ChargingTask;//切换至充电任务
-			     Control.Task.Charging.ChargeStatus = uncharge;//在充电的路上
+				   Control.Task.Working.isInterrupt = 1;
+				   Control.Task.Task_id = ChargingTask;
+			     Control.Task.Charging.ChargeStatus = uncharge;
 				 
-				   //保持当前点，作为下一次进入的目标点
 				   Control.Task.InterruptPoint = Control.Task.CurrentPoint;
-				   //切换目标点，目标点为充电桩
 				   Control.Task.TargetPoint = Control.Task.ChargePoint;
 			 }
 				 
 		   
 	}
-	else//执行正常任务
+	else
 	{  
-		  
-		  
-		  //检查是否在已经到达航线内，如果没有到达，那么执行进入航线的程序
-		  if((Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.PointGroups[1],1.0f,0) == true)&&(Control.Task.FirstTimeIntoRoute == 0x01))
-			{
-				//首次进入，那么计算正向负向最大值
-				double Kr_1_2 = 0,Br_1_2 = 0;
-				LinePoint_KB(Control.Task.PointGroups[1].latitude,Control.Task.PointGroups[1].longitude,
-				             Control.Task.PointGroups[2].latitude,Control.Task.PointGroups[2].longitude,
-				             &Kr_1_2,&Br_1_2);
-				
-				float MaxDistance = 0;
-				for(int i = 3;i <= Control.Task.PointGroupsNumber;i++)
-				{
-					 MaxDistance = LinePoint_Distance(Control.Task.PointGroups[i].latitude,Control.Task.PointGroups[i].longitude,Kr_1_2,Br_1_2);
-					 Control.Task.PositiveMaxDistance = (Control.Task.PositiveMaxDistance >= MaxDistance)?(Control.Task.PositiveMaxDistance):(MaxDistance);
-				   Control.Task.NegativeMaxDistance = (Control.Task.NegativeMaxDistance <= MaxDistance)?(Control.Task.NegativeMaxDistance):(MaxDistance);
-				}
-				
-				//给赋值上一点为第一点，目标点为第二点
-				Control.Task.LastPoint.altitude = Control.Task.PointGroups[1].altitude;
-				Control.Task.LastPoint.latitude = Control.Task.PointGroups[1].latitude;
-				Control.Task.LastPoint.longitude = Control.Task.PointGroups[1].longitude;
-				
-				Control.Task.TargetPoint.altitude = Control.Task.PointGroups[2].altitude;
-				Control.Task.TargetPoint.latitude = Control.Task.PointGroups[2].latitude;
-				Control.Task.TargetPoint.longitude = Control.Task.PointGroups[2].longitude;
-				
-				//然后开始航线任务
-				
-				//清除首次计入航线的标志
-				Control.Task.FirstTimeIntoRoute = 0x00;
-				
-			}
-			//如果当前距离大于最大距离，那么认为任务结束
-			/*if()
-			{
-			S
-		  }*/
+
 			
-			
-		
-		  //否则执行航线里面的程序
-		
-			//检查是否到达目标点
-			if((Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.TargetPoint,1.0f,0) == true)&&(Control.Task.FirstTimeIntoRoute == 0x00))
+
+			if(Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.TargetPoint,3.0f,0) == true)
 			{
-				   //计算参考点1,2，的斜率和偏差值
-//				   double k_1_2,b_1_2;
-//					 double k_1_n,b_1_n;
-//					 double k_2_3,b_2_3;
-//				   double dm = 0.5f;//设定m为两条线之间的差值
-//				
-//				   double dlat,dlon,dg;
-				   //斜率计算错误,需要修正，第一次进入区域的时候需要判断目标点是什么
-		       LinePoint_KB(Control.Task.LastPoint.latitude,Control.Task.LastPoint.longitude,
-				                Control.Task.TargetPoint.latitude,Control.Task.TargetPoint.longitude,
-				                &k_1_2,&b_1_2);		  
-  
-				   Line_1_2.k = k_1_2;
-				   Line_1_2.b = b_1_2;//应该计算出当前直线的斜率，在当前
+				    Control.Task.LastPoint.Number    = Control.Task.TargetPoint.Number;
+						Control.Task.LastPoint.altitude  = Control.Task.TargetPoint.altitude;
+						Control.Task.LastPoint.latitude  = Control.Task.TargetPoint.latitude;
+						Control.Task.LastPoint.longitude = Control.Task.TargetPoint.longitude;
+						Control.Task.LastPoint.speed     = Control.Task.TargetPoint.speed;
+						Control.Task.LastPoint.course    = Control.Task.TargetPoint.course;
 				
-				   //求出差值为dm，对应的经纬度偏差
-//				   double heading_e,heading_1_2,heading_2_3;
-				   
-				   heading_1_2 = POS_Heading(Control.Task.LastPoint.latitude,Control.Task.LastPoint.longitude,
-				                             Control.Task.TargetPoint.latitude,Control.Task.TargetPoint.longitude);
-				   heading_2_3 = POS_Heading(Control.Task.PointGroups[2].latitude,Control.Task.PointGroups[2].longitude,
-				                             Control.Task.PointGroups[3].latitude,Control.Task.PointGroups[3].longitude);
-				   
-					 heading_e = heading_2_3 - heading_1_2;
-					 
-					 //换成-180~180模式
-					 heading_e = To_180_degrees(heading_e);
-					 //取一条垂直于1-2的线
-				   if(heading_e > 0) heading_e = heading_1_2 + 90;
-					 else              heading_e = heading_1_2 - 90;
+				  uint32_t NextNumber = 0;
 				
-//				   //恢复到360度模式
-//				   if(heading_e>360)    heading_e = heading_e - 360;
-//					 else if(heading_e<0) heading_e = heading_e + 360;
-//					 else                 heading_e = heading_e;
-						 
-				   //计算出下一条直线 x,y方向需要偏移多少值
-				   LinePoint_LatLon(Control.Task.TargetPoint.latitude,Control.Task.TargetPoint.longitude,
-				                    dm,heading_e,&dlat,&dlon);
-														
-				   dg = my_sqrt(dlat * dlat + dlon *dlon);//计算出角度长度
-				   //求出平移后的直线(往上为加)
-				   //y=kx+b + dg*sqrt(k*k +1)
-		       //b_1_2 应该计算出当前直线的B值
-					 Line_1_2.b = Line_1_2.b + dlat - Line_1_2.k * dlon ;
-					 
-           //计算，1n，23线段
-				
-				   LinePoint_KB(Control.Task.PointGroups[1].latitude,Control.Task.PointGroups[1].longitude,
-				                Control.Task.PointGroups[Control.Task.PointGroupsNumber].latitude,Control.Task.PointGroups[Control.Task.PointGroupsNumber].longitude,
-				                &k_1_n,&b_1_n);	
-				   Line_1_n.k = k_1_n;
-				   Line_1_n.b = b_1_n;
-				
-				
-				   LinePoint_KB(Control.Task.PointGroups[2].latitude,Control.Task.PointGroups[2].longitude,
-				                Control.Task.PointGroups[3].latitude,Control.Task.PointGroups[3].longitude,
-				                &k_2_3,&b_2_3);	
-												
-					 Line_2_3.k = k_2_3;
-				   Line_2_3.b = b_2_3;
-				
-				   //计算两个目标点
-//					 double x1,y1;
-//					 double x2,y2;
-					 LinePoint_LineLine(Line_1_2.k,Line_1_2.b,Line_1_n.k,Line_1_n.b,&x1,&y1);
-					 LinePoint_LineLine(Line_1_2.k,Line_1_2.b,Line_2_3.k,Line_2_3.b,&x2,&y2);
-					 //计算当前点和两个点的距离，哪个比较近，哪个就是上一点，远的视为目标点。
-//					 double distance_1_n,distance_2_3;
-					 
-					 distance_1_n = POS_Distance(Control.Task.CurrentPoint.latitude,Control.Task.CurrentPoint.longitude,x1,y1);
-					 distance_2_3 = POS_Distance(Control.Task.CurrentPoint.latitude,Control.Task.CurrentPoint.longitude,x2,y2);
-					 
-					 if(distance_1_n > distance_2_3)
-					 {
-						  Control.Task.TargetPoint.latitude = y1;
-						  Control.Task.TargetPoint.longitude = x1;
-						  Control.Task.TargetPoint.speed = Control.Task.PointGroups[1].speed;
-						 
-						  Control.Task.LastPoint.latitude = y2;
-						  Control.Task.LastPoint.longitude = x2;
-					 }
-					 else
-					 {
-						  Control.Task.TargetPoint.latitude = y2;
-						  Control.Task.TargetPoint.longitude = x2;
-						  Control.Task.TargetPoint.speed = Control.Task.PointGroups[1].speed;
-						 
-						  Control.Task.LastPoint.latitude = y1;
-						  Control.Task.LastPoint.longitude = x1;
-					 }	 
+				  if((Control.Task.TargetPoint.Number+1) >= HAL_IO.MaxWayPointCount)
+					{
+						NextNumber = 0;
+						
+						Control.Task.TargetPoint.Number    = Control.Task.ChargePoint.Number;
+						Control.Task.TargetPoint.altitude  = Control.Task.ChargePoint.altitude;
+						Control.Task.TargetPoint.latitude  = Control.Task.ChargePoint.latitude;
+						Control.Task.TargetPoint.longitude = Control.Task.ChargePoint.longitude;
+						Control.Task.TargetPoint.speed     = Control.Task.ChargePoint.speed;
+						Control.Task.TargetPoint.course    = Control.Task.ChargePoint.course;
+						
+					}
+					else
+					{
+						NextNumber = Control.Task.TargetPoint.Number+1;
+						
+						Control.Task.TargetPoint.Number    = WayPointList[NextNumber].id;
+						Control.Task.TargetPoint.altitude  = WayPointList[NextNumber].altitude;
+						Control.Task.TargetPoint.latitude  = WayPointList[NextNumber].latitude;
+						Control.Task.TargetPoint.longitude = WayPointList[NextNumber].longitude;
+						Control.Task.TargetPoint.speed     = WayPointList[NextNumber].speed;
+						Control.Task.TargetPoint.course    = WayPointList[NextNumber].course;
+						
+					}
+
 			}
 			
-		  //计算当前位置和参考方向的偏差
-			//Control.Car.isunLock = 0x57;
 		  Control_Route(T,
 			              Control.Task.LastPoint,
 			              Control.Task.CurrentPoint,
 			              Control.Task.TargetPoint,
 			              Control.Senser.Sonar,0);
-			
-			
-			//检查是否完成切割任务
-			
 			
 			
 	}
@@ -395,8 +287,6 @@ void Control_ChargingTask(float T)
 
 void Control_BackHomeTask(float T)
 {
-	//收到返航命令，小车目标改为充电桩位置，并且一路保持避障，回到充电桩附近，然后寻找充电设备，精确对上后，进入充电桩，完成后切换到空闲任务
-	//这个过程小车可以接受任务命令，例如去一块新的地方进行割草任务，停止刹车等
 	
 	Control.Task.Task_id = ChargingTask;
 	Control.Task.Charging.ChargeStatus = uncharge;
@@ -617,14 +507,17 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 
 	    
 		 //计算侧偏
-	   PositionErr = POS_Distance(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
+	   PositionErr = POS_Distance(Current.latitude,Current.longitude,
+	                              Target.latitude,Target.longitude);
 	   
 	   //计算前向，侧向的障碍物，结合当前的航迹角，得出侧向控制输出
-	   Current_Target_Heading = To_180_degrees(POS_Heading(Current.latitude,Current.longitude,Target.latitude,Target.longitude));
+	   Current_Target_Heading = POS_Heading(Current.latitude,Current.longitude,
+	                                        Target.latitude,Target.longitude);
 
 	   //计算侧偏
 	   //当前到目标，额角度，距离，计算出侧偏，而且目标值不变的话，那么的出来的侧偏永远都是同一个符号
-	   Last_Target_Heading = POS_Heading(Last.latitude,Last.longitude,Target.latitude,Target.longitude);
+	   Last_Target_Heading = POS_Heading(Last.latitude,Last.longitude,
+	                                     Target.latitude,Target.longitude);
 	
 	   use_Heading = Last_Target_Heading - Current_Target_Heading;
 		 //转换到180度格式3
@@ -634,10 +527,10 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 
 		 Control.Task.Position_Err = LIMIT(CrossDistance,-10,10) * HAL_IO.Parameter.distance_Kp;
 		 Control.Task.Position_i  += Control.Task.Position_Err * HAL_IO.Parameter.distance_Ki * T;
-		 Control.Task.Position_i   = LIMIT(Control.Task.Position_i,-40,40);
+		 Control.Task.Position_i   = LIMIT(Control.Task.Position_i,-10,10);
 		 Control.Task.Position_Out = Control.Task.Position_Err + Control.Task.Position_i;//这个是侧偏
 
-		 //计算偏航，使用导弹的引导方式
+		 //计算偏航
 		 if((Current.latitude != Target.latitude)||(Current.longitude != Target.longitude))//如果经纬度一样，那么不求解
 		 {
 		    HeadingErr = Current.course -  POS_Heading(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
@@ -647,15 +540,19 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 			  HeadingErr = 0;
 		 }
 		 //转化到180度格式
-		 HeadingErr = To_180_degrees(HeadingErr);
+		 HeadingErr = LIMIT(To_180_degrees(HeadingErr),-20,20);
 		 
-		 Control.Task.Heading_i    = HAL_IO.Parameter.heading_Kp *  HAL_IO.Parameter.heading_Ki * HeadingErr * T;//这个是偏航角
-		 Control.Task.Heading_i    = LIMIT(Control.Task.Position_i,-40,40);
-		 Control.Task.Heading_Out  = HAL_IO.Parameter.heading_Kp * HeadingErr + Control.Task.Heading_i;//这个是偏航角
+		 Control.Task.Heading_i    += HAL_IO.Parameter.heading_Ki * HeadingErr * T ;//这个是偏航角
+		 Control.Task.Heading_i    = LIMIT(Control.Task.Heading_i,-10,10);
+		 
+		 Control.Task.Heading_d    = Control.Senser.IMU.gz * HAL_IO.Parameter.heading_Kd;
+		 
+		 
+		 Control.Task.Heading_Out  = HAL_IO.Parameter.heading_Kp * HeadingErr + Control.Task.Heading_i + Control.Task.Heading_d;//这个是偏航角
 		 
 	
-		 Control.Task.PositionOutPut = LIMIT(Control.Task.Position_Out,-60,60);
-		 Control.Task.HeadingOutPut  = LIMIT(Control.Task.Heading_Out,-60,60);
+		 Control.Task.PositionOutPut = LIMIT(Control.Task.Position_Out,-30,30);
+		 Control.Task.HeadingOutPut  = LIMIT(Control.Task.Heading_Out,-30,30);
 		 Control.Task.SpeedOutPut    = LIMIT(Control.Task.Speed_Out,0,90);
 }
 

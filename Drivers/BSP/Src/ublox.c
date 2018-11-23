@@ -310,7 +310,6 @@ void ublox_Protocol_Prepare(uint8_t data)
 	}
 	else if(ublox_ProState==5)//len2
 	{
-//		_data_cnt = 5;
 		ublox_ProState=6;
 		ublox_ProRxBuffer[_data_cnt++]=data;       
 		src.B[0] = ublox_ProRxBuffer[4];

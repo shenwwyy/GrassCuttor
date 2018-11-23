@@ -367,6 +367,22 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 				 Control.Car.isunLock = 0x57;//解锁开始任务
 				 Control.Command.EmergencyStop = 0x00;//解除紧急停止
 				 Control.Task.Task_id = 1;//工作任务
+				 
+				 //给家的点赋值，
+				 Control.Task.ChargePoint.Number    = 0;
+				 Control.Task.ChargePoint.altitude  = Control.Task.CurrentPoint.altitude;
+				 Control.Task.ChargePoint.latitude  = Control.Task.CurrentPoint.latitude;
+				 Control.Task.ChargePoint.longitude = Control.Task.CurrentPoint.longitude;
+				 Control.Task.ChargePoint.speed     = Control.Task.CurrentPoint.speed;
+				 Control.Task.ChargePoint.course    = Control.Task.CurrentPoint.course;
+				 
+				 //给目标点赋值
+				 Control.Task.TargetPoint.Number    = WayPointList[0].id;
+				 Control.Task.TargetPoint.altitude  = WayPointList[0].altitude;
+				 Control.Task.TargetPoint.latitude  = WayPointList[0].latitude;
+				 Control.Task.TargetPoint.longitude = WayPointList[0].longitude;
+				 Control.Task.TargetPoint.speed     = WayPointList[0].speed;
+				 Control.Task.TargetPoint.course    = WayPointList[0].course;
 			 }
 			 else if(Value  == 0x06)
 			 {
