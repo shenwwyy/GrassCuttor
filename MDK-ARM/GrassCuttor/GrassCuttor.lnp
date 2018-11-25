@@ -45,6 +45,7 @@
 "grasscuttor\ublox.o"
 "grasscuttor\ultrasonic.o"
 "grasscuttor\flash.o"
+"grasscuttor\gy952.o"
 "grasscuttor\mymath.o"
 "grasscuttor\linepoint.o"
 "grasscuttor\protocol.o"

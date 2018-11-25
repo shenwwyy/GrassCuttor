@@ -1,5 +1,5 @@
 Dependencies for Project 'GrassCuttor', Target 'GrassCuttor': (DO NOT MODIFY !)
-F (..\Application\Src\control.c)(0x5BF814D3)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\control.o --omf_browse grasscuttor\control.crf --depend grasscuttor\control.d)
+F (..\Application\Src\control.c)(0x5BF9F400)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\control.o --omf_browse grasscuttor\control.crf --depend grasscuttor\control.d)
 I (..\Application\Inc\control.h)(0x5BF76F9C)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
@@ -1461,6 +1461,40 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599ECD2C)
 I (..\Middlewares\Protocol\protocol.h)(0x5BEA6F89)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599ECD2E)
 I (..\Application\Inc\control.h)(0x5BF76F9C)
+F (..\Drivers\BSP\Src\GY952.c)(0x5BF9F943)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\gy952.o --omf_browse grasscuttor\gy952.crf --depend grasscuttor\gy952.d)
+I (..\Drivers\BSP\Inc\gy952.h)(0x5BF9F92E)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
+I (../Core/Inc/stm32f4xx_hal_conf.h)(0x5B791B4E)
+I (../Core/Inc/main.h)(0x5B791B4E)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h)(0x5B05086D)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h)(0x5B050865)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h)(0x5B050865)
+I (../Drivers/CMSIS/Include/core_cm4.h)(0x5B05086C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599ECD2E)
+I (../Drivers/CMSIS/Include/core_cmInstr.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/core_cmFunc.h)(0x5B05086C)
+I (../Drivers/CMSIS/Include/core_cmSimd.h)(0x5B05086C)
+I (../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h)(0x5B050865)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x5B05086D)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x5B05086D)
+I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x5B05086D)
 F (..\Middlewares\AL\mymath.c)(0x5AA784F2)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ..\Application\Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ..\Drivers\BSP\Inc -I ..\Middlewares\AL -I ..\Middlewares\Protocol-I.\RTE\_GrassCuttor-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32F407xx -DUSE_HAL_DRIVER -DSTM32F407xx-o grasscuttor\mymath.o --omf_browse grasscuttor\mymath.crf --depend grasscuttor\mymath.d)
 I (..\Middlewares\AL\mymath.h)(0x5B78F25F)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x5B05086D)
