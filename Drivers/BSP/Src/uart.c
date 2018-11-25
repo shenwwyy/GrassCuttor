@@ -136,14 +136,14 @@ void UART5_SendData(void)
 
 
 
-void ublox_Protocol_Send(uint8_t *pData,uint16_t Size)
-{
-		for(uint16_t i = 0;i<Size;i++)
-	  {
-			 Protocol_TxBuff[i] = pData[i];
-   	}
-		HAL_UART_Transmit_DMA(&huart6,Protocol_TxBuff,Size);
-}
+//void ublox_Protocol_Send(uint8_t *pData,uint16_t Size)
+//{
+//		for(uint16_t i = 0;i<Size;i++)
+//	  {
+//			 Protocol_TxBuff[i] = pData[i];
+//   	}
+//		HAL_UART_Transmit_DMA(&huart6,Protocol_TxBuff,Size);
+//}
 
 
 

@@ -527,6 +527,45 @@ void Protocol_T_Parameter(void)//0x10
 		}
 }
 
+void Protocol_T_GPS(uint32_t T)
+{
+	      HAL_IO.GPS_Count += T;
+	      if(HAL_IO.GPS_Count >= 200)
+				{
+				    HAL_IO.GPS_Count =0;	
+					union{uint8_t B[2];uint16_t D;}src;
+					uint8_t  DataToSend[100];
+					uint16_t DataCount = 0;
+
+					DataToSend[DataCount++] = 0xEB;
+					DataToSend[DataCount++] = 0x90;
+
+					src.D = 0x0020;//ID
+					DataToSend[DataCount++] = src.B[0];
+					DataToSend[DataCount++] = src.B[1];
+
+
+					DataToSend[DataCount++] = HAL_IO.U5.txsyn++;
+
+					src.D = sizeof(HAL_IO.GPS);//LEN
+					DataToSend[DataCount++] = src.B[0];
+					DataToSend[DataCount++] = src.B[1];
+
+					memcpy(DataToSend + DataCount,&HAL_IO.GPS,sizeof(HAL_IO.GPS));
+					DataCount += sizeof(HAL_IO.GPS);
+
+
+					src.D = CRC_CheckSum(DataToSend,DataCount);
+					DataToSend[DataCount++] = src.B[0];
+					DataToSend[DataCount++] = src.B[1];
+
+					Protocol_T_Combin(DataToSend,DataCount);
+			 }
+}
+
+
+
+
 void Protocol_T_WayPoint(void)//0x40
 {
 	  if(HAL_IO.CMD.TranferWayPoint)
@@ -569,6 +608,7 @@ void Protocol_T_Status(uint32_t T)
 	      HAL_IO.STATUS_Count += T;
 	      if(HAL_IO.STATUS_Count >= 1000)
 				{
+					HAL_IO.STATUS_Count = 0;
 					union{uint8_t B[2];uint16_t D;}src;
 					uint8_t  DataToSend[100];
 					uint16_t DataCount = 0;

@@ -127,6 +127,7 @@ typedef  struct {
 	uint32_t ENGINE_Count;
   
 	uint32_t STATUS_Count;
+	uint32_t GPS_Count; 
 	
 	uint32_t SendWayPointCount;
 	uint32_t ReadWayPointCount;
@@ -196,7 +197,7 @@ void Protocol_R_WayPoint(uint8_t *data);
 
 
 
-
+void Protocol_T_GPS(uint32_t T);
 void Protocol_T_Echo(uint32_t ID,uint32_t Value);//0x04
 void Protocol_T_Parameter(void);//0x10;
 void Protocol_T_WayPoint(void);//0x40

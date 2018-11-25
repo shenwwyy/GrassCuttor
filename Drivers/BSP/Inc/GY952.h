@@ -5,7 +5,7 @@
 
 #include "stm32f4xx_hal.h"
 
-
+void GY952_Init(void);
 
 
 typedef struct {

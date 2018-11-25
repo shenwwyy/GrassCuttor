@@ -29,11 +29,15 @@ extern UART_RX_FIFO_t gps_rx;
 extern UART_TX_FIFO_t gps_tx;
 
 
-//void ublox_Protocol_Send(uint8_t *data,uint8_t Len)//发送函数封装，使用函数式
-//{
-//	//HAL_UART_Transmit(&huart6,data,Len,0);
-//	HAL_UART_Transmit_DMA(&huart6,data,Len);
-//}
+static void ublox_Send(uint8_t* data, uint16_t size)//发送函数封装，使用函数式
+{
+	UART_TX_FIFO_write(&gps_tx,data,size);
+}
+
+
+
+
+
 
 /***********************************************************************************************
 *函数名 ：ubloxInitGps
@@ -48,7 +52,7 @@ extern UART_TX_FIFO_t gps_tx;
 *版本 ： 
 *历史版本 ： 
 ***********************************************************************************************/
-void ubloxInitGps(void)
+void ubloxInit(void)
 {
 	HAL_Delay(1000);
 	ubloxSet_PRT(9600,UBLOX_PROTOCOL_UBX,UBLOX_PROTOCOL_UBX);	
@@ -147,7 +151,7 @@ void ubloxSet_PRT(uint32_t baud,uint16_t inProtoMask,uint16_t outProtoMask){
 	data_to_send[data_cnt++]=CK_A;
 	data_to_send[data_cnt++]=CK_B;
 	//=========Send=================
-	ublox_Protocol_Send(data_to_send,data_cnt);	
+	ublox_Send(data_to_send,data_cnt);	
 }
 
 /***********************************************************************************************
@@ -203,7 +207,7 @@ void ubloxSet_Rate(unsigned short int ms) {
 	data_to_send[data_cnt++]=CK_A;
 	data_to_send[data_cnt++]=CK_B;
 	//=========Send=================
-	ublox_Protocol_Send(data_to_send,data_cnt);			
+	ublox_Send(data_to_send,data_cnt);			
 }
 
 /***********************************************************************************************
@@ -262,7 +266,7 @@ void ubloxmsg_Enable(uint8_t msgClass,uint8_t msgID)
 	data_to_send[data_cnt++]=CK_A;
 	data_to_send[data_cnt++]=CK_B;
 	//=========Send=================
-	ublox_Protocol_Send(data_to_send,data_cnt);	
+	ublox_Send(data_to_send,data_cnt);	
 }
 
 /***********************************************************************************************
@@ -441,6 +445,7 @@ void Protocol_NAV_VELNED(uint8_t *data)
 	src.B[3] = data[data_count++];
 	NAV_VELNED[src_count++] = src.W * 0.01f;
 	Control.Senser.GPS.vn=NAV_VELNED[1];
+	
 
 	src.B[0] = data[data_count++];
 	src.B[1] = data[data_count++];

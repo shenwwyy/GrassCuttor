@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu Cortex-M4.fp
 "grasscuttor\startup_stm32f407xx.o"
 "grasscuttor\heap_4.o"
 "grasscuttor\port.o"
@@ -39,18 +39,18 @@
 "grasscuttor\ultrasonic.o"
 "grasscuttor\flash.o"
 "grasscuttor\gy952.o"
-"grasscuttor\main_1.o"
-"grasscuttor\gpio_1.o"
-"grasscuttor\adc_1.o"
-"grasscuttor\dma_1.o"
-"grasscuttor\freertos_1.o"
-"grasscuttor\tim_1.o"
-"grasscuttor\usart_1.o"
-"grasscuttor\stm32f4xx_it_1.o"
-"grasscuttor\stm32f4xx_hal_msp_1.o"
-"grasscuttor\stm32f4xx_hal_timebase_tim_1.o"
+"grasscuttor\main.o"
+"grasscuttor\gpio.o"
+"grasscuttor\adc.o"
+"grasscuttor\dma.o"
+"grasscuttor\freertos.o"
+"grasscuttor\tim.o"
+"grasscuttor\usart.o"
+"grasscuttor\stm32f4xx_it.o"
+"grasscuttor\stm32f4xx_hal_msp.o"
+"grasscuttor\stm32f4xx_hal_timebase_tim.o"
 "grasscuttor\control.o"
 --library_type=microlib --strict --scatter "GrassCuttor\GrassCuttor.sct"
---summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "GrassCuttor.map" -o GrassCuttor\GrassCuttor.axf

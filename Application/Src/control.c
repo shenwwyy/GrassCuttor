@@ -7,7 +7,7 @@
 #include "mymath.h"
 #include "LinePoint.h"
 #include "protocol.h"
-#include "protocol.h"
+#include "gy952.h"
 
 _controlDef Control;
 
@@ -33,11 +33,25 @@ _linear Line_2_3;
 void Control_TaskManage(float T,uint32_t id)
 {
 	    //更新当前的位置信息
-//	    Control.Task.CurrentPoint.altitude  = Control.Senser.GPS.altitude;
-//	    Control.Task.CurrentPoint.latitude  = Control.Senser.GPS.latitude;
-//	    Control.Task.CurrentPoint.longitude = Control.Senser.GPS.longitude;
-//	    Control.Task.CurrentPoint.course    = Control.Senser.GPS.course;
-//	    Control.Task.CurrentPoint.speed     = Control.Senser.GPS.speed;
+	
+	    HAL_IO.GPS.fixtype     = Control.Senser.GPS.fix;
+	    HAL_IO.GPS.svn         = Control.Senser.GPS.svn;
+	    HAL_IO.GPS.altitude    = Control.Senser.GPS.altitude;
+	    HAL_IO.GPS.latitude    = Control.Senser.GPS.latitude;
+	    HAL_IO.GPS.longitude   = Control.Senser.GPS.longitude;
+	    HAL_IO.GPS.course      = Control.Senser.GPS.course;
+	    HAL_IO.GPS.groundspeed = Control.Senser.GPS.speed;
+	
+	
+	
+	
+	
+	
+	    Control.Task.CurrentPoint.altitude  = Control.Senser.GPS.altitude;
+	    Control.Task.CurrentPoint.latitude  = Control.Senser.GPS.latitude;
+	    Control.Task.CurrentPoint.longitude = Control.Senser.GPS.longitude;
+	    Control.Task.CurrentPoint.course    = Control.Senser.GPS.course;
+	    Control.Task.CurrentPoint.speed     = Control.Senser.GPS.speed;
 	
 	    //任务开始
 	    switch(id)
@@ -67,38 +81,29 @@ void Control_TaskManage(float T,uint32_t id)
 //任务级别
 void Control_IdleTask(float T)
 {
-	
-	
-	//小车制动刹车，如果小车不滑动，那么取消制动，节省电量，并且带能量检测，防止电量过低
-	//时刻等待着割草任务，一直等待接受遥控端发来的命令，随时切换割草任务，
-	//如果收到割草任务，首先判断是否有电，是否能够进行工作，如果不够那么发出警报，然后小车避障进入割草的区域，切换至割草任务
-	
-	//检查速度，如果速度小于0.1m/s，那么取消刹车
+
 	if(Control.Senser.GPS.speed <= 0.1f)
 	{
 		  //MOTOR_BRAKE(UNUSED);//不刹车
 	}
 	
-	//检测电压，防止电压过低，电压低于最小值时，切换至充电任务
 	if(Control.Senser.Voltage.Battery1.Battery <= Control.Senser.Voltage.Battery1.Min)
 	{
-		Control.Task.Task_id = ChargingTask;//切换至充电任务
+		Control.Task.Task_id = ChargingTask;
 	}
 	
-	//等待任务切换的命令在另外的循环完成，这个循环一直检查串口接收buff，和解码程序
-	//任务一旦想要切换过去，那么就要检测当前电压是否能够支持任务如果不支持，拒绝执行切草任务
 	if(Control.Command.WannaTask == WorkingTask)
 	{
 		 if(Control.Senser.Voltage.Battery1.Battery <= ((Control.Senser.Voltage.Battery1.Max - Control.Senser.Voltage.Battery1.Min)*0.3f + Control.Senser.Voltage.Battery1.Min))
 		 {
-				Control.Command.WannaTask = -1;//清除切草任务命令
-			  Control.Task.Task_id = ChargingTask;//切换至充电任务
-			  Control.Task.Charging.ChargeStatus = uncharge;//在充电的路上
+				Control.Command.WannaTask = -1;
+			  Control.Task.Task_id = ChargingTask;
+			  Control.Task.Charging.ChargeStatus = uncharge;
 		 }
 		 else
 		 {
-			  Control.Command.WannaTask = -1;//清除切草任务命令
-			  Control.Task.Task_id = WorkingTask;//切换至工作任务
+			  Control.Command.WannaTask = -1;
+			  Control.Task.Task_id = WorkingTask;
 		 }
 	}
 	
@@ -545,7 +550,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 Control.Task.Heading_i    += HAL_IO.Parameter.heading_Ki * HeadingErr * T ;//这个是偏航角
 		 Control.Task.Heading_i    = LIMIT(Control.Task.Heading_i,-10,10);
 		 
-		 Control.Task.Heading_d    = Control.Senser.IMU.gz * HAL_IO.Parameter.heading_Kd;
+		 Control.Task.Heading_d    = GY925.GYRO.DEG.gz * HAL_IO.Parameter.heading_Kd;
 		 
 		 
 		 Control.Task.Heading_Out  = HAL_IO.Parameter.heading_Kp * HeadingErr + Control.Task.Heading_i + Control.Task.Heading_d;//这个是偏航角

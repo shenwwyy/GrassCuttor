@@ -67,7 +67,7 @@ typedef struct {
  void ubloxSet_Rate(unsigned short int ms);
  void ubloxSet_PRT(uint32_t baud,uint16_t inProtoMask,uint16_t outProtoMask);
  void ubloxmsg_Enable(uint8_t msgClass,uint8_t msgID);
- void ubloxInitGps(void);
+ void ubloxInit(void);
  void Protocol_NAV_VELNED(uint8_t *data);
  void Protocol_NAV_STATUS(uint8_t *data);
  void Protocol_NAV_POSLLH(uint8_t *data);

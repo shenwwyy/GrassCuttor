@@ -179,6 +179,13 @@ void MX_FREERTOS_Init(void) {
 	UART_RX_FIFO_open(&gps_rx,&huart6,100,UART_FIFO_DMA);
 	UART_TX_FIFO_open(&gps_tx,&huart6,100,UART_FIFO_DMA);
 	
+	
+	//初始化gps
+	GY952_Init();
+	
+	ubloxInit();
+	
+	
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -248,19 +255,20 @@ void StartDefaultTask(void const * argument)
 //	
 //	//GPS接收调用
 //	HAL_UART_Receive_DMA(&huart6,Control.Senser.GPS.rbuff,sizeof(Control.Senser.GPS.rbuff));
-//	ubloxInitGps();
+	
 	
   /* Infinite loop */
   for(;;)
   {
-    osDelay(100);//50ms
+    osDelay(10);//50ms
 		//LED_Toggle(0);
 		
 		//当前动作运行完成后，开始切换任务，让其他任务得以运行		
 		//数传发送
-    Protocol_T_Parameter();
+        Protocol_T_Parameter();
 		Protocol_T_WayPoint();
-		Protocol_T_Status(100);
+		Protocol_T_Status(10);
+	    Protocol_T_GPS(10);
 		//数传解码
 		Protocol_Rev();
 		
@@ -295,6 +303,11 @@ void StartDefaultTask(void const * argument)
 void StartTask02(void const * argument)
 {
   /* USER CODE BEGIN StartTask02 */
+	
+	uint8_t DelayTime = 2;
+	uint32_t PreviousWakeTime;
+	
+	
 	Control.Senser.Voltage.Battery1.Max = 8.4f;
 	Control.Senser.Voltage.Battery1.Min = 7.0f;
 	Control.Senser.Voltage.Battery1.Battery = 8.0f;
@@ -331,14 +344,6 @@ void StartTask02(void const * argument)
 		Control_TaskManage(0.02f,Control.Task.Task_id);
 		
 		//HAL_IO.Satuts.currentwaypoint++;
-		
-		//电机输出控制
-		/*
-		
-		
-		
-		
-		*/
 		
 		if(Control.Command.EmergencyStop == 0x6d)//进入紧急停止模式
 		{
