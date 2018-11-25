@@ -1,3 +1,4 @@
+/* USER CODE BEGIN Header */
 /**
   ******************************************************************************
   * File Name          : freertos.c
@@ -45,12 +46,15 @@
   *
   ******************************************************************************
   */
+/* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
 #include "task.h"
+#include "main.h"
 #include "cmsis_os.h"
 
+/* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
 #include "led.h"
 #include "motor.h"
@@ -73,81 +77,64 @@
 
 #include "flash.h"
 
+#include "uart_fifo.h"
+#include "gy952.h"
 /* USER CODE END Includes */
 
-/* Variables -----------------------------------------------------------------*/
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+/* USER CODE BEGIN Variables */
+UART_RX_FIFO_t sonar1_rx;
+UART_TX_FIFO_t sonar1_tx;
+UART_RX_FIFO_t sonar2_rx;
+UART_TX_FIFO_t sonar2_tx;
+UART_RX_FIFO_t sonar3_rx;
+UART_TX_FIFO_t sonar3_tx;
+UART_RX_FIFO_t imu_rx;
+UART_TX_FIFO_t imu_tx;
+UART_RX_FIFO_t dlink_rx;
+UART_TX_FIFO_t dlink_tx;
+UART_RX_FIFO_t gps_rx;
+UART_TX_FIFO_t gps_tx;
+
+/* USER CODE END Variables */
 osThreadId ControltTaskHandle;
 osThreadId DataLinkTaskHandle;
 osThreadId SenserTaskHandle;
 
-/* USER CODE BEGIN Variables */
+/* Private function prototypes -----------------------------------------------*/
+/* USER CODE BEGIN FunctionPrototypes */
 
-/* USER CODE END Variables */
+/* USER CODE END FunctionPrototypes */
 
-/* Function prototypes -------------------------------------------------------*/
 void StartDefaultTask(void const * argument);
 void StartTask02(void const * argument);
 void StartTask03(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
-/* USER CODE BEGIN FunctionPrototypes */
-
-/* USER CODE END FunctionPrototypes */
-
-/* Hook prototypes */
-
-/* Init FreeRTOS */
-
+/**
+  * @brief  FreeRTOS initialization
+  * @param  None
+  * @retval None
+  */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-       
-  /* USER CODE END Init */
-
-  /* USER CODE BEGIN RTOS_MUTEX */
-  /* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
-
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
-
-  /* USER CODE BEGIN RTOS_TIMERS */
-  /* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
-
-  /* Create the thread(s) */
-  /* definition and creation of ControltTask */
-  osThreadDef(ControltTask, StartDefaultTask, osPriorityNormal, 0, 256);
-  ControltTaskHandle = osThreadCreate(osThread(ControltTask), NULL);
-
-  /* definition and creation of DataLinkTask */
-  osThreadDef(DataLinkTask, StartTask02, osPriorityNormal, 0, 256);
-  DataLinkTaskHandle = osThreadCreate(osThread(DataLinkTask), NULL);
-
-  /* definition and creation of SenserTask */
-  osThreadDef(SenserTask, StartTask03, osPriorityNormal, 0, 256);
-  SenserTaskHandle = osThreadCreate(osThread(SenserTask), NULL);
-
-  /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
-  /* USER CODE END RTOS_THREADS */
-
-  /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
-}
-
-/* StartDefaultTask function */
-void StartDefaultTask(void const * argument)
-{
-
-  /* USER CODE BEGIN StartDefaultTask */
-	
-	Parameter_R_PID();//读取参数
-	
-	
-	uint32_t Bat[4];
+  uint32_t Bat[4];
 	
 	//电池电压测量读取调用
 	HAL_ADC_Start_DMA(&hadc1,Bat,sizeof(Bat));
@@ -174,12 +161,80 @@ void StartDefaultTask(void const * argument)
 	
 	HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_3);
 	HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_4);
+	
+	//fifo
+	UART_RX_FIFO_open(&sonar1_rx,&huart5,100,UART_FIFO_DMA);
+	UART_TX_FIFO_open(&sonar1_tx,&huart5,100,UART_FIFO_DMA);
+	UART_RX_FIFO_open(&sonar2_rx,&huart2,100,UART_FIFO_DMA);
+	UART_TX_FIFO_open(&sonar2_tx,&huart2,100,UART_FIFO_DMA);
+	UART_RX_FIFO_open(&sonar3_rx,&huart3,100,UART_FIFO_DMA);
+	UART_TX_FIFO_open(&sonar3_tx,&huart3,100,UART_FIFO_DMA);
+	
+	UART_RX_FIFO_open(&imu_rx,&huart4,100,UART_FIFO_DMA);
+	UART_TX_FIFO_open(&imu_tx,&huart4,100,UART_FIFO_DMA);
+	
+	UART_RX_FIFO_open(&dlink_rx,&huart1,100,UART_FIFO_DMA);
+	UART_TX_FIFO_open(&dlink_tx,&huart1,100,UART_FIFO_DMA);
+	
+	UART_RX_FIFO_open(&gps_rx,&huart6,100,UART_FIFO_DMA);
+	UART_TX_FIFO_open(&gps_tx,&huart6,100,UART_FIFO_DMA);
+	
+  /* USER CODE END Init */
+
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
+
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
+
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
+
+  /* Create the thread(s) */
+  /* definition and creation of ControltTask */
+  osThreadDef(ControltTask, StartDefaultTask, osPriorityNormal, 0, 256);
+  ControltTaskHandle = osThreadCreate(osThread(ControltTask), NULL);
+
+  /* definition and creation of DataLinkTask */
+  osThreadDef(DataLinkTask, StartTask02, osPriorityBelowNormal, 0, 256);
+  DataLinkTaskHandle = osThreadCreate(osThread(DataLinkTask), NULL);
+
+  /* definition and creation of SenserTask */
+  osThreadDef(SenserTask, StartTask03, osPriorityAboveNormal, 0, 256);
+  SenserTaskHandle = osThreadCreate(osThread(SenserTask), NULL);
+
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
+
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
+}
+
+/* USER CODE BEGIN Header_StartDefaultTask */
+/**
+  * @brief  Function implementing the ControltTask thread.
+  * @param  argument: Not used 
+  * @retval None
+  */
+/* USER CODE END Header_StartDefaultTask */
+void StartDefaultTask(void const * argument)
+{
+
+  /* USER CODE BEGIN StartDefaultTask */
+	
+	Parameter_R_PID();//读取参数
+	
 
 	//超声波接收调用
 	//HAL_UART_Receive_DMA(&huart1,Control.Senser.Sonar.forward.rxbuff,sizeof(Control.Senser.Sonar.forward.rxbuff));
-	HAL_UART_Receive_DMA(&huart2,Control.Senser.Sonar.left.rxbuff,sizeof(Control.Senser.Sonar.left.rxbuff));
-	HAL_UART_Receive_DMA(&huart1,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
-	HAL_UART_Receive_DMA(&huart3,Control.Senser.Sonar.right.rxbuff,sizeof(Control.Senser.Sonar.right.rxbuff));
+//	HAL_UART_Receive_DMA(&huart2,Control.Senser.Sonar.left.rxbuff,sizeof(Control.Senser.Sonar.left.rxbuff));
+//	HAL_UART_Receive_DMA(&huart1,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
+//	HAL_UART_Receive_DMA(&huart3,Control.Senser.Sonar.right.rxbuff,sizeof(Control.Senser.Sonar.right.rxbuff));
 	
 	//数据链接收调用
 	//normal
@@ -188,12 +243,12 @@ void StartDefaultTask(void const * argument)
 	//HAL_UART_Receive_DMA(&huart2,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
 	
 	
-	GPS_USART6_UART_Init(9600);
-	
-	
-	//GPS接收调用
-	HAL_UART_Receive_DMA(&huart6,Control.Senser.GPS.rbuff,sizeof(Control.Senser.GPS.rbuff));
-	ubloxInitGps();
+//	GPS_USART6_UART_Init(9600);
+//	
+//	
+//	//GPS接收调用
+//	HAL_UART_Receive_DMA(&huart6,Control.Senser.GPS.rbuff,sizeof(Control.Senser.GPS.rbuff));
+//	ubloxInitGps();
 	
   /* Infinite loop */
   for(;;)
@@ -206,10 +261,7 @@ void StartDefaultTask(void const * argument)
     Protocol_T_Parameter();
 		Protocol_T_WayPoint();
 		Protocol_T_Status(100);
-		
-		
 		//数传解码
-
 		Protocol_Rev();
 		
 		//保存数据
@@ -220,13 +272,26 @@ void StartDefaultTask(void const * argument)
 			 Parameter_S_PID();
 		}
 		
+		//超声波解码
+		
+		
+		//IMU解码
+		GY952_Rev();
+		//GPS解码
+		ublox_Rev();
 		
 		osThreadYield();
   }
   /* USER CODE END StartDefaultTask */
 }
 
-/* StartTask02 function */
+/* USER CODE BEGIN Header_StartTask02 */
+/**
+* @brief Function implementing the DataLinkTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask02 */
 void StartTask02(void const * argument)
 {
   /* USER CODE BEGIN StartTask02 */
@@ -316,7 +381,13 @@ void StartTask02(void const * argument)
   /* USER CODE END StartTask02 */
 }
 
-/* StartTask03 function */
+/* USER CODE BEGIN Header_StartTask03 */
+/**
+* @brief Function implementing the SenserTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask03 */
 void StartTask03(void const * argument)
 {
   /* USER CODE BEGIN StartTask03 */
@@ -360,22 +431,23 @@ void StartTask03(void const * argument)
 		}
 		*/
 		//解析GPS
-		while(Control.Senser.GPS.r_tail != Control.Senser.GPS.r_head)
-		{
-			 ublox_Protocol_Prepare(Control.Senser.GPS.rxbuff[Control.Senser.GPS.r_tail]);
-			
-			 Control.Senser.GPS.r_tail++;
-			 if(Control.Senser.GPS.r_tail >= sizeof(Control.Senser.GPS.rxbuff))
-			 {
-				 Control.Senser.GPS.r_tail = 0;
-			 }
-		}
+//		while(Control.Senser.GPS.r_tail != Control.Senser.GPS.r_head)
+//		{
+//			 ublox_Protocol_Prepare(Control.Senser.GPS.rxbuff[Control.Senser.GPS.r_tail]);
+//			
+//			 Control.Senser.GPS.r_tail++;
+//			 if(Control.Senser.GPS.r_tail >= sizeof(Control.Senser.GPS.rxbuff))
+//			 {
+//				 Control.Senser.GPS.r_tail = 0;
+//			 }
+//		}
 		
 		osThreadYield();
   }
   /* USER CODE END StartTask03 */
 }
 
+/* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
      
 /* USER CODE END Application */

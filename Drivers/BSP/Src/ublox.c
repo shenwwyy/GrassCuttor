@@ -23,6 +23,12 @@ History:
 #include "usart.h"
 #include "control.h"
 #include "senser.h"
+#include "uart_fifo.h"
+
+extern UART_RX_FIFO_t gps_rx;
+extern UART_TX_FIFO_t gps_tx;
+
+
 //void ublox_Protocol_Send(uint8_t *data,uint8_t Len)//发送函数封装，使用函数式
 //{
 //	//HAL_UART_Transmit(&huart6,data,Len,0);
@@ -272,10 +278,30 @@ void ubloxmsg_Enable(uint8_t msgClass,uint8_t msgID)
 *版本 ： 
 *历史版本 ： 
 ***********************************************************************************************/
+
+
+void ublox_Rev(void)
+{  
+	  uint8_t c = 0;
+	  size_t len = UART_RX_FIFO_getlen(&gps_rx);
+	  if (len)
+		{
+			while(UART_RX_FIFO_getc(&gps_rx,&c))
+			{
+				ublox_Prepare(c);
+			}
+		}
+
+}
+
+
+
+
+
 uint8_t ublox_ProRxBuffer[256];
 uint8_t ublox_ProState = 0;
 
-void ublox_Protocol_Prepare(uint8_t data)
+void ublox_Prepare(uint8_t data)
 {	
 	static uint8_t _data_cnt = 0;
 	static uint16_t _data_len;

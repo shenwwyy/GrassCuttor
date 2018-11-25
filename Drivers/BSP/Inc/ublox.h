@@ -72,7 +72,9 @@ typedef struct {
  void Protocol_NAV_STATUS(uint8_t *data);
  void Protocol_NAV_POSLLH(uint8_t *data);
  uint16_t CheckSum(uint8_t *buff,uint16_t len);
- void ublox_Protocol_Prepare(uint8_t data);
+ void ublox_Prepare(uint8_t data);
+
+void ublox_Rev(void);
 // void ublox_Protocol_Send(uint8_t *data,uint8_t Len);
 #endif
 

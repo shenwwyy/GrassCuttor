@@ -6,6 +6,13 @@
 #include "control.h"
 #include "string.h"
 #include "usart.h"
+
+#include "uart_fifo.h"
+
+
+extern UART_RX_FIFO_t dlink_rx;
+extern UART_TX_FIFO_t dlink_tx;
+
 /*==========================
 命令定义
 ===========================*/
@@ -30,56 +37,7 @@ _waypoint WayPointList[500];
 //加入发送的缓存中
 static void Protocol_T_Combin(uint8_t* data, uint16_t size)
 {
-	if(HAL_IO.U5.tx_sel == 0)//0
-	{
-		if (HAL_IO.U5.txhead + size <= sizeof(HAL_IO.U5.txbuf))
-		{
-			memcpy(HAL_IO.U5.txbuf + HAL_IO.U5.txhead,data,size);
-			//给head加上尺寸
-			HAL_IO.U5.txhead += size;
-		}
-		else if (HAL_IO.U5.tx_max < HAL_IO.U5.txhead + size) 
-		{
-		  HAL_IO.U5.tx_max = HAL_IO.U5.txhead + size;
-		}
-	 
-		if(HAL_IO.U5.isReadyToSend == 0)
-	  {
-	     HAL_IO.U5.isReadyToSend = 0x01; 
-			 if (HAL_IO.U5.tx_max < HAL_IO.U5.txhead)
-			 {
-			     HAL_IO.U5.tx_max = HAL_IO.U5.txhead;
-			 }
-			 HAL_UART_Transmit_DMA(&huart1,HAL_IO.U5.txbuf,HAL_IO.U5.txhead);
-			 HAL_IO.U5.txhead_bak = 0u;
-			 HAL_IO.U5.tx_sel = 1;
-	  }
-	}
-	else
-  {
-		if (HAL_IO.U5.txhead + size <= sizeof(HAL_IO.U5.txbuf_bak))
-		{
-			memcpy(HAL_IO.U5.txbuf_bak + HAL_IO.U5.txhead_bak,data,size);
-			//给head加上尺寸
-			HAL_IO.U5.txhead_bak += size;
-		}
-		else if (HAL_IO.U5.tx_max < HAL_IO.U5.txhead_bak + size)
-		{
-		  HAL_IO.U5.tx_max = HAL_IO.U5.txhead_bak + size;
-		}
-	
-		if(HAL_IO.U5.isReadyToSend == 0)
-	  {
-	     HAL_IO.U5.isReadyToSend = 0x01; 
-			 if (HAL_IO.U5.tx_max < HAL_IO.U5.txhead_bak)
-			 {
-			     HAL_IO.U5.tx_max = HAL_IO.U5.txhead_bak;
-			 }
-			 HAL_UART_Transmit_DMA(&huart1,HAL_IO.U5.txbuf_bak,HAL_IO.U5.txhead_bak);
-			 HAL_IO.U5.txhead = 0u;
-			 HAL_IO.U5.tx_sel = 0;
-	  }
-	}
+	UART_TX_FIFO_write(&dlink_tx,data,size);
 }
 
 
@@ -209,12 +167,14 @@ bool getchar_uart5(uint8_t* c)
 void Protocol_Rev(void)
 {  
 	  uint8_t c = 0;
-		while(getchar_uart5(&c))//根据使用的串口进行更换
+	  size_t len = UART_RX_FIFO_getlen(&dlink_rx);
+	  if (len)
 		{
-			Protocol_R_Prepare(c);
+			while(UART_RX_FIFO_getc(&dlink_rx,&c))
+			{
+				Protocol_R_Prepare(c);
+			}
 		}
-		
-		
 
 }
 
