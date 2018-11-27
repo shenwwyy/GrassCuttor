@@ -364,7 +364,7 @@ void StartTask02(void const * argument)
 //			TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
 //			TIM8->CCR4 = 0;//右后 3<4反向
 
-      TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
+            TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
 			TIM2->CCR2 = 0;//左后 1<2反向
 			
 			TIM4->CCR1 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
@@ -501,9 +501,16 @@ void StartTask02(void const * argument)
 				break;
 			}
 			
+			//记录数据
+			HAL_IO.Satuts.leftfront_p = TIM4->CCR3; 
+			HAL_IO.Satuts.leftfront_n = TIM4->CCR4; 
+			HAL_IO.Satuts.leftback_p  = TIM2->CCR1; 
+			HAL_IO.Satuts.leftback_n  = TIM2->CCR2; 
 			
-			
-			
+			HAL_IO.Satuts.rightfront_p = TIM4->CCR1; 
+			HAL_IO.Satuts.rightfront_n = TIM4->CCR2; 
+			HAL_IO.Satuts.rightback_p  = TIM8->CCR3; 
+			HAL_IO.Satuts.rightback_n  = TIM8->CCR4;
 			
 			
 			

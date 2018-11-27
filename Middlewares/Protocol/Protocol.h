@@ -112,6 +112,16 @@ typedef struct {
 		float voltage3;
 		float voltage4;
 	  
+	    uint16_t leftfront_p;
+	    uint16_t leftfront_n;
+	    uint16_t leftback_p;
+	    uint16_t leftback_n;
+	
+	    uint16_t rightfront_p;
+	    uint16_t rightfront_n;
+	    uint16_t rightback_p;
+	    uint16_t rightback_n;
+	  
 }_status;
 
 
