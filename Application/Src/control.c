@@ -552,13 +552,17 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 
 		 Control.Task.Heading_d    = GY925.GYRO.DEG.gz * HAL_IO.Parameter.heading_Kd;
 		 
-		 
 		 Control.Task.Heading_Out  = HAL_IO.Parameter.heading_Kp * HeadingErr + Control.Task.Heading_i + Control.Task.Heading_d;//Õâ¸öÊÇÆ«º½½Ç
 		 
+		 
+		 
+		 HAL_IO.Satuts.detaP = CrossDistance;
+		 HAL_IO.Satuts.dis2wp = PositionErr * cos(use_Heading * 0.017453278f);
+		 HAL_IO.Satuts.gyroZ  = GY925.GYRO.DEG.gz;
 	
-		 Control.Task.PositionOutPut = LIMIT(Control.Task.Position_Out,-30,30);
-		 Control.Task.HeadingOutPut  = LIMIT(Control.Task.Heading_Out,-30,30);
-		 Control.Task.SpeedOutPut    = LIMIT(Control.Task.Speed_Out,0,90);
+		 Control.Task.PositionOutPut = LIMIT(Control.Task.Position_Out,-300,300);
+		 Control.Task.HeadingOutPut  = LIMIT(Control.Task.Heading_Out,-300,300);
+		 Control.Task.SpeedOutPut    = LIMIT(Control.Task.Speed_Out,0,900);
 }
 
 

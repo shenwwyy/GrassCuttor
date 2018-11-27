@@ -483,8 +483,8 @@ void StartTask02(void const * argument)
 								TIM4->CCR3 = 0;//左前 3>4正向
 								TIM4->CCR4 = 0;//左前 3<4反向
 								
-								TIM8->CCR3 = 0;//右后 3>4正向
-								TIM8->CCR4 = 1000;//右后 3<4反向
+								TIM8->CCR3 = 1000;//右后 3>4正向
+								TIM8->CCR4 = 0;//右后 3<4反向
 				break;
 				case 0x80:
 					      TIM2->CCR1 = 0;//左后 1>2正向
@@ -500,7 +500,7 @@ void StartTask02(void const * argument)
 								TIM8->CCR4 = 1000;//右后 3<4反向
 				break;
 			}
-			
+		}
 			//记录数据
 			HAL_IO.Satuts.leftfront_p = TIM4->CCR3; 
 			HAL_IO.Satuts.leftfront_n = TIM4->CCR4; 
@@ -515,7 +515,7 @@ void StartTask02(void const * argument)
 			
 			
 
-		}
+		
 		osThreadYield();
   }
   /* USER CODE END StartTask02 */

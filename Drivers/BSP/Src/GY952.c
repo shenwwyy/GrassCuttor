@@ -136,9 +136,9 @@ void GY952_Decode(uint8_t *data)
 			  GY925.GYRO.RAW.gy = (int16_t)(data[6] << 8 )| data[7];
 			  GY925.GYRO.RAW.gz = (int16_t)(data[8] << 8 )| data[9];
 			
-				GY925.GYRO.DEG.gx = GY925.GYRO.RAW.gx * 2000.000000f/32768.000000f;
-			  GY925.GYRO.DEG.gy = GY925.GYRO.RAW.gy * 2000.000000f/32768.000000f ;
-			  GY925.GYRO.DEG.gz = GY925.GYRO.RAW.gz * 2000.000000f/32768.000000f;
+				GY925.GYRO.DEG.gx = -GY925.GYRO.RAW.gx * 2000.000000f/32768.000000f;
+			  GY925.GYRO.DEG.gy = -GY925.GYRO.RAW.gy * 2000.000000f/32768.000000f ;
+			  GY925.GYRO.DEG.gz = -GY925.GYRO.RAW.gz * 2000.000000f/32768.000000f;
 				break;
 			case 0x45: 
 				GY925.EULER.Roll  = (float)((int16_t)(data[4] << 8 )| data[5])/100.0f;
