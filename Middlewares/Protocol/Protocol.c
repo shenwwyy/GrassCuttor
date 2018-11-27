@@ -411,10 +411,48 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 					Control.Task.CurrentPoint.course    = Control.Task.TargetPoint.course;
 					Control.Task.CurrentPoint.speed     = Control.Task.TargetPoint.speed;
 			 }
+			 else if(Value == 0x02)//左前正向
+			 {
+				  Control.Car.WheelTest = 0x01;
+			 }
+			 else if(Value == 0x03)//左前反向
+			 {
+          Control.Car.WheelTest = 0x10;
+			 }
+			 else if(Value == 0x04)//左后正向
+			 {
+				  Control.Car.WheelTest = 0x02;
+			 }
+			 else if(Value == 0x05)//左后反向
+			 {
+          Control.Car.WheelTest = 0x20;
+			 }
+			 else if(Value == 0x06)//右前正向
+			 {
+				  Control.Car.WheelTest = 0x04;
+			 }
+			 else if(Value == 0x07)//右前反向
+			 {
+          Control.Car.WheelTest = 0x40;
+			 }
+			 else if(Value == 0x08)//右后正向
+			 {
+				  Control.Car.WheelTest = 0x08;
+			 }
+			 else if(Value == 0x09)//右后反向
+			 {
+          Control.Car.WheelTest = 0x80;
+			 }
+			 else if(Value == 0x0a)//取消测试
+			 {
+          Control.Car.WheelTest = 0x00;
+			 }
 				 
-			 
+
 		 }break;//end 60
-		 
+		 case 0x90:{//底层测试专用
+
+		 }break;//end 90
 		 
 		 
 		 

@@ -74,6 +74,10 @@ typedef struct {
 	float BaisThrottle;
 	uint8_t isunLock;
 	
+	
+	uint8_t WheelTest;
+	
+	
 }_car;
 
 

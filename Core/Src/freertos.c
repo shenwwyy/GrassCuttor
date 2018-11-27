@@ -265,7 +265,7 @@ void StartDefaultTask(void const * argument)
 		
 		//当前动作运行完成后，开始切换任务，让其他任务得以运行		
 		//数传发送
-        Protocol_T_Parameter();
+    Protocol_T_Parameter();
 		Protocol_T_WayPoint();
 		Protocol_T_Status(10);
 	    Protocol_T_GPS(10);
@@ -358,29 +358,157 @@ void StartTask02(void const * argument)
 			   Control.Task.HeadingOutPut
 			   往左为负
 			*/
-			TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
+//			TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
+//			TIM2->CCR2 = 0;//左后 1<2反向
+//			
+//			TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
+//			TIM8->CCR4 = 0;//右后 3<4反向
+
+      TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
 			TIM2->CCR2 = 0;//左后 1<2反向
 			
-			TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
-			TIM8->CCR4 = 0;//右后 3<4反向
-		}
-		else
-		{
-			TIM2->CCR1 = 0;//左后 1>2正向
-			TIM2->CCR2 = 0;//左后 1<2反向
-			
-			TIM4->CCR1 = 0;//右前 1>2正向
+			TIM4->CCR1 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
 			TIM4->CCR2 = 0;//右前 1<2反向
 			
 			TIM4->CCR3 = 0;//左前 3>4正向
 			TIM4->CCR4 = 0;//左前 3<4反向
 			
 			TIM8->CCR3 = 0;//右后 3>4正向
-			TIM8->CCR4 = 0;//右后 3<4反向
+			TIM8->CCR4 = 0;//右后 3<4反向			
+
 		}
-		
-		
-		
+		else
+		{
+			
+			switch(Control.Car.WheelTest)
+			{
+				case 0x00:
+								TIM2->CCR1 = 0;//左后 1>2正向
+								TIM2->CCR2 = 0;//左后 1<2反向
+								
+								TIM4->CCR1 = 0;//右前 1>2正向
+								TIM4->CCR2 = 0;//右前 1<2反向
+								
+								TIM4->CCR3 = 0;//左前 3>4正向
+								TIM4->CCR4 = 0;//左前 3<4反向
+								
+								TIM8->CCR3 = 0;//右后 3>4正向
+								TIM8->CCR4 = 0;//右后 3<4反向
+				break;
+				case 0x01:
+					      TIM2->CCR1 = 0;//左后 1>2正向
+								TIM2->CCR2 = 0;//左后 1<2反向
+								
+								TIM4->CCR1 = 0;//右前 1>2正向
+								TIM4->CCR2 = 0;//右前 1<2反向
+								
+								TIM4->CCR3 = 1000;//左前 3>4正向
+								TIM4->CCR4 = 0;//左前 3<4反向
+								
+								TIM8->CCR3 = 0;//右后 3>4正向
+								TIM8->CCR4 = 0;//右后 3<4反向
+				break;
+				case 0x10:
+					      TIM2->CCR1 = 0;//左后 1>2正向
+								TIM2->CCR2 = 0;//左后 1<2反向
+								
+								TIM4->CCR1 = 0;//右前 1>2正向
+								TIM4->CCR2 = 0;//右前 1<2反向
+								
+								TIM4->CCR3 = 0;//左前 3>4正向
+								TIM4->CCR4 = 1000;//左前 3<4反向
+								
+								TIM8->CCR3 = 0;//右后 3>4正向
+								TIM8->CCR4 = 0;//右后 3<4反向
+				break;
+				case 0x02:
+					      TIM2->CCR1 = 1000;//左后 1>2正向
+								TIM2->CCR2 = 0;//左后 1<2反向
+								
+								TIM4->CCR1 = 0;//右前 1>2正向
+								TIM4->CCR2 = 0;//右前 1<2反向
+								
+								TIM4->CCR3 = 0;//左前 3>4正向
+								TIM4->CCR4 = 0;//左前 3<4反向
+								
+								TIM8->CCR3 = 0;//右后 3>4正向
+								TIM8->CCR4 = 0;//右后 3<4反向
+				break;
+				case 0x20:
+					      TIM2->CCR1 = 0;//左后 1>2正向
+								TIM2->CCR2 = 1000;//左后 1<2反向
+								
+								TIM4->CCR1 = 0;//右前 1>2正向
+								TIM4->CCR2 = 0;//右前 1<2反向
+								
+								TIM4->CCR3 = 0;//左前 3>4正向
+								TIM4->CCR4 = 0;//左前 3<4反向
+								
+								TIM8->CCR3 = 0;//右后 3>4正向
+								TIM8->CCR4 = 0;//右后 3<4反向
+				break;
+				case 0x04:
+					      TIM2->CCR1 = 0;//左后 1>2正向
+								TIM2->CCR2 = 0;//左后 1<2反向
+								
+								TIM4->CCR1 = 1000;//右前 1>2正向
+								TIM4->CCR2 = 0;//右前 1<2反向
+								
+								TIM4->CCR3 = 0;//左前 3>4正向
+								TIM4->CCR4 = 0;//左前 3<4反向
+								
+								TIM8->CCR3 = 0;//右后 3>4正向
+								TIM8->CCR4 = 0;//右后 3<4反向
+				break;
+				case 0x40:
+					      TIM2->CCR1 = 0;//左后 1>2正向
+								TIM2->CCR2 = 0;//左后 1<2反向
+								
+								TIM4->CCR1 = 0;//右前 1>2正向
+								TIM4->CCR2 = 1000;//右前 1<2反向
+								
+								TIM4->CCR3 = 0;//左前 3>4正向
+								TIM4->CCR4 = 0;//左前 3<4反向
+								
+								TIM8->CCR3 = 0;//右后 3>4正向
+								TIM8->CCR4 = 0;//右后 3<4反向
+				break;
+				case 0x08:
+					      TIM2->CCR1 = 0;//左后 1>2正向
+								TIM2->CCR2 = 0;//左后 1<2反向
+								
+								TIM4->CCR1 = 0;//右前 1>2正向
+								TIM4->CCR2 = 0;//右前 1<2反向
+								
+								TIM4->CCR3 = 0;//左前 3>4正向
+								TIM4->CCR4 = 0;//左前 3<4反向
+								
+								TIM8->CCR3 = 0;//右后 3>4正向
+								TIM8->CCR4 = 1000;//右后 3<4反向
+				break;
+				case 0x80:
+					      TIM2->CCR1 = 0;//左后 1>2正向
+								TIM2->CCR2 = 0;//左后 1<2反向
+								
+								TIM4->CCR1 = 0;//右前 1>2正向
+								TIM4->CCR2 = 0;//右前 1<2反向
+								
+								TIM4->CCR3 = 0;//左前 3>4正向
+								TIM4->CCR4 = 0;//左前 3<4反向
+								
+								TIM8->CCR3 = 0;//右后 3>4正向
+								TIM8->CCR4 = 1000;//右后 3<4反向
+				break;
+			}
+			
+			
+			
+			
+			
+			
+			
+
+		}
 		osThreadYield();
   }
   /* USER CODE END StartTask02 */
