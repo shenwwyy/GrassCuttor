@@ -33,25 +33,41 @@ _linear Line_2_3;
 void Control_TaskManage(float T,uint32_t id)
 {
 	    //更新当前的位置信息
-	
-	    HAL_IO.GPS.fixtype     = Control.Senser.GPS.fix;
-	    HAL_IO.GPS.svn         = Control.Senser.GPS.svn;
-	    HAL_IO.GPS.altitude    = Control.Senser.GPS.altitude;
-	    HAL_IO.GPS.latitude    = Control.Senser.GPS.latitude;
-	    HAL_IO.GPS.longitude   = Control.Senser.GPS.longitude;
-	    HAL_IO.GPS.course      = Control.Senser.GPS.course;
-	    HAL_IO.GPS.groundspeed = Control.Senser.GPS.speed;
-	
-	
-	
-	
-	
-	
-	    Control.Task.CurrentPoint.altitude  = Control.Senser.GPS.altitude;
-	    Control.Task.CurrentPoint.latitude  = Control.Senser.GPS.latitude;
-	    Control.Task.CurrentPoint.longitude = Control.Senser.GPS.longitude;
-	    Control.Task.CurrentPoint.course    = Control.Senser.GPS.course;
-	    Control.Task.CurrentPoint.speed     = Control.Senser.GPS.speed;
+	   
+	    if(HAL_IO.Satuts.isDebug == 0x01)
+			{
+				  HAL_IO.GPS.fixtype     = HAL_IO.SIM.fixtype;
+					HAL_IO.GPS.svn         = HAL_IO.SIM.svn;
+					HAL_IO.GPS.altitude    = HAL_IO.SIM.altitude;
+					HAL_IO.GPS.latitude    = HAL_IO.SIM.latitude;
+					HAL_IO.GPS.longitude   = HAL_IO.SIM.longitude;
+					HAL_IO.GPS.course      = HAL_IO.SIM.course;
+					HAL_IO.GPS.groundspeed = HAL_IO.SIM.groundspeed;
+			
+					
+					Control.Task.CurrentPoint.altitude  = HAL_IO.SIM.altitude;
+					Control.Task.CurrentPoint.latitude  = HAL_IO.SIM.latitude;
+					Control.Task.CurrentPoint.longitude = HAL_IO.SIM.longitude;
+					Control.Task.CurrentPoint.course    = HAL_IO.SIM.course;
+					Control.Task.CurrentPoint.speed     = HAL_IO.SIM.groundspeed;
+			}
+			else
+			{
+					HAL_IO.GPS.fixtype     = Control.Senser.GPS.fix;
+					HAL_IO.GPS.svn         = Control.Senser.GPS.svn;
+					HAL_IO.GPS.altitude    = Control.Senser.GPS.altitude;
+					HAL_IO.GPS.latitude    = Control.Senser.GPS.latitude;
+					HAL_IO.GPS.longitude   = Control.Senser.GPS.longitude;
+					HAL_IO.GPS.course      = Control.Senser.GPS.course;
+					HAL_IO.GPS.groundspeed = Control.Senser.GPS.speed;
+			
+					
+					Control.Task.CurrentPoint.altitude  = Control.Senser.GPS.altitude;
+					Control.Task.CurrentPoint.latitude  = Control.Senser.GPS.latitude;
+					Control.Task.CurrentPoint.longitude = Control.Senser.GPS.longitude;
+					Control.Task.CurrentPoint.course    = Control.Senser.GPS.course;
+					Control.Task.CurrentPoint.speed     = Control.Senser.GPS.speed;
+			}
 	
 	    //任务开始
 	    switch(id)
@@ -162,9 +178,6 @@ void Control_WorkingTask(float T)
 	}
 	else
 	{  
-
-			
-
 			if(Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.TargetPoint,3.0f,0) == true)
 			{
 				    Control.Task.LastPoint.Number    = Control.Task.TargetPoint.Number;
@@ -202,6 +215,8 @@ void Control_WorkingTask(float T)
 					}
 
 			}
+			
+			HAL_IO.Satuts.currentwaypoint = Control.Task.TargetPoint.Number;
 			
 		  Control_Route(T,
 			              Control.Task.LastPoint,
@@ -505,7 +520,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 //速度控制
 		 Control.Task.Speed_Err = LIMIT(Target.speed - Current.speed,-10,10) * HAL_IO.Parameter.speed_Kp;
 		 Control.Task.Speed_i  += Control.Task.Speed_Err * HAL_IO.Parameter.speed_Ki * T;
-		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-70,70);
+		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-700,700);
 		 Control.Task.Speed_Out = Control.Task.Speed_Err + Control.Task.Speed_i;
 
 		 //航线控制
@@ -530,9 +545,9 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 	   //算出侧偏距
 	   CrossDistance = PositionErr * sin(use_Heading * 0.017453278f);//转成弧度制	 
 
-		 Control.Task.Position_Err = LIMIT(CrossDistance,-10,10) * HAL_IO.Parameter.distance_Kp;
+		 Control.Task.Position_Err = LIMIT(CrossDistance,-20,20) * HAL_IO.Parameter.distance_Kp;
 		 Control.Task.Position_i  += Control.Task.Position_Err * HAL_IO.Parameter.distance_Ki * T;
-		 Control.Task.Position_i   = LIMIT(Control.Task.Position_i,-10,10);
+		 Control.Task.Position_i   = LIMIT(Control.Task.Position_i,-200,200);
 		 Control.Task.Position_Out = Control.Task.Position_Err + Control.Task.Position_i;//这个是侧偏
 
 		 //计算偏航
@@ -548,7 +563,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 HeadingErr = LIMIT(To_180_degrees(HeadingErr),-20,20);
 		 
 		 Control.Task.Heading_i    += HAL_IO.Parameter.heading_Ki * HeadingErr * T ;//这个是偏航角
-		 Control.Task.Heading_i    = LIMIT(Control.Task.Heading_i,-10,10);
+		 Control.Task.Heading_i    = LIMIT(Control.Task.Heading_i,-200,200);
 		 
 		 Control.Task.Heading_d    = GY925.GYRO.DEG.gz * HAL_IO.Parameter.heading_Kd;
 		 

@@ -112,19 +112,21 @@ typedef struct {
 		float voltage3;
 		float voltage4;
 	  
-	    uint16_t leftfront_p;
-	    uint16_t leftfront_n;
-	    uint16_t leftback_p;
-	    uint16_t leftback_n;
+	  uint16_t leftfront_p;
+	  uint16_t leftfront_n;
+	  uint16_t leftback_p;
+	  uint16_t leftback_n;
 	
-	    uint16_t rightfront_p;
-	    uint16_t rightfront_n;
-	    uint16_t rightback_p;
-	    uint16_t rightback_n;
+	  uint16_t rightfront_p;
+	  uint16_t rightfront_n;
+	  uint16_t rightback_p;
+	  uint16_t rightback_n;
 	  
 	  float dis2wp;
 	  float detaP;
 	  float gyroZ;
+
+	  bool isDebug;
 	
 	
 }_status;
@@ -148,9 +150,16 @@ typedef  struct {
 	uint32_t ReadWayPointCount;
 	uint32_t MaxWayPointCount;
 
+	
+	
+	
+	
 	_heardbeat HeardBeat;
 	_parameter Parameter;
 	_gps GPS;
+	
+	_gps SIM;//simulation point
+	
 	_ultrasonic Ultrasonic;
 	_waypoint WayPoint;
 	_status Satuts;
@@ -209,7 +218,7 @@ void Protocol_R_LED(uint8_t *data);
 void Protocol_R_CMD(uint8_t *data);
 void Protocol_R_Parameter(uint8_t *data);
 void Protocol_R_WayPoint(uint8_t *data);
-
+void Protocol_R_SimuPos(uint8_t *data);
 
 
 void Protocol_T_GPS(uint32_t T);

@@ -364,16 +364,16 @@ void StartTask02(void const * argument)
 //			TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
 //			TIM8->CCR4 = 0;//右后 3<4反向
 
-            TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
+      TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
 			TIM2->CCR2 = 0;//左后 1<2反向
 			
-			TIM4->CCR1 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
+			TIM4->CCR1 = 0;//右前 1>2正向
 			TIM4->CCR2 = 0;//右前 1<2反向
 			
 			TIM4->CCR3 = 0;//左前 3>4正向
 			TIM4->CCR4 = 0;//左前 3<4反向
 			
-			TIM8->CCR3 = 0;//右后 3>4正向
+			TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
 			TIM8->CCR4 = 0;//右后 3<4反向			
 
 		}

@@ -269,8 +269,10 @@ void Protocol_R_Prepare(uint8_t c)
 							CID = (uint16_t)(CIDH << 8)+ CIDL;
 							switch(CID)
 							{
+								case 0x0001: Protocol_R_LED(RawData);break;
 								case 0x0005: Protocol_R_CMD(RawData);break;
 								case 0X0010: Protocol_R_Parameter(RawData);break;
+								case 0x0021: Protocol_R_SimuPos(RawData);break;
 								case 0X0040: Protocol_R_WayPoint(RawData);break;
 								
 							}
@@ -291,7 +293,7 @@ void Protocol_R_Prepare(uint8_t c)
    |EB 90|CIDL CIDH|SYN|LENL LENH|Payload|CKL     CKH| 	 
 */
 
-void Protocol_R_LED(uint8_t *data)//0x50
+void Protocol_R_LED(uint8_t *data)//0x01
 {
 
 }
@@ -447,6 +449,14 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 			 {
           Control.Car.WheelTest = 0x00;
 			 }
+			 else if(Value == 0x0b)//进入调试
+			 {
+          HAL_IO.Satuts.isDebug = 0x01;
+			 }
+			 else if(Value == 0x0c)//退出调试
+			 {
+          HAL_IO.Satuts.isDebug = 0x00;
+			 }
 				 
 
 		 }break;//end 60
@@ -468,23 +478,21 @@ void Protocol_R_Parameter(uint8_t *data)//0x10
 	 Control.Parameter.isSaveParameter = 0x01;
 }
 
-void Protocol_R_WayPoint(uint8_t *data)
+void Protocol_R_WayPoint(uint8_t *data)//0x40
 {
 	memcpy(&HAL_IO.WayPoint,data+7,sizeof(HAL_IO.WayPoint));
 	
 	memcpy(&WayPointList[HAL_IO.WayPoint.id],&HAL_IO.WayPoint,sizeof(HAL_IO.WayPoint));
-
-		
-//  if(HAL_IO.WayPoint.id == 0)
-//	{
-//		HAL_IO.ReadWayPointCount = 0;
-//	}
+	
 	HAL_IO.ReadWayPointCount ++;
 	
 	Protocol_T_Echo(0x40,0x07);
 }
 
-
+void Protocol_R_SimuPos(uint8_t *data)//0x21
+{
+	memcpy(&HAL_IO.SIM,data+7,sizeof(HAL_IO.SIM));
+}
 
 
 
@@ -565,7 +573,7 @@ void Protocol_T_Parameter(void)//0x10
 		}
 }
 
-void Protocol_T_GPS(uint32_t T)
+void Protocol_T_GPS(uint32_t T)//0x20
 {
 	      HAL_IO.GPS_Count += T;
 	      if(HAL_IO.GPS_Count >= 200)
@@ -641,7 +649,7 @@ void Protocol_T_WayPoint(void)//0x40
 		}
 }
 
-void Protocol_T_Status(uint32_t T)
+void Protocol_T_Status(uint32_t T)//0x50
 {
 	      HAL_IO.STATUS_Count += T;
 	      if(HAL_IO.STATUS_Count >= 1000)
