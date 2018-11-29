@@ -337,6 +337,13 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 				 Control.Task.ChargePoint.longitude = Control.Task.CurrentPoint.longitude;
 				 Control.Task.ChargePoint.speed     = Control.Task.CurrentPoint.speed;
 				 Control.Task.ChargePoint.course    = Control.Task.CurrentPoint.course;
+				 //给上一点赋值
+				 Control.Task.LastPoint.Number    = Control.Task.CurrentPoint.Number;
+				 Control.Task.LastPoint.altitude  = Control.Task.CurrentPoint.altitude;
+				 Control.Task.LastPoint.latitude  = Control.Task.CurrentPoint.latitude;
+				 Control.Task.LastPoint.longitude = Control.Task.CurrentPoint.longitude;
+				 Control.Task.LastPoint.speed     = Control.Task.CurrentPoint.speed;
+				 Control.Task.LastPoint.course    = Control.Task.CurrentPoint.course;
 				 
 				 //给目标点赋值
 				 Control.Task.TargetPoint.Number    = WayPointList[0].id;
@@ -685,6 +692,40 @@ void Protocol_T_Status(uint32_t T)//0x50
 			 }
 }
 
+void Protocol_T_Par(uint32_t T)//0x51
+{
+	      HAL_IO.PAR_Count += T;
+	      if(HAL_IO.PAR_Count >= 1000)
+				{
+					HAL_IO.PAR_Count = 0;
+					union{uint8_t B[2];uint16_t D;}src;
+					uint8_t  DataToSend[100];
+					uint16_t DataCount = 0;
 
+					DataToSend[DataCount++] = 0xEB;
+					DataToSend[DataCount++] = 0x90;
+
+					src.D = 0x0051;//ID
+					DataToSend[DataCount++] = src.B[0];
+					DataToSend[DataCount++] = src.B[1];
+
+
+					DataToSend[DataCount++] = HAL_IO.U5.txsyn++;
+
+					src.D = sizeof(HAL_IO.Par);//LEN
+					DataToSend[DataCount++] = src.B[0];
+					DataToSend[DataCount++] = src.B[1];
+
+					memcpy(DataToSend + DataCount,&HAL_IO.Par,sizeof(HAL_IO.Par));
+					DataCount += sizeof(HAL_IO.Par);
+
+
+					src.D = CRC_CheckSum(DataToSend,DataCount);
+					DataToSend[DataCount++] = src.B[0];
+					DataToSend[DataCount++] = src.B[1];
+
+					Protocol_T_Combin(DataToSend,DataCount);
+			 }
+}
 
 

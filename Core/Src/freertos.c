@@ -268,7 +268,8 @@ void StartDefaultTask(void const * argument)
     Protocol_T_Parameter();
 		Protocol_T_WayPoint();
 		Protocol_T_Status(10);
-	    Protocol_T_GPS(10);
+	  Protocol_T_GPS(10);
+		Protocol_T_Par(10);
 		//Êý´«½âÂë
 		Protocol_Rev();
 		

@@ -178,7 +178,7 @@ void Control_WorkingTask(float T)
 	}
 	else
 	{  
-			if(Control_CircleCheck(Control.Task.CurrentPoint,Control.Task.TargetPoint,3.0f,0) == true)
+			if(Control_OverCheck(Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,3.0f) == true)//提前3米转弯
 			{
 				    Control.Task.LastPoint.Number    = Control.Task.TargetPoint.Number;
 						Control.Task.LastPoint.altitude  = Control.Task.TargetPoint.altitude;
@@ -403,6 +403,45 @@ uint8_t Control_CircleCheck(_point Current,_point Centre,float Radius,uint8_t Si
 	 return isSide;	 
 }
 
+//超过检测
+uint8_t Control_OverCheck(_point Last,_point Current,_point Target,float Distance)
+{
+	 uint8_t isSide = false;//默认为假
+	 float PositionErr = 0;
+	 float Current_Target_Heading = 0;
+	 float Last_Target_Heading = 0;
+	 float use_Heading = 0;
+	 float CrossDistance = 0;
+   //计算侧偏
+	 PositionErr = POS_Distance(Current.latitude,Current.longitude,
+															Target.latitude,Target.longitude);
+	 
+	 //计算前向，侧向的障碍物，结合当前的航迹角，得出侧向控制输出
+	 Current_Target_Heading = POS_Heading(Current.latitude,Current.longitude,
+																				Target.latitude,Target.longitude);
+
+	 //计算侧偏
+	 //当前到目标，额角度，距离，计算出侧偏，而且目标值不变的话，那么的出来的侧偏永远都是同一个符号
+	 Last_Target_Heading = POS_Heading(Last.latitude,Last.longitude,
+																		 Target.latitude,Target.longitude);
+
+	 use_Heading = Last_Target_Heading - Current_Target_Heading;
+	 //转换到180度格式3
+	 use_Heading = To_180_degrees(use_Heading);
+	 //算出待飞距
+	 CrossDistance = PositionErr * cos(use_Heading * 0.017453278f);//转成弧度制	 
+	 
+	 //判断是否已经超过
+	 if((CrossDistance - Distance) < 0)
+		isSide = 1;
+	 else
+	  isSide = 0;
+	 
+	 return isSide;	 
+}
+
+
+
 //通过经纬度计算距离和航向
 /*
 计算两个点的距离。
@@ -520,9 +559,14 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 //速度控制
 		 Control.Task.Speed_Err = LIMIT(Target.speed - Current.speed,-10,10) * HAL_IO.Parameter.speed_Kp;
 		 Control.Task.Speed_i  += Control.Task.Speed_Err * HAL_IO.Parameter.speed_Ki * T;
-		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-700,700);
+		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-800,800);
 		 Control.Task.Speed_Out = Control.Task.Speed_Err + Control.Task.Speed_i;
-
+     //速度数据记录
+	   HAL_IO.Par.speed_p = Control.Task.Speed_Err;
+	   HAL_IO.Par.speed_i = Control.Task.Speed_i;
+	   HAL_IO.Par.speed_d = 0;
+	   HAL_IO.Par.speed_o = Control.Task.Speed_Out;
+	
 		 //航线控制
 		 
 	    
@@ -547,8 +591,14 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 
 		 Control.Task.Position_Err = LIMIT(CrossDistance,-20,20) * HAL_IO.Parameter.distance_Kp;
 		 Control.Task.Position_i  += Control.Task.Position_Err * HAL_IO.Parameter.distance_Ki * T;
-		 Control.Task.Position_i   = LIMIT(Control.Task.Position_i,-200,200);
+		 Control.Task.Position_i   = LIMIT(Control.Task.Position_i,-400,400);
 		 Control.Task.Position_Out = Control.Task.Position_Err + Control.Task.Position_i;//这个是侧偏
+
+     //位置数据记录
+	   HAL_IO.Par.position_p = Control.Task.Position_Err;
+	   HAL_IO.Par.position_i = Control.Task.Position_i;
+	   HAL_IO.Par.position_d = 0;
+	   HAL_IO.Par.position_o = Control.Task.Position_Out;
 
 		 //计算偏航
 		 if((Current.latitude != Target.latitude)||(Current.longitude != Target.longitude))//如果经纬度一样，那么不求解
@@ -563,13 +613,17 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 HeadingErr = LIMIT(To_180_degrees(HeadingErr),-20,20);
 		 
 		 Control.Task.Heading_i    += HAL_IO.Parameter.heading_Ki * HeadingErr * T ;//这个是偏航角
-		 Control.Task.Heading_i    = LIMIT(Control.Task.Heading_i,-200,200);
+		 Control.Task.Heading_i    = LIMIT(Control.Task.Heading_i,-400,400);
 		 
 		 Control.Task.Heading_d    = GY925.GYRO.DEG.gz * HAL_IO.Parameter.heading_Kd;
 		 
 		 Control.Task.Heading_Out  = HAL_IO.Parameter.heading_Kp * HeadingErr + Control.Task.Heading_i + Control.Task.Heading_d;//这个是偏航角
 		 
-		 
+		 //角度数据记录
+	   HAL_IO.Par.heading_p = HeadingErr;
+	   HAL_IO.Par.heading_i = Control.Task.Heading_i;
+	   HAL_IO.Par.heading_d = Control.Task.Heading_d;
+	   HAL_IO.Par.heading_o = Control.Task.Heading_Out;
 		 
 		 HAL_IO.Satuts.detaP = CrossDistance;
 		 HAL_IO.Satuts.dis2wp = PositionErr * cos(use_Heading * 0.017453278f);

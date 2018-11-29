@@ -340,7 +340,7 @@ void  POS_LatLon(double lat1,double lon1,double dLat,double dLon,double *lat2,do
 
 uint8_t Control_PolygonCheck(_point Current,_point Target[],uint16_t TargetNumber,uint8_t Side);
 uint8_t Control_CircleCheck(_point Current,_point Centre,float Radius,uint8_t Side);
-
+uint8_t Control_OverCheck(_point Last,_point Current,_point Target,float Distance);
 
 void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar,float PosOffset);
 

@@ -125,13 +125,32 @@ typedef struct {
 	  float dis2wp;
 	  float detaP;
 	  float gyroZ;
-
+	
 	  bool isDebug;
+	
+	
 	
 	
 }_status;
 
-
+typedef struct {
+		float speed_p;
+	  float speed_i;
+	  float speed_d;
+		float speed_o;
+		
+		float position_p;
+	  float position_i;
+	  float position_d;
+		float position_o;
+	
+	  float heading_p;
+	  float heading_i;
+	  float heading_d;
+		float heading_o;
+	
+	
+}_par;
 
 typedef  struct {
 	
@@ -143,6 +162,7 @@ typedef  struct {
 	uint32_t PWM_Count;
 	uint32_t ENGINE_Count;
   
+	uint32_t PAR_Count;
 	uint32_t STATUS_Count;
 	uint32_t GPS_Count; 
 	
@@ -163,6 +183,7 @@ typedef  struct {
 	_ultrasonic Ultrasonic;
 	_waypoint WayPoint;
 	_status Satuts;
+	_par Par;
 	_cmd CMD;
 	_echo Echo;
 	
@@ -226,6 +247,7 @@ void Protocol_T_Echo(uint32_t ID,uint32_t Value);//0x04
 void Protocol_T_Parameter(void);//0x10;
 void Protocol_T_WayPoint(void);//0x40
 void Protocol_T_Status(uint32_t T);//0x50
+void Protocol_T_Par(uint32_t T);//0x51
 #endif
 
 
