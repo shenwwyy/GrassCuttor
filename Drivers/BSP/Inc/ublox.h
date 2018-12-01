@@ -6,8 +6,11 @@
 
 //UBX Frame Structure:
 //B5 62 + CLASS(1byte) + ID(1byte) + LEN(2byte) + PAYLODE + CK_A CK_B(2byte)
-#define UBLOX_SYNC_CHAR1		0xB5
-#define UBLOX_SYNC_CHAR2		0x62
+
+//UBX Frame Structure:
+//B5 62 + CLASS(1byte) + ID(1byte) + LEN(2byte) + PAYLODE + CK_A CK_B(2byte)
+#define UBLOX_SYNC_CHAR1	0xB5
+#define UBLOX_SYNC_CHAR2	0x62
 
 #define UBLOX_NAV_CLASS	    0x01
 #define UBLOX_RXM_CLASS	    0x02
@@ -16,28 +19,29 @@
 #define UBLOX_AID_CLASS	    0x0b
 #define UBLOX_TIM_CLASS	    0x0d
 
-#define UBLOX_CFG_CFG	    	0x09
+#define UBLOX_CFG_CFG	      0x09
 #define UBLOX_CFG_PRT       0x00
-#define UBLOX_CFG_MSG	    	0x01
+#define UBLOX_CFG_MSG	      0x01
 #define UBLOX_CFG_RATE	    0x08
 
 
 #define UBLOX_NAV_POSLLH    0x02
-#define UBLOX_NAV_VELNED    0x12
 #define UBLOX_NAV_STATUS    0x03
+#define UBLOX_NAV_PVT       0x07
+#define UBLOX_NAV_VELNED    0x12
 
 #define UBLOX_MAX_PAYLOAD   512
-#define UBLOX_WAIT_MS	    	20
+#define UBLOX_WAIT_MS	      20
 
 #define UBLOX_PortNum_DDC 	0x01 
 #define UBLOX_PortNum_UART1 0x01
 #define UBLOX_PortNum_USB  	0x03
-#define UBLOX_PortNum_SPI		0x04
+#define UBLOX_PortNum_SPI	  0x04
 
-#define UBLOX_PROTOCOL_UBX 				0x0001 
-#define UBLOX_PROTOCOL_NMEA 			0x0010
-#define UBLOX_PROTOCOL_RTCM2  		0x0100
-#define UUBLOX_PROTOCOL_RTCM3			0X1000
+#define UBLOX_PROTOCOL_UBX 		0x0001 
+#define UBLOX_PROTOCOL_NMEA 	0x0010
+#define UBLOX_PROTOCOL_RTCM2  0x0100
+#define UUBLOX_PROTOCOL_RTCM3	0X1000
 
 enum ubloxStates {
     UBLOX_WAIT_SYNC1 = 0,
@@ -68,6 +72,7 @@ typedef struct {
  void ubloxSet_PRT(uint32_t baud,uint16_t inProtoMask,uint16_t outProtoMask);
  void ubloxmsg_Enable(uint8_t msgClass,uint8_t msgID);
  void ubloxInit(void);
+ void Protocol_NAV_PVT(uint8_t *data);
  void Protocol_NAV_VELNED(uint8_t *data);
  void Protocol_NAV_STATUS(uint8_t *data);
  void Protocol_NAV_POSLLH(uint8_t *data);

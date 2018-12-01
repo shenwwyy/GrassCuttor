@@ -34,11 +34,6 @@ static void ublox_Send(uint8_t* data, uint16_t size)//发送函数封装，使用函数式
 	UART_TX_FIFO_write(&gps_tx,data,size);
 }
 
-
-
-
-
-
 /***********************************************************************************************
 *函数名 ：ubloxInitGps
 *函数功能描述 ：初始化GPS
@@ -67,12 +62,17 @@ void ubloxInit(void)
 	
 	HAL_Delay(100);
 	ubloxSet_Rate(100);
-	HAL_Delay(100);	
+	/*HAL_Delay(100);	
 	ubloxmsg_Enable(UBLOX_NAV_CLASS,UBLOX_NAV_POSLLH);	
 	HAL_Delay(100);
 	ubloxmsg_Enable(UBLOX_NAV_CLASS,UBLOX_NAV_VELNED);	
 	HAL_Delay(100);
 	ubloxmsg_Enable(UBLOX_NAV_CLASS,UBLOX_NAV_STATUS);	
+	*/
+	HAL_Delay(1000);
+	ubloxmsg_Enable(UBLOX_NAV_CLASS,UBLOX_NAV_PVT);
+	HAL_Delay(1000);
+	
 }
 
 
@@ -365,7 +365,9 @@ void ublox_Prepare(uint8_t data)
 					case UBLOX_NAV_STATUS: Protocol_NAV_STATUS(ublox_ProRxBuffer);//解析STATUS
 						break;
 					case UBLOX_NAV_POSLLH: Protocol_NAV_POSLLH(ublox_ProRxBuffer);//解析POSLLH
-						break;																											//
+						break;	
+          case UBLOX_NAV_PVT:    Protocol_NAV_PVT(ublox_ProRxBuffer);//解析PVT
+					  break;											//
 					default  : ublox_ProState=0;
 						break;
 				}
@@ -407,6 +409,149 @@ uint16_t CheckSum(uint8_t *buff,uint16_t len)
 	return src.D;
 }
 
+
+
+void Protocol_NAV_PVT(uint8_t *data)
+{
+	union {uint8_t B[4];uint16_t I2[2];uint16_t U2[2];int32_t I4;uint32_t U4;}src;	
+	uint8_t src_count = 0,data_count = 6;
+	uint32_t iTOW,tAcc,nano,flags,flags2,vAcc,sAcc,headAcc;
+	
+	float hMSL,hAcc;
+	
+	static float PeriodTime = 0,LastTime = 0;
+	static float LastSpeed_N = 0,LastSpeed_E = 0,LastSpeed_D = 0;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	iTOW = src.U4;
+	
+	PeriodTime = (iTOW - LastTime) * 1e-3;
+	LastTime = iTOW;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	Control.Senser.gRTC.year = src.U2[0];
+
+	Control.Senser.gRTC.month = data[data_count++];
+	Control.Senser.gRTC.day   = data[data_count++];
+	Control.Senser.gRTC.hour  = data[data_count++];
+	Control.Senser.gRTC.minute= data[data_count++];
+	Control.Senser.gRTC.second= data[data_count++];
+	
+	Control.Senser.gRTC.valid = data[data_count++];
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	tAcc = src.U4;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	nano = src.I4;
+
+	Control.Senser.GPS.fix = data[data_count++];
+	flags  = data[data_count++];
+	flags2 = data[data_count++];
+	Control.Senser.GPS.svn = data[data_count++];
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	Control.Senser.GPS.longitude = src.I4 * 1e-7;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	Control.Senser.GPS.latitude = src.I4 * 1e-7;
+
+
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	Control.Senser.GPS.altitude = src.I4 * 1e-3;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	hMSL = src.I4 * 1e-3;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	hAcc = src.U4 * 1e-3;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	vAcc = src.U4 * 1e-3;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	Control.Senser.GPS.vn = src.I4 * 1e-3;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	Control.Senser.GPS.ve = src.I4 * 1e-3;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	Control.Senser.GPS.vd = src.I4 * 1e-3;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	Control.Senser.GPS.speed = src.I4 * 1e-3;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	Control.Senser.GPS.course = src.I4 * 1e-5;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	sAcc = src.I4 * 1e-3;
+	
+	src.B[0] = data[data_count++];
+	src.B[1] = data[data_count++];
+	src.B[2] = data[data_count++];
+	src.B[3] = data[data_count++];
+	headAcc = src.I4 * 1e-5;
+	
+	//...
+	
+	
+}
+
+
+
+
+
+
+
+
+
 /***********************************************************************************************
 *函数名 ： Protocol_NAV_VELNED();Protocol_NAV_STATUS();Protocol_NAV_POSLLH();
 *函数功能描述 ： 解析对应NAV数据
@@ -443,8 +588,8 @@ void Protocol_NAV_VELNED(uint8_t *data)
 	src.B[1] = data[data_count++];
 	src.B[2] = data[data_count++];
 	src.B[3] = data[data_count++];
-	NAV_VELNED[src_count++] = src.W * 0.01f;
-	Control.Senser.GPS.vn=NAV_VELNED[1];
+	NAV_VELNED[src_count++] = src.W;
+	Control.Senser.GPS.vn=NAV_VELNED[1] * 1e-2;
 	
 
 	src.B[0] = data[data_count++];

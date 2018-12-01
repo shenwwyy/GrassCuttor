@@ -177,8 +177,20 @@ typedef struct {//deg
 	float yaw;
 }_imu;
 
+
 typedef struct {
-	
+	uint16_t year;
+	uint8_t  month;
+	uint8_t  day;
+	uint8_t  hour;
+	uint8_t  minute;
+	uint8_t  second;
+	uint8_t  valid;
+}_rtc;
+
+
+typedef struct {
+	_rtc    gRTC;
 	_gps_   GPS;
 	_sonar Sonar;
 	_voltage Voltage;
