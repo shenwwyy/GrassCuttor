@@ -352,6 +352,23 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 				 Control.Task.TargetPoint.longitude = WayPointList[0].longitude;
 				 Control.Task.TargetPoint.speed     = WayPointList[0].speed;
 				 Control.Task.TargetPoint.course    = WayPointList[0].course;
+				 
+				 
+				 //控制参数清零
+				 Control.Task.Speed_Err = 0;
+				 Control.Task.Speed_i = 0;
+				 Control.Task.Speed_Out = 0;
+				 
+				 Control.Task.Position_Err = 0;
+				 Control.Task.Position_i = 0;
+				 Control.Task.Position_Out = 0;
+				 
+				 Control.Task.Heading_Err = 0;
+				 Control.Task.Heading_i = 0;
+				 Control.Task.Heading_d = 0;
+				 Control.Task.Heading_Out = 0;
+				 
+				 
 			 }
 			 else if(Value  == 0x06)
 			 {
@@ -361,6 +378,20 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 				 
 				 Control.Command.EmergencyStop = 0x6d;//紧急停止
 				 Control.Task.Task_id = 0;//待机模式
+				 
+				 
+				 Control.Task.Speed_Err = 0;
+				 Control.Task.Speed_i = 0;
+				 Control.Task.Speed_Out = 0;
+				 
+				 Control.Task.Position_Err = 0;
+				 Control.Task.Position_i = 0;
+				 Control.Task.Position_Out = 0;
+				 
+				 Control.Task.Heading_Err = 0;
+				 Control.Task.Heading_i = 0;
+				 Control.Task.Heading_d = 0;
+				 Control.Task.Heading_Out = 0;
 				 
 				 
 			 }

@@ -103,6 +103,7 @@ void Control_IdleTask(float T)
 		  //MOTOR_BRAKE(UNUSED);//不刹车
 	}
 	
+#if USE_MIN_BATTERY
 	if(Control.Senser.Voltage.Battery1.Battery <= Control.Senser.Voltage.Battery1.Min)
 	{
 		Control.Task.Task_id = ChargingTask;
@@ -122,12 +123,16 @@ void Control_IdleTask(float T)
 			  Control.Task.Task_id = WorkingTask;
 		 }
 	}
-	
+#endif	
 	
 	//清空输出
 	Control.Car.isunLock = 0x00;
 	Control.Task.PositionOutPut = 0;
 	Control.Task.HeadingOutPut  = 0;
+	Control.Task.SpeedOutPut = 0;
+	
+	
+	
 	
 	
 }
@@ -152,14 +157,8 @@ uint16_t PointCount = 0;
 
           
 void Control_WorkingTask(float T)
-{
-	//小车根据割草的任务进行工作
-  //小车随时避障，并且检测当前区域是否在地里围栏之内，如果不在，那么首先要进入地里围栏，再进行工作
-	//如果小车前方遇到障碍物，小车会绕过障碍物进行割草
-	//小车割草过程中，随时检查自身电量是否达到最低门限，如果到达，那么中断任务，并且记录当前的位置和航向，然后切换至充电任务
-	//割草任务完成，小车启动返航任务
-	
-
+{	
+#ifdef USE_MIN_BATTERY
 	if(Control.Senser.Voltage.Battery1.Battery <= Control.Senser.Voltage.Battery1.Min)
 	{
 		   Control.Task.Working.BatCount += T;
@@ -178,6 +177,8 @@ void Control_WorkingTask(float T)
 	}
 	else
 	{  
+#endif
+
 			if(Control_OverCheck(Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,3.0f) == true)//提前3米转弯
 			{
 				    Control.Task.LastPoint.Number    = Control.Task.TargetPoint.Number;
@@ -193,12 +194,26 @@ void Control_WorkingTask(float T)
 					{
 						NextNumber = 0;
 						
-						Control.Task.TargetPoint.Number    = Control.Task.ChargePoint.Number;
-						Control.Task.TargetPoint.altitude  = Control.Task.ChargePoint.altitude;
-						Control.Task.TargetPoint.latitude  = Control.Task.ChargePoint.latitude;
-						Control.Task.TargetPoint.longitude = Control.Task.ChargePoint.longitude;
-						Control.Task.TargetPoint.speed     = Control.Task.ChargePoint.speed;
-						Control.Task.TargetPoint.course    = Control.Task.ChargePoint.course;
+						if((Control.Task.TargetPoint.Number+1) == HAL_IO.MaxWayPointCount)//刚好等，那么切换，超过就停止
+						{
+							Control.Task.TargetPoint.Number    = Control.Task.TargetPoint.Number+1;
+							Control.Task.TargetPoint.altitude  = Control.Task.ChargePoint.altitude;
+							Control.Task.TargetPoint.latitude  = Control.Task.ChargePoint.latitude;
+							Control.Task.TargetPoint.longitude = Control.Task.ChargePoint.longitude;
+							Control.Task.TargetPoint.speed     = Control.Task.ChargePoint.speed;
+							Control.Task.TargetPoint.course    = Control.Task.ChargePoint.course;
+						}
+						else//如果超过了点，那么停止
+						{
+							Control.Task.TargetPoint.Number    = Control.Task.TargetPoint.Number+1;
+							Control.Task.TargetPoint.altitude  = Control.Task.CurrentPoint.altitude;
+							Control.Task.TargetPoint.latitude  = Control.Task.CurrentPoint.latitude;
+							Control.Task.TargetPoint.longitude = Control.Task.CurrentPoint.longitude;
+							Control.Task.TargetPoint.speed     = Control.Task.CurrentPoint.speed;
+							Control.Task.TargetPoint.course    = Control.Task.CurrentPoint.course;
+							
+							Control.Task.Task_id = IdleTask;
+						}
 						
 					}
 					else
@@ -224,8 +239,9 @@ void Control_WorkingTask(float T)
 			              Control.Task.TargetPoint,
 			              Control.Senser.Sonar,0);
 			
-			
+#ifdef USE_MIN_BATTERY	
 	}
+#endif
 }
 
 void Control_ChargingTask(float T)
@@ -557,10 +573,10 @@ void KB_Line(_point P1,_point P2,float Krate,float Brate,float Offset,_point *Ta
 void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar,float PosOffset)
 {
 		 //速度控制
-		 Control.Task.Speed_Err = LIMIT(Target.speed - Current.speed,-10,10) * HAL_IO.Parameter.speed_Kp;
+		 Control.Task.Speed_Err = LIMIT(Target.speed - Current.speed,-10,10);
 		 Control.Task.Speed_i  += Control.Task.Speed_Err * HAL_IO.Parameter.speed_Ki * T;
-		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-800,800);
-		 Control.Task.Speed_Out = Control.Task.Speed_Err + Control.Task.Speed_i;
+		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-500,500);
+		 Control.Task.Speed_Out = Control.Task.Speed_Err * HAL_IO.Parameter.speed_Kp + Control.Task.Speed_i;
      //速度数据记录
 	   HAL_IO.Par.speed_p = Control.Task.Speed_Err;
 	   HAL_IO.Par.speed_i = Control.Task.Speed_i;
@@ -589,10 +605,12 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 	   //算出侧偏距
 	   CrossDistance = PositionErr * sin(use_Heading * 0.017453278f);//转成弧度制	 
 
-		 Control.Task.Position_Err = LIMIT(CrossDistance,-20,20) * HAL_IO.Parameter.distance_Kp;
+		 Control.Task.Position_Err = LIMIT(CrossDistance,-20,20);
 		 Control.Task.Position_i  += Control.Task.Position_Err * HAL_IO.Parameter.distance_Ki * T;
-		 Control.Task.Position_i   = LIMIT(Control.Task.Position_i,-400,400);
-		 Control.Task.Position_Out = Control.Task.Position_Err + Control.Task.Position_i;//这个是侧偏
+		 Control.Task.Position_i   = LIMIT(Control.Task.Position_i,-10,10);
+		 Control.Task.Position_Out = Control.Task.Position_Err * HAL_IO.Parameter.distance_Kp + Control.Task.Position_i;//这个是侧偏
+
+     Control.Task.PositionOutPut = LIMIT(Control.Task.Position_Out,-90,90);
 
      //位置数据记录
 	   HAL_IO.Par.position_p = Control.Task.Position_Err;
@@ -603,17 +621,17 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 //计算偏航
 		 if((Current.latitude != Target.latitude)||(Current.longitude != Target.longitude))//如果经纬度一样，那么不求解
 		 {
-		    HeadingErr = Current.course -  POS_Heading(Current.latitude,Current.longitude,Target.latitude,Target.longitude);
+		    HeadingErr = Current.course + Control.Task.PositionOutPut -  POS_Heading(Last.latitude,Last.longitude,Target.latitude,Target.longitude);
 		 }
 		 else
 		 {
 			  HeadingErr = 0;
 		 }
 		 //转化到180度格式
-		 HeadingErr = LIMIT(To_180_degrees(HeadingErr),-20,20);
+		 HeadingErr = LIMIT(To_180_degrees(HeadingErr),-90,90);
 		 
 		 Control.Task.Heading_i    += HAL_IO.Parameter.heading_Ki * HeadingErr * T ;//这个是偏航角
-		 Control.Task.Heading_i    = LIMIT(Control.Task.Heading_i,-400,400);
+		 Control.Task.Heading_i    = LIMIT(Control.Task.Heading_i,-200,200);
 		 
 		 Control.Task.Heading_d    = GY925.GYRO.DEG.gz * HAL_IO.Parameter.heading_Kd;
 		 
@@ -627,11 +645,11 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 
 		 HAL_IO.Satuts.detaP = CrossDistance;
 		 HAL_IO.Satuts.dis2wp = PositionErr * cos(use_Heading * 0.017453278f);
-		 HAL_IO.Satuts.gyroZ  = GY925.GYRO.DEG.gz;
+		 
 	
-		 Control.Task.PositionOutPut = LIMIT(Control.Task.Position_Out,-300,300);
+		 
 		 Control.Task.HeadingOutPut  = LIMIT(Control.Task.Heading_Out,-300,300);
-		 Control.Task.SpeedOutPut    = LIMIT(Control.Task.Speed_Out,0,900);
+		 Control.Task.SpeedOutPut    = LIMIT(Control.Task.Speed_Out,0,700);
 }
 
 

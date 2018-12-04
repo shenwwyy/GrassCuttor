@@ -1,7 +1,7 @@
 
 #include "gy952.h"
 #include "uart_fifo.h"
-
+#include "protocol.h"
 
 extern UART_RX_FIFO_t imu_rx;
 extern UART_TX_FIFO_t imu_tx;
@@ -139,6 +139,9 @@ void GY952_Decode(uint8_t *data)
 				GY925.GYRO.DEG.gx = -GY925.GYRO.RAW.gx * 2000.000000f/32768.000000f;
 			  GY925.GYRO.DEG.gy = -GY925.GYRO.RAW.gy * 2000.000000f/32768.000000f ;
 			  GY925.GYRO.DEG.gz = -GY925.GYRO.RAW.gz * 2000.000000f/32768.000000f;
+			
+			  HAL_IO.Satuts.gyroZ  = GY925.GYRO.DEG.gz;
+			
 				break;
 			case 0x45: 
 				GY925.EULER.Roll  = (float)((int16_t)(data[4] << 8 )| data[5])/100.0f;

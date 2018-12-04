@@ -179,10 +179,9 @@ void MX_FREERTOS_Init(void) {
 	UART_RX_FIFO_open(&gps_rx,&huart6,100,UART_FIFO_DMA);
 	UART_TX_FIFO_open(&gps_tx,&huart6,100,UART_FIFO_DMA);
 	
-	
-	//初始化gps
+	//初始化陀螺
 	GY952_Init();
-	
+	//初始化gps
 	ubloxInit();
 	
 	
@@ -235,27 +234,6 @@ void StartDefaultTask(void const * argument)
   /* USER CODE BEGIN StartDefaultTask */
 	
 	Parameter_R_PID();//读取参数
-	
-
-	//超声波接收调用
-	//HAL_UART_Receive_DMA(&huart1,Control.Senser.Sonar.forward.rxbuff,sizeof(Control.Senser.Sonar.forward.rxbuff));
-//	HAL_UART_Receive_DMA(&huart2,Control.Senser.Sonar.left.rxbuff,sizeof(Control.Senser.Sonar.left.rxbuff));
-//	HAL_UART_Receive_DMA(&huart1,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
-//	HAL_UART_Receive_DMA(&huart3,Control.Senser.Sonar.right.rxbuff,sizeof(Control.Senser.Sonar.right.rxbuff));
-	
-	//数据链接收调用
-	//normal
-	//HAL_UART_Receive_DMA(&huart5,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
-	//test
-	//HAL_UART_Receive_DMA(&huart2,HAL_IO.U5.rxbuf,sizeof(HAL_IO.U5.rxbuf));
-	
-	
-//	GPS_USART6_UART_Init(9600);
-//	
-//	
-//	//GPS接收调用
-//	HAL_UART_Receive_DMA(&huart6,Control.Senser.GPS.rbuff,sizeof(Control.Senser.GPS.rbuff));
-	
 	
   /* Infinite loop */
   for(;;)
@@ -354,18 +332,7 @@ void StartTask02(void const * argument)
 		
 		if(Control.Car.isunLock == 0x57)
 		{
-			/*
-			   Control.Task.PositionOutPut
-			   Control.Task.HeadingOutPut
-			   往左为负
-			*/
-//			TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
-//			TIM2->CCR2 = 0;//左后 1<2反向
-//			
-//			TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
-//			TIM8->CCR4 = 0;//右后 3<4反向
-
-      TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut - Control.Task.PositionOutPut - Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
+      TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut - Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
 			TIM2->CCR2 = 0;//左后 1<2反向
 			
 			TIM4->CCR1 = 0;//右前 1>2正向
@@ -374,7 +341,7 @@ void StartTask02(void const * argument)
 			TIM4->CCR3 = 0;//左前 3>4正向
 			TIM4->CCR4 = 0;//左前 3<4反向
 			
-			TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut + Control.Task.PositionOutPut + Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
+			TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut + Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
 			TIM8->CCR4 = 0;//右后 3<4反向			
 
 		}
@@ -403,7 +370,7 @@ void StartTask02(void const * argument)
 								TIM4->CCR1 = 0;//右前 1>2正向
 								TIM4->CCR2 = 0;//右前 1<2反向
 								
-								TIM4->CCR3 = 1000;//左前 3>4正向
+								TIM4->CCR3 = 500;//左前 3>4正向
 								TIM4->CCR4 = 0;//左前 3<4反向
 								
 								TIM8->CCR3 = 0;//右后 3>4正向
@@ -417,13 +384,13 @@ void StartTask02(void const * argument)
 								TIM4->CCR2 = 0;//右前 1<2反向
 								
 								TIM4->CCR3 = 0;//左前 3>4正向
-								TIM4->CCR4 = 1000;//左前 3<4反向
+								TIM4->CCR4 = 500;//左前 3<4反向
 								
 								TIM8->CCR3 = 0;//右后 3>4正向
 								TIM8->CCR4 = 0;//右后 3<4反向
 				break;
 				case 0x02:
-					      TIM2->CCR1 = 1000;//左后 1>2正向
+					      TIM2->CCR1 = 500;//左后 1>2正向
 								TIM2->CCR2 = 0;//左后 1<2反向
 								
 								TIM4->CCR1 = 0;//右前 1>2正向
@@ -437,7 +404,7 @@ void StartTask02(void const * argument)
 				break;
 				case 0x20:
 					      TIM2->CCR1 = 0;//左后 1>2正向
-								TIM2->CCR2 = 1000;//左后 1<2反向
+								TIM2->CCR2 = 500;//左后 1<2反向
 								
 								TIM4->CCR1 = 0;//右前 1>2正向
 								TIM4->CCR2 = 0;//右前 1<2反向
@@ -452,7 +419,7 @@ void StartTask02(void const * argument)
 					      TIM2->CCR1 = 0;//左后 1>2正向
 								TIM2->CCR2 = 0;//左后 1<2反向
 								
-								TIM4->CCR1 = 1000;//右前 1>2正向
+								TIM4->CCR1 = 500;//右前 1>2正向
 								TIM4->CCR2 = 0;//右前 1<2反向
 								
 								TIM4->CCR3 = 0;//左前 3>4正向
@@ -466,7 +433,7 @@ void StartTask02(void const * argument)
 								TIM2->CCR2 = 0;//左后 1<2反向
 								
 								TIM4->CCR1 = 0;//右前 1>2正向
-								TIM4->CCR2 = 1000;//右前 1<2反向
+								TIM4->CCR2 = 500;//右前 1<2反向
 								
 								TIM4->CCR3 = 0;//左前 3>4正向
 								TIM4->CCR4 = 0;//左前 3<4反向
@@ -484,7 +451,7 @@ void StartTask02(void const * argument)
 								TIM4->CCR3 = 0;//左前 3>4正向
 								TIM4->CCR4 = 0;//左前 3<4反向
 								
-								TIM8->CCR3 = 1000;//右后 3>4正向
+								TIM8->CCR3 = 500;//右后 3>4正向
 								TIM8->CCR4 = 0;//右后 3<4反向
 				break;
 				case 0x80:
@@ -498,7 +465,7 @@ void StartTask02(void const * argument)
 								TIM4->CCR4 = 0;//左前 3<4反向
 								
 								TIM8->CCR3 = 0;//右后 3>4正向
-								TIM8->CCR4 = 1000;//右后 3<4反向
+								TIM8->CCR4 = 500;//右后 3<4反向
 				break;
 			}
 		}

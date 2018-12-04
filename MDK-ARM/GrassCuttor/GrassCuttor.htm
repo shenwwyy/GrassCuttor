@@ -3,9 +3,9 @@
 <title>Static Call Graph - [GrassCuttor\GrassCuttor.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image GrassCuttor\GrassCuttor.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Dec 01 10:18:11 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Dec 05 00:08:12 2018
 <BR><P>
-<H3>Maximum Stack Usage =        736 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        720 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 StartTask02 &rArr; Control_TaskManage &rArr; Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 <P>
@@ -636,7 +636,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[87]"></a>Control_ChargingTask</STRONG> (Thumb, 316 bytes, Stack size 240 bytes, control.o(i.Control_ChargingTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 648<LI>Call Chain = Control_ChargingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 632<LI>Call Chain = Control_ChargingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_Route
@@ -654,10 +654,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_ChargingTask
 </UL>
 
-<P><STRONG><a name="[95]"></a>Control_IdleTask</STRONG> (Thumb, 112 bytes, Stack size 8 bytes, control.o(i.Control_IdleTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Control_IdleTask
-</UL>
-<BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_TaskManage
+<P><STRONG><a name="[95]"></a>Control_IdleTask</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, control.o(i.Control_IdleTask))
+<BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_TaskManage
 </UL>
 
 <P><STRONG><a name="[8c]"></a>Control_OverCheck</STRONG> (Thumb, 288 bytes, Stack size 88 bytes, control.o(i.Control_OverCheck))
@@ -674,8 +672,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Control_WorkingTask
 </UL>
 
-<P><STRONG><a name="[89]"></a>Control_Route</STRONG> (Thumb, 992 bytes, Stack size 136 bytes, control.o(i.Control_Route))
-<BR><BR>[Stack]<UL><LI>Max Depth = 408<LI>Call Chain = Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[89]"></a>Control_Route</STRONG> (Thumb, 978 bytes, Stack size 120 bytes, control.o(i.Control_Route))
+<BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
@@ -692,7 +690,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[93]"></a>Control_TaskManage</STRONG> (Thumb, 278 bytes, Stack size 56 bytes, control.o(i.Control_TaskManage))
-<BR><BR>[Stack]<UL><LI>Max Depth = 712<LI>Call Chain = Control_TaskManage &rArr; Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<BR><BR>[Stack]<UL><LI>Max Depth = 696<LI>Call Chain = Control_TaskManage &rArr; Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
@@ -704,8 +702,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;StartTask02
 </UL>
 
-<P><STRONG><a name="[96]"></a>Control_WorkingTask</STRONG> (Thumb, 456 bytes, Stack size 248 bytes, control.o(i.Control_WorkingTask))
-<BR><BR>[Stack]<UL><LI>Max Depth = 656<LI>Call Chain = Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[96]"></a>Control_WorkingTask</STRONG> (Thumb, 394 bytes, Stack size 248 bytes, control.o(i.Control_WorkingTask))
+<BR><BR>[Stack]<UL><LI>Max Depth = 640<LI>Call Chain = Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
@@ -866,7 +864,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Parameter_S_PID
 </UL>
 
-<P><STRONG><a name="[a6]"></a>GY952_Decode</STRONG> (Thumb, 304 bytes, Stack size 8 bytes, gy952.o(i.GY952_Decode))
+<P><STRONG><a name="[a6]"></a>GY952_Decode</STRONG> (Thumb, 310 bytes, Stack size 8 bytes, gy952.o(i.GY952_Decode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = GY952_Decode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GY952_R_Prepare
@@ -1747,8 +1745,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ublox_Prepare
 </UL>
 
-<P><STRONG><a name="[11a]"></a>Protocol_R_CMD</STRONG> (Thumb, 602 bytes, Stack size 24 bytes, protocol.o(i.Protocol_R_CMD))
-<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<P><STRONG><a name="[11a]"></a>Protocol_R_CMD</STRONG> (Thumb, 668 bytes, Stack size 32 bytes, protocol.o(i.Protocol_R_CMD))
+<BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_T_Echo
@@ -1766,7 +1764,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[11e]"></a>Protocol_R_Prepare</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, protocol.o(i.Protocol_R_Prepare))
-<BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = Protocol_R_Prepare &rArr; Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = Protocol_R_Prepare &rArr; Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_R_WayPoint
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_R_SimuPos
@@ -1794,7 +1792,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[122]"></a>Protocol_Rev</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, protocol.o(i.Protocol_Rev))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = Protocol_Rev &rArr; Protocol_R_Prepare &rArr; Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = Protocol_Rev &rArr; Protocol_R_Prepare &rArr; Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_RX_FIFO_getlen
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_RX_FIFO_getc
@@ -1890,8 +1888,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> freertos.o(.constdata)
 </UL>
-<P><STRONG><a name="[6b]"></a>StartTask02</STRONG> (Thumb, 608 bytes, Stack size 24 bytes, freertos.o(i.StartTask02))
-<BR><BR>[Stack]<UL><LI>Max Depth = 736<LI>Call Chain = StartTask02 &rArr; Control_TaskManage &rArr; Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[6b]"></a>StartTask02</STRONG> (Thumb, 592 bytes, Stack size 24 bytes, freertos.o(i.StartTask02))
+<BR><BR>[Stack]<UL><LI>Max Depth = 720<LI>Call Chain = StartTask02 &rArr; Control_TaskManage &rArr; Control_WorkingTask &rArr; Control_Route &rArr; POS_Heading &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osThreadYield
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;osDelay
