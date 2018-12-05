@@ -330,20 +330,6 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 				 Control.Command.EmergencyStop = 0x00;//解除紧急停止
 				 Control.Task.Task_id = 1;//工作任务
 				 
-				 //给家的点赋值，
-				 Control.Task.ChargePoint.Number    = 0;
-				 Control.Task.ChargePoint.altitude  = Control.Task.CurrentPoint.altitude;
-				 Control.Task.ChargePoint.latitude  = Control.Task.CurrentPoint.latitude;
-				 Control.Task.ChargePoint.longitude = Control.Task.CurrentPoint.longitude;
-				 Control.Task.ChargePoint.speed     = Control.Task.CurrentPoint.speed;
-				 Control.Task.ChargePoint.course    = Control.Task.CurrentPoint.course;
-				 //给上一点赋值
-				 Control.Task.LastPoint.Number    = Control.Task.CurrentPoint.Number;
-				 Control.Task.LastPoint.altitude  = Control.Task.CurrentPoint.altitude;
-				 Control.Task.LastPoint.latitude  = Control.Task.CurrentPoint.latitude;
-				 Control.Task.LastPoint.longitude = Control.Task.CurrentPoint.longitude;
-				 Control.Task.LastPoint.speed     = Control.Task.CurrentPoint.speed;
-				 Control.Task.LastPoint.course    = Control.Task.CurrentPoint.course;
 				 
 				 //给目标点赋值
 				 Control.Task.TargetPoint.Number    = WayPointList[0].id;
@@ -352,6 +338,23 @@ void Protocol_R_CMD(uint8_t *data)//0x05
 				 Control.Task.TargetPoint.longitude = WayPointList[0].longitude;
 				 Control.Task.TargetPoint.speed     = WayPointList[0].speed;
 				 Control.Task.TargetPoint.course    = WayPointList[0].course;
+				 
+				 //给家的点赋值，
+				 Control.Task.ChargePoint.Number    = 0;
+				 Control.Task.ChargePoint.altitude  = Control.Task.CurrentPoint.altitude;
+				 Control.Task.ChargePoint.latitude  = Control.Task.CurrentPoint.latitude;
+				 Control.Task.ChargePoint.longitude = Control.Task.CurrentPoint.longitude;
+				 Control.Task.ChargePoint.speed     = Control.Task.TargetPoint.speed;
+				 Control.Task.ChargePoint.course    = Control.Task.CurrentPoint.course;
+				 //给上一点赋值
+				 Control.Task.LastPoint.Number    = Control.Task.CurrentPoint.Number;
+				 Control.Task.LastPoint.altitude  = Control.Task.CurrentPoint.altitude;
+				 Control.Task.LastPoint.latitude  = Control.Task.CurrentPoint.latitude;
+				 Control.Task.LastPoint.longitude = Control.Task.CurrentPoint.longitude;
+				 Control.Task.LastPoint.speed     = Control.Task.TargetPoint.speed;
+				 Control.Task.LastPoint.course    = Control.Task.CurrentPoint.course;
+				 
+				 
 				 
 				 
 				 //控制参数清零

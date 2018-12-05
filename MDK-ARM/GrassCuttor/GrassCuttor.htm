@@ -3,7 +3,7 @@
 <title>Static Call Graph - [GrassCuttor\GrassCuttor.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image GrassCuttor\GrassCuttor.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Dec 05 00:08:12 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Dec 05 15:10:03 2018
 <BR><P>
 <H3>Maximum Stack Usage =        720 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1745,8 +1745,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ublox_Prepare
 </UL>
 
-<P><STRONG><a name="[11a]"></a>Protocol_R_CMD</STRONG> (Thumb, 668 bytes, Stack size 32 bytes, protocol.o(i.Protocol_R_CMD))
-<BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<P><STRONG><a name="[11a]"></a>Protocol_R_CMD</STRONG> (Thumb, 676 bytes, Stack size 64 bytes, protocol.o(i.Protocol_R_CMD))
+<BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_T_Echo
@@ -1764,7 +1764,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[11e]"></a>Protocol_R_Prepare</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, protocol.o(i.Protocol_R_Prepare))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = Protocol_R_Prepare &rArr; Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = Protocol_R_Prepare &rArr; Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_R_WayPoint
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_R_SimuPos
@@ -1792,7 +1792,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[122]"></a>Protocol_Rev</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, protocol.o(i.Protocol_Rev))
-<BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = Protocol_Rev &rArr; Protocol_R_Prepare &rArr; Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = Protocol_Rev &rArr; Protocol_R_Prepare &rArr; Protocol_R_CMD &rArr; Protocol_T_Echo &rArr; Protocol_T_Combin &rArr; UART_TX_FIFO_write &rArr; osMutexWait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; xTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_RX_FIFO_getlen
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_RX_FIFO_getc

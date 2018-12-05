@@ -179,7 +179,7 @@ void Control_WorkingTask(float T)
 	{  
 #endif
 
-			if(Control_OverCheck(Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,3.0f) == true)//提前3米转弯
+			if(Control_OverCheck(Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,1.0f) == true)//提前3米转弯
 			{
 				    Control.Task.LastPoint.Number    = Control.Task.TargetPoint.Number;
 						Control.Task.LastPoint.altitude  = Control.Task.TargetPoint.altitude;
