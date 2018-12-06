@@ -616,10 +616,10 @@ void Protocol_T_Parameter(void)//0x10
 
 void Protocol_T_GPS(uint32_t T)//0x20
 {
-	      HAL_IO.GPS_Count += T;
-	      if(HAL_IO.GPS_Count >= 200)
+	      //HAL_IO.GPS_Count += T;
+	      if(HAL_IO.GPS_Count >= 0x01)
 				{
-				    HAL_IO.GPS_Count =0;	
+				  HAL_IO.GPS_Count =0;	
 					union{uint8_t B[2];uint16_t D;}src;
 					uint8_t  DataToSend[100];
 					uint16_t DataCount = 0;

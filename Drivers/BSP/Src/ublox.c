@@ -24,6 +24,7 @@ History:
 #include "control.h"
 #include "senser.h"
 #include "uart_fifo.h"
+#include "protocol.h"
 
 extern UART_RX_FIFO_t gps_rx;
 extern UART_TX_FIFO_t gps_tx;
@@ -540,7 +541,8 @@ void Protocol_NAV_PVT(uint8_t *data)
 	headAcc = src.I4 * 1e-5;
 	
 	//...
-	
+	//更新一次GPS位置
+	HAL_IO.GPS_Count = 0x01;
 	
 }
 

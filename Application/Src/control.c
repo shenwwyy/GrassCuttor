@@ -582,7 +582,6 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 	   HAL_IO.Par.speed_i = Control.Task.Speed_i;
 	   HAL_IO.Par.speed_d = 0;
 	   HAL_IO.Par.speed_o = Control.Task.Speed_Out;
-	
 		 //º½Ïß¿ØÖÆ
 		 
 	    

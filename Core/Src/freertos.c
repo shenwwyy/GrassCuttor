@@ -170,13 +170,13 @@ void MX_FREERTOS_Init(void) {
 	UART_RX_FIFO_open(&sonar3_rx,&huart3,100,UART_FIFO_DMA);
 	UART_TX_FIFO_open(&sonar3_tx,&huart3,100,UART_FIFO_DMA);
 	
-	UART_RX_FIFO_open(&imu_rx,&huart4,100,UART_FIFO_DMA);
-	UART_TX_FIFO_open(&imu_tx,&huart4,100,UART_FIFO_DMA);
+	UART_RX_FIFO_open(&imu_rx,&huart4,128,UART_FIFO_DMA);
+	UART_TX_FIFO_open(&imu_tx,&huart4,128,UART_FIFO_DMA);
 	
-	UART_RX_FIFO_open(&dlink_rx,&huart1,100,UART_FIFO_DMA);
-	UART_TX_FIFO_open(&dlink_tx,&huart1,100,UART_FIFO_DMA);
+	UART_RX_FIFO_open(&dlink_rx,&huart1,512,UART_FIFO_DMA);
+	UART_TX_FIFO_open(&dlink_tx,&huart1,512,UART_FIFO_DMA);
 	
-	UART_RX_FIFO_open(&gps_rx,&huart6,100,UART_FIFO_DMA);
+	UART_RX_FIFO_open(&gps_rx,&huart6,256,UART_FIFO_DMA);
 	UART_TX_FIFO_open(&gps_tx,&huart6,100,UART_FIFO_DMA);
 	
 	//³õÊ¼»¯ÍÓÂÝ
