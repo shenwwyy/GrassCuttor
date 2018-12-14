@@ -36,6 +36,9 @@ void Control_TaskManage(float T,uint32_t id)
 	   
 	    if(HAL_IO.Satuts.isDebug == 0x01)
 			{
+				  HAL_IO.GPS_Count =1;
+				
+				
 				  HAL_IO.GPS.fixtype     = HAL_IO.SIM.fixtype;
 					HAL_IO.GPS.svn         = HAL_IO.SIM.svn;
 					HAL_IO.GPS.altitude    = HAL_IO.SIM.altitude;
@@ -609,7 +612,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 Control.Task.Position_i   = LIMIT(Control.Task.Position_i,-10,10);
 		 Control.Task.Position_Out = Control.Task.Position_Err * HAL_IO.Parameter.distance_Kp + Control.Task.Position_i;//这个是侧偏
 
-     Control.Task.PositionOutPut = LIMIT(Control.Task.Position_Out,-90,90);
+     Control.Task.PositionOutPut = LIMIT(Control.Task.Position_Out,-45,45);
 
      //位置数据记录
 	   HAL_IO.Par.position_p = Control.Task.Position_Err;
@@ -620,7 +623,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 //计算偏航
 		 if((Current.latitude != Target.latitude)||(Current.longitude != Target.longitude))//如果经纬度一样，那么不求解
 		 {
-		    HeadingErr = Current.course + Control.Task.PositionOutPut -  POS_Heading(Last.latitude,Last.longitude,Target.latitude,Target.longitude);
+		    HeadingErr = LIMIT(To_180_degrees(Current.course -  POS_Heading(Last.latitude,Last.longitude,Target.latitude,Target.longitude)),-45,45) + Control.Task.PositionOutPut;
 		 }
 		 else
 		 {
@@ -632,7 +635,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 Control.Task.Heading_i    += HAL_IO.Parameter.heading_Ki * HeadingErr * T ;//这个是偏航角
 		 Control.Task.Heading_i    = LIMIT(Control.Task.Heading_i,-200,200);
 		 
-		 Control.Task.Heading_d    = GY925.GYRO.DEG.gz * HAL_IO.Parameter.heading_Kd;
+		 Control.Task.Heading_d    = LIMIT(GY925.GYRO.DEG.gz * HAL_IO.Parameter.heading_Kd,-100,100);
 		 
 		 Control.Task.Heading_Out  = HAL_IO.Parameter.heading_Kp * HeadingErr + Control.Task.Heading_i + Control.Task.Heading_d;//这个是偏航角
 		 
