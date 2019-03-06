@@ -101,6 +101,7 @@ typedef struct {
 
 typedef struct {
 	
+	uint8_t isGPSUpdate;
 	uint8_t fix;
 	uint8_t svn;
 	

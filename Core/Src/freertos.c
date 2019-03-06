@@ -170,13 +170,13 @@ void MX_FREERTOS_Init(void) {
 	UART_RX_FIFO_open(&sonar3_rx,&huart3,100,UART_FIFO_DMA);
 	UART_TX_FIFO_open(&sonar3_tx,&huart3,100,UART_FIFO_DMA);
 	
-	UART_RX_FIFO_open(&imu_rx,&huart4,128,UART_FIFO_DMA);
+	UART_RX_FIFO_open(&imu_rx,&huart4,512,UART_FIFO_DMA);
 	UART_TX_FIFO_open(&imu_tx,&huart4,128,UART_FIFO_DMA);
 	
 	UART_RX_FIFO_open(&dlink_rx,&huart1,512,UART_FIFO_DMA);
 	UART_TX_FIFO_open(&dlink_tx,&huart1,512,UART_FIFO_DMA);
 	
-	UART_RX_FIFO_open(&gps_rx,&huart6,256,UART_FIFO_DMA);
+	UART_RX_FIFO_open(&gps_rx,&huart6,512,UART_FIFO_DMA);
 	UART_TX_FIFO_open(&gps_tx,&huart6,100,UART_FIFO_DMA);
 	
 	//初始化陀螺
@@ -199,6 +199,10 @@ void MX_FREERTOS_Init(void) {
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
 
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
+
   /* Create the thread(s) */
   /* definition and creation of ControltTask */
   osThreadDef(ControltTask, StartDefaultTask, osPriorityNormal, 0, 256);
@@ -216,9 +220,6 @@ void MX_FREERTOS_Init(void) {
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
-  /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
 }
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -238,7 +239,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(10);//50ms
+    osDelay(10);//10ms
 		//LED_Toggle(0);
 		
 		//当前动作运行完成后，开始切换任务，让其他任务得以运行		
@@ -266,6 +267,28 @@ void StartDefaultTask(void const * argument)
 		GY952_Rev();
 		//GPS解码
 		ublox_Rev();
+		
+		//GPS速度是0.2m/s以上，就开始使用GPS的航向角和角速度进行融合，这样得出一个角度，即使GPS没有更新，那也会有角度值
+		if(Control.Senser.GPS.speed >= 0.2f)
+		{
+			 if(Control.Senser.GPS.isGPSUpdate == 1)
+			 {
+				  Control.Senser.IMU.yaw = Control.Senser.GPS.course + Control.Senser.IMU.gz * 0.01f;
+			 }
+			 else
+			 {
+				  Control.Senser.IMU.yaw += Control.Senser.IMU.gz * 0.01f;
+				  if(Control.Senser.IMU.yaw >= 360) Control.Senser.IMU.yaw -= 360; 
+				  else if(Control.Senser.IMU.yaw < 0) Control.Senser.IMU.yaw += 360;
+			 }
+		}
+		else
+		{
+			 Control.Senser.IMU.yaw += Control.Senser.IMU.gz * 0.01f;
+			 if(Control.Senser.IMU.yaw >= 360) Control.Senser.IMU.yaw -= 360; 
+			 else if(Control.Senser.IMU.yaw < 0) Control.Senser.IMU.yaw += 360;
+		}
+		
 		
 		osThreadYield();
   }
@@ -332,8 +355,16 @@ void StartTask02(void const * argument)
 		
 		if(Control.Car.isunLock == 0x57)
 		{
-      TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut - Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
-			TIM2->CCR2 = 0;//左后 1<2反向
+			if((Control.Task.SpeedOutPut - Control.Task.HeadingOutPut)>0)
+			{
+				TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut - Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
+				TIM2->CCR2 = 0;//左后 1<2反向
+			}
+			else
+			{
+				TIM2->CCR1 = 0;//左后 1>2正向
+				TIM2->CCR2 = LIMIT(-(Control.Task.SpeedOutPut - Control.Task.HeadingOutPut),0,1000);//左后 1<2反向
+			}
 			
 			TIM4->CCR1 = 0;//右前 1>2正向
 			TIM4->CCR2 = 0;//右前 1<2反向
@@ -341,8 +372,16 @@ void StartTask02(void const * argument)
 			TIM4->CCR3 = 0;//左前 3>4正向
 			TIM4->CCR4 = 0;//左前 3<4反向
 			
-			TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut + Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
-			TIM8->CCR4 = 0;//右后 3<4反向			
+			if((Control.Task.SpeedOutPut + Control.Task.HeadingOutPut)>0)
+			{
+				TIM8->CCR3 = LIMIT(Control.Task.SpeedOutPut + Control.Task.HeadingOutPut,0,1000);//右后 3>4正向
+				TIM8->CCR4 = 0;//右后 3<4反向			
+			}
+			else
+			{
+				TIM8->CCR3 = 0;//右后 3>4正向
+				TIM8->CCR4 = LIMIT(-(Control.Task.SpeedOutPut + Control.Task.HeadingOutPut),0,1000);//右后 3<4反向		
+			}
 
 		}
 		else

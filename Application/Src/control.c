@@ -182,7 +182,7 @@ void Control_WorkingTask(float T)
 	{  
 #endif
 
-			if(Control_OverCheck(Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,1.0f) == true)//提前3米转弯
+			if(Control_OverCheck(Control.Task.LastPoint,Control.Task.CurrentPoint,Control.Task.TargetPoint,0.1f) == true)//提前0.1米转弯
 			{
 				    Control.Task.LastPoint.Number    = Control.Task.TargetPoint.Number;
 						Control.Task.LastPoint.altitude  = Control.Task.TargetPoint.altitude;
@@ -578,7 +578,7 @@ void Control_Route(float T,_point Last,_point Current,_point Target,_sonar Sonar
 		 //速度控制
 		 Control.Task.Speed_Err = LIMIT(Target.speed - Current.speed,-10,10);
 		 Control.Task.Speed_i  += Control.Task.Speed_Err * HAL_IO.Parameter.speed_Ki * T;
-		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-500,500);
+		 Control.Task.Speed_i   = LIMIT(Control.Task.Speed_i,-700,700);
 		 Control.Task.Speed_Out = Control.Task.Speed_Err * HAL_IO.Parameter.speed_Kp + Control.Task.Speed_i;
      //速度数据记录
 	   HAL_IO.Par.speed_p = Control.Task.Speed_Err;

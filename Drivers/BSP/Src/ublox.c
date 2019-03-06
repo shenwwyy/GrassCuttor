@@ -542,6 +542,7 @@ void Protocol_NAV_PVT(uint8_t *data)
 	
 	//...
 	//更新一次GPS位置
+	Control.Senser.GPS.isGPSUpdate = 1;
 	HAL_IO.GPS_Count = 0x01;
 	
 }
