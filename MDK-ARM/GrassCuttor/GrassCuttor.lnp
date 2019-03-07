@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu Cortex-M4.fp
 "grasscuttor\startup_stm32f407xx.o"
 "grasscuttor\croutine.o"
 "grasscuttor\event_groups.o"
@@ -41,6 +41,7 @@
 "grasscuttor\ultrasonic.o"
 "grasscuttor\flash.o"
 "grasscuttor\gy952.o"
+"grasscuttor\speed.o"
 "grasscuttor\main.o"
 "grasscuttor\gpio.o"
 "grasscuttor\adc.o"
@@ -53,6 +54,6 @@
 "grasscuttor\stm32f4xx_hal_timebase_tim.o"
 "grasscuttor\control.o"
 --library_type=microlib --strict --scatter "GrassCuttor\GrassCuttor.sct"
---summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "GrassCuttor.map" -o GrassCuttor\GrassCuttor.axf

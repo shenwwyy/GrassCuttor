@@ -76,7 +76,7 @@
 #include "mymath.h"
 
 #include "flash.h"
-
+#include "speed.h"
 #include "uart_fifo.h"
 #include "gy952.h"
 /* USER CODE END Includes */
@@ -336,6 +336,10 @@ void StartTask02(void const * argument)
 	MOTOR_EN(0,0x01);//使能是0x01,
 	
 	
+	HAL_TIM_Encoder_Start(&htim1,TIM_CHANNEL_ALL);//开启TIM1编码器
+	HAL_TIM_Encoder_Start(&htim2,TIM_CHANNEL_ALL);//开启TIM2编码器
+	
+	
 	Control.Car.BaisThrottle = 0;//设定基本油门
 	
   /* Infinite loop */
@@ -344,6 +348,8 @@ void StartTask02(void const * argument)
     osDelay(20);//50hz
 		
 		Control_TaskManage(0.02f,Control.Task.Task_id);
+		
+		SPEED_CAL();//转速计算
 		
 		//HAL_IO.Satuts.currentwaypoint++;
 		
@@ -357,13 +363,13 @@ void StartTask02(void const * argument)
 		{
 			if((Control.Task.SpeedOutPut - Control.Task.HeadingOutPut)>0)
 			{
-				TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut - Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
-				TIM2->CCR2 = 0;//左后 1<2反向
+				//TIM2->CCR1 = LIMIT(Control.Task.SpeedOutPut - Control.Task.HeadingOutPut,0,1000);//左后 1>2正向
+				//TIM2->CCR2 = 0;//左后 1<2反向
 			}
 			else
 			{
-				TIM2->CCR1 = 0;//左后 1>2正向
-				TIM2->CCR2 = LIMIT(-(Control.Task.SpeedOutPut - Control.Task.HeadingOutPut),0,1000);//左后 1<2反向
+				//TIM2->CCR1 = 0;//左后 1>2正向
+				//TIM2->CCR2 = LIMIT(-(Control.Task.SpeedOutPut - Control.Task.HeadingOutPut),0,1000);//左后 1<2反向
 			}
 			
 			TIM4->CCR1 = 0;//右前 1>2正向

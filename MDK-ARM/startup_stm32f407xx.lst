@@ -868,11 +868,12 @@ ARM Macro Assembler    Page 14
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=grasscuttor\startup_stm32f407xx.d -ograsscuttor\startup_stm32f4
-07xx.o -I..\Core\Inc -I.\RTE\_GrassCuttor -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0
-\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMS
-IS\Device\ST\STM32F4xx\Include --predefine="__MICROLIB SETA 1" --predefine="__U
-VISION_VERSION SETA 525" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SE
-TA 1" --list=startup_stm32f407xx.lst startup_stm32f407xx.s
+07xx.o -I..\Core\Inc -ID:\GrassCuttor\MDK-ARM\RTE -I"D:\Program Files\keil\ARM\
+PACK\ARM\CMSIS\4.3.0\CMSIS\Include" -I"D:\Program Files\keil\ARM\PACK\Keil\STM3
+2F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include" --predefine="__MICRO
+LIB SETA 1" --predefine="__UVISION_VERSION SETA 516" --predefine="_RTE_ SETA 1"
+ --predefine="STM32F407xx SETA 1" --list=startup_stm32f407xx.lst startup_stm32f
+407xx.s
 
 
 
